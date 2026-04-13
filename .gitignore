@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Generated Casio outputs (rebuild with the converter scripts)
+casio/eam/
+casio/eam_g2e/
+casio/g1e/
+casio/g2e_out/

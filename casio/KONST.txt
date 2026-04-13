@@ -1,0 +1,76 @@
+====================
+ KONSTANTER
+====================
+
+Ljusets hast. c
+ 299 792 458 m/s
+ (3.00E8 m/s)
+
+Ljudets hast.
+ 340 m/s
+
+Elektronladn. e
+ 1.602E-19 C
+
+Elektronmassa me
+ 9.109E-31 kg
+
+Jordens radie
+ 6371 km
+
+Jordens massa
+ 5.974E24 kg
+
+Permeabilitet mu
+ 4*pi*E-7 Vs/Am
+
+Gravitationskonst G
+ 6.674E-11 Nm^2/kg^2
+
+Plancks konst. h
+ 6.626E-34 J*s
+
+Avogadros tal NA
+ 6.022E23 /mol
+
+Boltzmanns k
+ 1.381E-23 J/K
+
+Stefan-Boltzmann s
+ 5.67E-8 W/(m^2*K^4)
+
+Wiens konst. a
+ 2.898E-3 K*m
+
+Coulombs konst. k
+ 8.988E9 N*m^2/C^2
+
+Vakuumpermitt. e0
+ 8.854E-12 F/m
+
+====================
+ OMRAKNINGSFAKT.
+====================
+
+1 eV = 1.602E-19 J
+1 u  = 1.661E-27 kg
+1 u  = 931.494 MeV
+
+1 kcal = 4186.8 J
+1 kWh  = 3.6E6 J
+1 hk   = 735.5 W
+
+1 bar  = 1.00E5 Pa
+1 mmHg = 133 Pa
+
+Snabbformel foton:
+ E(eV)*lambda(nm)
+ = 1240
+
+--- NUKLID INFO ---
+Protonmassa:
+ 1.007276 u
+Neutronmassa:
+ 1.008665 u
+He-4 massa:
+ 4.002602 u

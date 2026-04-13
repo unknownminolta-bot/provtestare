@@ -1,0 +1,62 @@
+====================
+ TERMOFYSIK
+====================
+
+--- TRYCK ---
+Tryck: p = F/A
+Vatsketryck:
+ p = p0 + rho*g*h
+Arkimedes princip:
+ F_lyft = rho_v*V*g
+
+Ideala gaslagen:
+ p*V/T = konst
+
+--- VARME ---
+Varme och temperatur:
+ E = c*m*dT
+
+Smaltvame:
+ E = ls*m
+Angbildningsvarme:
+ E = la*m
+
+--- SPEC VARME c ---
+ (kJ/(kg*K))
+aluminium  0.90
+jaern      0.44
+koppar     0.39
+maessing   0.38
+silver     0.24
+vatten     4.18
+volfram    0.14
+
+--- SMALTENTALPITET ---
+ ls (kJ/kg)
+is       334
+jaern    276
+koppar   205
+
+--- ANGBILDN.ENT. ---
+ la (kJ/kg)
+vatten   2260
+
+--- DENSITET ---
+ rho (g/cm^3)
+aluminium  2.70
+bly       11.35
+guld      19.30
+jaern      7.87
+koppar     8.96
+nickel     8.90
+platina   21.45
+silver    10.50
+stal       7.80
+titan      4.54
+vatten     1.00
+
+--- RESISTIVITET ---
+ rho (ohm*mm^2/m)
+guld    0.0235
+koppar  0.0172
+silver  0.0159

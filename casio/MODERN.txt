@@ -1,0 +1,161 @@
+====================
+ MODERN FYSIK
+====================
+
+--- RELATIVITET ---
+Lorentzfaktorn:
+ gamma=1/sqrt(1-v^2/c^2)
+
+Tidsdilatation:
+ t = gamma*t0
+ (t0 = egentid)
+
+Langdkontraktion:
+ l = l0/gamma
+ (l0 = egenlangd)
+
+Rorelsemangd:
+ p = gamma*m0*v
+Totalenergi:
+ E = gamma*m0*c^2
+Viloenergi:
+ E0 = m0*c^2
+Rorelseenergi:
+ Ek = E - E0
+
+--- EM VAGOR ---
+Emittans: M = P/A
+
+Wiens forsk.lag:
+ lambda_max*T = a
+ a=2.898E-3 K*m
+
+Stefan-Boltzmanns:
+ M = sigma*T^4
+ sigma=5.67E-8
+  W/(m^2*K^4)
+
+--- RADIOAKTIVITET ---
+
+>> ALFA-SONDERFALL <<
+En alphapartikel
+(He-4) sands ut.
+Moderkarnans:
+ masstal  -4
+ atomnr   -2
+X -> Y + He-4
+
+>> BETA-MINUS <<
+Neutron -> proton
+ + elektron
+ + antineutrino
+Moderkarnans:
+ masstal  oforandrat
+ atomnr   +1
+
+>> BETA-PLUS <<
+Proton -> neutron
+ + positron
+ + neutrino
+Moderkarnans:
+ masstal  oforandrat
+ atomnr   -1
+
+>> GAMMA <<
+Karna gar fran
+exciterat tillstand
+till lagre energi.
+Masstal oforandrat.
+Atomnr oforandrat.
+Foton (gamma) sands
+ut med E = hf.
+
+--- SONDERFALLSLAG ---
+Sonderfallskonstant:
+ lambda = ln2/T_half
+
+Sonderfallslagen:
+ N = N0*(1/2)^(t/T_h)
+ N = N0*e^(-lambda*t)
+
+Aktivitet:
+ A = lambda*N
+Aktivitetslagen:
+ A = A0*(1/2)^(t/T_h)
+ A = A0*e^(-lambda*t)
+
+--- ABSORPTION ---
+Absorptionskoeff:
+ mu = ln2/d_half
+Absorption:
+ I = I0*(1/2)^(x/d_h)
+ I = I0*e^(-mu*x)
+
+Energi fran massdef:
+ E = dm*c^2
+ 1 u = 931.5 MeV
+
+--- ATOM & KVANT ---
+Fotonenergi:
+ E = h*f
+ E = h*c/lambda
+
+Fotoelektrisk eff:
+ h*f = Wu + Ek
+ Wu = uttradesarbete
+ Ek = max kin. energi
+ troskelfrekv:
+  f0 = Wu/h
+
+Energinivaer vate:
+ En = -13.6 eV/n^2
+ (n = 1,2,3,...)
+
+Foton vid overgang:
+ E = |En1 - En2|
+ lambda = h*c/E
+Snabbformel:
+ lambda(nm)=1240/E(eV)
+
+Fotonens rorelsem.:
+ p = E/c = h/lambda
+
+de Broglie-vagl.:
+ lambda = h/p
+Elektron acc. U volt:
+ Ek = e*U
+ p = sqrt(2*m*Ek)
+ lambda = h/p
+
+Rontgenror:
+ lambda_min = h*c/(e*U)
+ f_max = e*U/h
+
+--- ASTROFYSIK ---
+Flykthastighet:
+ v = sqrt(2*G*m/R)
+
+Schwarzschildradie:
+ r_Sch = 2*G*m/c^2
+
+Rodforskjutning:
+ z=(lambda-lambda0)
+   /lambda0
+ z approx v/c
+
+Hubbles lag:
+ v = H0*d
+ H0=70 km/s/Mpc
+
+--- UTTRADESARBETE ---
+ Wu (eV)
+aluminium  2.81
+bly        4.25
+cesium     1.94
+kadmium    4.00
+kalcium    3.20
+kalium     2.24
+natrium    2.46
+silver     4.61
+titan      4.33
+volfram    4.50

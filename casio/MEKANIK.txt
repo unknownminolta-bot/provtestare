@@ -1,0 +1,95 @@
+====================
+ MEKANIK & RORELSE
+====================
+
+--- INTRODUKTION ---
+Densitet
+ p = m / V
+
+--- KINEMATIK ---
+Medelhastighet
+ v = ds / dt
+Medelacceleration
+ a = dv / dt
+
+Konstant hastighet:
+ s = v*t
+
+Konst. acceleration:
+ s = v0*t + a*t^2/2
+ v = v0 + a*t
+ v_medel = (v0+v)/2
+
+--- KASTRORELSE ---
+Horisontellt:
+ ax=0, vx=v0*cos(a)
+ x = v0*cos(a)*t
+Vertikalt:
+ ay=-g
+ vy=v0*sin(a)-g*t
+ y=v0*sin(a)*t
+   - g*t^2/2
+Stighoejd:
+ h=v0^2*sin^2(a)/(2g)
+Kastvidd:
+ s=v0^2*sin(2a)/g
+
+--- CENTRALROERELSE ---
+Vinkelh. w = d0/dt
+Konst: 0 = w*t
+Banh.  v = w*r
+Centrip.acc:
+ ac = v^2/r = r*w^2
+    = 4*pi^2*r/T^2
+
+--- HARM. SVANGN. ---
+Vinkelfrekvens:
+ w = sqrt(k/m)
+Elongation:
+ x = A*sin(w*t)
+Period:
+ T = 2*pi*sqrt(m/k)
+Pot. energi:
+ Ep = k*x^2/2
+Pendel:
+ T = 2*pi*sqrt(l/g)
+
+--- KRAFTER ---
+Newtons andra lag:
+ F_res = m*a
+Gravitation:
+ FG = G*m1*m2/r^2
+Hookes lag:
+ Fk = k*dl
+Friktion:
+ Ff = mu*FN
+
+--- GRAVITATION ---
+Keplers 3:e lag:
+ T^2/r^3 = konst
+
+--- KRAFTMOMENT ---
+ M = F*l
+Momentlagen:
+ Summa M = 0
+
+--- ENERGI ---
+Arbete: W = Fs*s
+Energi: dE = W
+Lagesenergi: Ep=m*g*h
+Rorelseenergi:
+ Ek = m*v^2/2
+Mek. energi:
+ E = Ep + Ek
+Effekt: P = dE/dt
+ P = Fs*v
+Verkningsgrad:
+ n = E_nytt/E_tillf
+   = P_nytt/P_tillf
+
+--- RORELSEMANGD ---
+ p = m*v
+Impuls: I = F*t
+Impulslagen: I = dp
+Bevarandelagen:
+ Summa(pi) = konst

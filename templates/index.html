@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exam Knowledge Tester</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- START SCREEN -->
+<div id="screen-start" class="container">
+  <h1>EXAM KNOWLEDGE TESTER</h1>
+  <h2>Test your readiness for upcoming exams</h2>
+  <div class="mode-grid">
+    <div class="mode-card" onclick="startQuiz('fyxf04')">
+      <h3>FYXF04</h3>
+      <p>Fysik 4 — 21 questions<br>Optics, nuclear, atomic, quantum, astro</p>
+    </div>
+    <div class="mode-card" onclick="startQuiz('maxf02')">
+      <h3>MAXF02 / Mat-Fys Math</h3>
+      <p>Matematik 3c/4 — 20 questions<br>Trig, derivatives, optimization</p>
+    </div>
+    <div class="mode-card" onclick="startQuiz('fysik12')">
+      <h3>Fysik 1+2</h3>
+      <p>Mat-Fys provet physics — 14 questions<br>Mechanics, EM, waves, quantum</p>
+    </div>
+    <div class="mode-card" onclick="startQuiz('full')">
+      <h3>FULL DIAGNOSTIC</h3>
+      <p>All 55 questions<br>Complete readiness assessment</p>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ SCREEN -->
+<div id="screen-quiz" style="display:none">
+  <div class="quiz-header">
+    <span class="question-counter" id="q-counter">1 / 55</span>
+    <div style="flex:1; margin: 0 1rem;">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <span class="timer" id="timer">0:00</span>
+  </div>
+  <div class="container">
+    <div class="question-card" id="question-card">
+      <div class="question-meta" id="q-meta"></div>
+      <div class="question-text" id="q-text"></div>
+      <div id="answer-area"></div>
+      <div id="solution-area"></div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="btn-skip" onclick="skipQuestion()">Skip</button>
+        <button class="btn btn-primary" id="btn-submit-answer" onclick="submitAnswer()">Submit</button>
+        <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()" style="display:none">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS SCREEN -->
+<div id="screen-results" style="display:none" class="container">
+  <h1>DIAGNOSTIC REPORT</h1>
+  <h2 id="results-subtitle"></h2>
+  <div id="critical-area"></div>
+  <div class="score-cards" id="score-cards"></div>
+  <div class="results-section">
+    <h2>Topic Breakdown</h2>
+    <table class="topic-table" id="topic-table">
+      <thead><tr><th>Topic</th><th>Score</th><th>%</th><th>Freq</th><th>Status</th></tr></thead>
+      <tbody id="topic-tbody"></tbody>
+    </table>
+  </div>
+  <div class="results-section">
+    <h2>Study Priorities</h2>
+    <ol class="priority-list" id="priority-list"></ol>
+  </div>
+  <div style="text-align:center; margin-top:2rem;">
+    <button class="btn btn-primary" onclick="location.reload()">Test Again</button>
+  </div>
+</div>
+
+<script>
+let questions = [];
+let currentIdx = 0;
+let userAnswers = {};
+let questionTimes = {};
+let timerInterval = null;
+let questionStartTime = null;
+let answered = false;
+
+async function startQuiz(mode) {
+  const res = await fetch('/api/start', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({mode})
+  });
+  const data = await res.json();
+  questions = data.questions;
+  currentIdx = 0;
+  userAnswers = {};
+  questionTimes = {};
+  document.getElementById('screen-start').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = '';
+  showQuestion();
+}
+
+function showQuestion() {
+  answered = false;
+  const q = questions[currentIdx];
+  document.getElementById('q-counter').textContent = `${currentIdx + 1} / ${questions.length}`;
+  document.getElementById('progress-fill').style.width = `${((currentIdx) / questions.length) * 100}%`;
+
+  let metaHtml = `<span class="badge badge-topic">${q.topic_display}</span>`;
+  metaHtml += `<span class="badge badge-points">${q.points}p</span>`;
+  if (q.no_calculator) metaHtml += `<span class="badge badge-no-calc">No Calc</span>`;
+  document.getElementById('q-meta').innerHTML = metaHtml;
+  document.getElementById('q-text').textContent = q.question;
+
+  const area = document.getElementById('answer-area');
+  if (q.answer_type === 'multiple_choice') {
+    let html = '<div class="choices-list">';
+    q.choices.forEach((c, i) => {
+      const letter = String.fromCharCode(65 + i);
+      html += `<button class="choice-btn" data-val="${letter}" onclick="selectChoice(this)">${c}</button>`;
+    });
+    html += '</div>';
+    area.innerHTML = html;
+  } else {
+    let placeholder = q.answer_type === 'numeric' ? 'Enter numeric answer' : 'Enter your answer';
+    let html = `<input class="answer-input" id="user-answer" type="text" placeholder="${placeholder}" autocomplete="off">`;
+    if (q.unit) html += `<div class="unit-label">Unit: ${q.unit}</div>`;
+    area.innerHTML = html;
+    setTimeout(() => {
+      const inp = document.getElementById('user-answer');
+      if (inp) inp.focus();
+    }, 50);
+  }
+
+  document.getElementById('solution-area').innerHTML = '';
+  document.getElementById('btn-submit-answer').style.display = '';
+  document.getElementById('btn-skip').style.display = '';
+  document.getElementById('btn-next').style.display = 'none';
+
+  questionStartTime = Date.now();
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  const el = document.getElementById('timer');
+  timerInterval = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - questionStartTime) / 1000);
+    const m = Math.floor(elapsed / 60);
+    const s = elapsed % 60;
+    el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+  }, 200);
+}
+
+function selectChoice(btn) {
+  if (answered) return;
+  document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function getUserAnswer() {
+  const q = questions[currentIdx];
+  if (q.answer_type === 'multiple_choice') {
+    const sel = document.querySelector('.choice-btn.selected');
+    return sel ? sel.dataset.val : '';
+  }
+  const inp = document.getElementById('user-answer');
+  return inp ? inp.value.trim() : '';
+}
+
+function submitAnswer() {
+  if (answered) return;
+  const q = questions[currentIdx];
+  const ans = getUserAnswer();
+  userAnswers[q.id] = ans;
+  questionTimes[q.id] = Math.floor((Date.now() - questionStartTime) / 1000);
+  clearInterval(timerInterval);
+  answered = true;
+
+  document.getElementById('btn-submit-answer').style.display = 'none';
+  document.getElementById('btn-skip').style.display = 'none';
+  document.getElementById('btn-next').style.display = '';
+  document.getElementById('btn-next').textContent = currentIdx < questions.length - 1 ? 'Next' : 'Finish';
+
+  // Disable inputs
+  const inp = document.getElementById('user-answer');
+  if (inp) inp.disabled = true;
+  document.querySelectorAll('.choice-btn').forEach(b => { b.style.pointerEvents = 'none'; });
+}
+
+function skipQuestion() {
+  userAnswers[questions[currentIdx].id] = '';
+  questionTimes[questions[currentIdx].id] = Math.floor((Date.now() - questionStartTime) / 1000);
+  clearInterval(timerInterval);
+  if (currentIdx < questions.length - 1) {
+    currentIdx++;
+    showQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+function nextQuestion() {
+  if (currentIdx < questions.length - 1) {
+    currentIdx++;
+    showQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+async function finishQuiz() {
+  document.getElementById('screen-quiz').style.display = 'none';
+  const res = await fetch('/api/submit', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({answers: userAnswers, times: questionTimes})
+  });
+  const data = await res.json();
+  renderResults(data);
+}
+
+function renderResults(data) {
+  const d = data.diagnostic;
+  const scored = data.scored;
+
+  document.getElementById('results-subtitle').textContent =
+    `${scored.total_correct} / ${scored.total_questions} correct — ${scored.total_points_earned} / ${scored.total_points_possible} points`;
+
+  // Score cards per exam
+  const cardsEl = document.getElementById('score-cards');
+  let cardsHtml = '';
+  for (const [exam, info] of Object.entries(d.exam_scores || {})) {
+    const pct = info.percentage;
+    const color = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)';
+    const label = exam === 'fyxf04' ? 'FYXF04' : exam === 'maxf02' ? 'Math' : exam === 'fysik12' ? 'Fysik 1+2' : exam;
+    const readiness = d.readiness?.[exam] ?? pct;
+    cardsHtml += `
+      <div class="score-card">
+        <div class="score-value" style="color:${color}">${Math.round(pct)}%</div>
+        <div class="score-label">${label}: ${info.earned}/${info.possible}p</div>
+        <div class="readiness-bar"><div class="readiness-fill" style="width:${readiness}%; background:${color}"></div></div>
+        <div class="score-label" style="margin-top:0.3rem">Readiness: ${Math.round(readiness)}%</div>
+      </div>`;
+  }
+  cardsEl.innerHTML = cardsHtml;
+
+  // Critical misses
+  const critEl = document.getElementById('critical-area');
+  if (d.critical_misses && d.critical_misses.length > 0) {
+    const topics = d.critical_misses.map(t => {
+      const ts = d.topic_scores?.[t];
+      return ts ? ts.topic_display || t : t;
+    });
+    critEl.innerHTML = `
+      <div class="critical-banner">
+        <h3>CRITICAL: High-frequency topics where you scored weak</h3>
+        <p>${topics.join(', ')}</p>
+      </div>`;
+  } else {
+    critEl.innerHTML = '';
+  }
+
+  // Topic table
+  const tbody = document.getElementById('topic-tbody');
+  let rows = '';
+  const topicEntries = Object.entries(d.topic_scores || {}).sort((a, b) => a[1].percentage - b[1].percentage);
+  for (const [topic, info] of topicEntries) {
+    const statusClass = info.status === 'strong' ? 'status-strong' : info.status === 'review' ? 'status-review' : 'status-weak';
+    rows += `<tr>
+      <td><span class="status-dot ${statusClass}"></span>${info.topic_display || topic}</td>
+      <td>${info.earned}/${info.possible}</td>
+      <td>${Math.round(info.percentage)}%</td>
+      <td>${Math.round(info.exam_frequency * 100)}%</td>
+      <td>${info.status}</td>
+    </tr>`;
+  }
+  tbody.innerHTML = rows;
+
+  // Study priorities
+  const prioEl = document.getElementById('priority-list');
+  let prioHtml = '';
+  const priorities = (d.study_priorities || []).slice(0, 10);
+  priorities.forEach((p, i) => {
+    prioHtml += `
+      <li class="priority-item">
+        <span class="priority-rank">#${i + 1}</span>
+        <div class="priority-info">
+          <h4>${p.topic_display || p.topic}</h4>
+          <p>${p.reason} (exam: ${p.exam})</p>
+        </div>
+      </li>`;
+  });
+  prioEl.innerHTML = prioHtml;
+
+  document.getElementById('screen-results').style.display = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !answered && document.getElementById('screen-quiz').style.display !== 'none') {
+    submitAnswer();
+  } else if (e.key === 'Enter' && answered) {
+    nextQuestion();
+  }
+});
+</script>
+</body>
+</html>

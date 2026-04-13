@@ -1,0 +1,63 @@
+====================
+ VAGOR & OPTIK
+====================
+
+--- VAGRORELSE ---
+Frekvens: f = 1/T
+Vinkelfrekvens:
+ w = 2*pi/T
+Utbredningshastig.:
+ v = lambda*f
+Staende vag i strang
+ L = k*lambda/2
+
+--- DOPPLEREFFEKT ---
+Mekanisk:
+ fo = fk*(v+vo)/(v-vk)
+
+EM-Doppler:
+ lambda/lambda0
+ =sqrt((1+v/c)/(1-v/c))
+ approx 1 + v/c
+
+--- INTERFERENS ---
+Konstruktiv:
+ ds = k*lambda
+ (k=0,1,2,...)
+Destruktiv:
+ ds = (k+1/2)*lambda
+
+--- GITTERFORMELN ---
+ n*lambda = d*sin(an)
+
+d = gitterkonstant
+n = ordning (0,1,2..)
+an = vinkel for max n
+
+Max antal ordningar:
+ n_max = d/lambda
+ (avrunda nedat)
+Totalt antal max:
+ 2*n_max + 1
+
+--- BRYTNING ---
+Snells lag:
+ sin(ai)/sin(ab)
+ = vi/vb
+
+Med brytningsindex:
+ n1*sin(a1)=n2*sin(a2)
+
+Brytningsindex:
+ n = c / cm
+
+Totalreflektion vid:
+ sin(ag) = n2/n1
+ (n1 > n2)
+
+--- BRYTNINGSINDEX ---
+luft      1.00
+vatten    1.33
+etanol    1.36
+glas      1.50
+diamant   2.47

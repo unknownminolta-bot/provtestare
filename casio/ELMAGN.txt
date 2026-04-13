@@ -1,0 +1,89 @@
+====================
+ EL & MAGNETISM
+====================
+
+--- ELEKTRICITET ---
+Coulombs lag:
+ F = k*Q1*Q2/r^2
+
+Stroem: I = Q/t
+Spanning: U = W/Q
+Resistans: R = U/I
+Ohms lag: U = R*I
+
+--- KRETSAR ---
+Kirchhoff stroem:
+ Summa(I_in)
+ = Summa(I_ut)
+
+Kirchhoff spanning:
+ U = U1 + ... + Un
+
+Seriekoppling:
+ R = R1 + ... + Rn
+
+Parallellkoppling:
+ 1/R = 1/R1+...+1/Rn
+
+Tva parallella:
+ R = R1*R2/(R1+R2)
+
+Polspanning:
+ U = E - Ri*I
+
+Effekt:
+ P = U*I
+ P = U^2/R = R*I^2
+
+--- EL. FALT ---
+Faltstyrka:
+ E = F/q
+Homogent falt:
+ E = U/d
+Potentialskillnad:
+ UAB = |VA - VB|
+
+--- KONDENSATOR ---
+Kapacitans: C = Q/U
+Plattkond:
+ C = eps*A/d
+Lagrad energi:
+ E = Q*U/2 = C*U^2/2
+
+--- MAGNETISM ---
+Flodestath. ledare:
+ B = mu*I/(2*pi*a)
+Platt spole:
+ B = N*mu*I/r
+Solenoid:
+ B = N*mu*I/l
+
+Kraft pa laddning:
+ F = q*v*B
+Kraft pa ledare:
+ F = l*I*B
+
+--- INDUKTION ---
+Magn. flode:
+ phi = B*A
+Generatorformeln:
+ e = l*v*B
+Induktionslagen:
+ u = -dphi/dt
+Spole:
+ u = -N*dphi/dt
+Induktans:
+ L = dphi/dI
+ u = -L*di/dt
+
+--- VAXELSTROEM ---
+Vaxelspanning:
+ u = u_max*sin(w*t)
+Vaxelstroem:
+ i = i_max*sin(w*t)
+Effektivvarde:
+ U=u_max/sqrt(2)
+ I=i_max/sqrt(2)
+
+Transformator:
+ N1/N2 = U1/U2 = I2/I1
