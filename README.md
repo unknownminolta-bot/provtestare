@@ -2,6 +2,8 @@
 
 Flask-baserad övningsapp for svenska högskolekurser i fysik, matematik och kemi. Inkluderar en svart tavla (rityta) med AI-handledare via Gemini, plus ett verktygskit för Casio fx-9860 formelsamlingar.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/unknownminolta-bot/provtestare)
+
 ## Provmoduler
 
 | Läge | Slug | Beskrivning | Frågor |
@@ -35,30 +37,43 @@ python app.py
 
 ## Dela med kursare
 
-### Alt 1: LAN-delning (enklast)
+### Alt 1: Publik länk (enklast — rekommenderas)
 
-Kör `./start.sh` — appen startar på `0.0.0.0:5111` och skriptet visar din LAN-IP. Dina kursare ansluter till `http://<din-ip>:5111` från sina enheter på samma nätverk (t.ex. eduroam).
+Appen kan hostas gratis på Render. Klicka knappen ovan eller gå till:
 
-### Alt 2: Docker
+```
+https://render.com/deploy?repo=https://github.com/unknownminolta-bot/provtestare
+```
+
+1. Skapa ett gratis Render-konto
+2. Klicka "Deploy" — appen byggs automatiskt
+3. Du får en publik URL typ `https://provtestare-xxxx.onrender.com`
+4. Skicka länken till kursarna
+
+Obs: Gratis-planen sover efter 15 min inaktivitet (30s kallstart vid nästa besök). All quiz-funktionalitet fungerar utan API-nyckel — AI-handledaren kräver `GEMINI_API_KEY` i Render-miljövariabler.
+
+**Alternativa plattformar:** Railway (`railway.app`) och Fly.io (`fly.io`) fungerar också med samma `Procfile`.
+
+### Alt 2: LAN-delning
+
+Kör `./start.sh` — appen startar på `0.0.0.0:5111` och skriptet visar din LAN-IP. Kursare ansluter till `http://<din-ip>:5111` på samma nätverk (t.ex. eduroam).
+
+### Alt 3: Docker
 
 ```bash
 docker compose up --build
 ```
 
-Appen körs på port 8080 med gunicorn (produktionsserver).
-
-### Alt 3: Skicka zipfilen
+### Alt 4: Zipfil
 
 Zippa och skicka. Mottagaren kör:
 
 ```bash
 unzip provtestare.zip && cd exam-tester
-chmod +x setup.sh start.sh
-./setup.sh
-./start.sh
+./setup.sh && ./start.sh
 ```
 
-Kräver Python 3.10+ och internetanslutning (för KaTeX-rendering via CDN).
+Kräver Python 3.10+ och internetanslutning (KaTeX CDN).
 
 ## AI-handledare (valfritt)
 
