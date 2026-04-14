@@ -10,18 +10,18 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "En laser med våglängd λ = 633 nm träffar ett diffraktionsgitter "
-            "med 500 spalter per mm. Bestäm diffraktionsvinkeln θ för andra ordningens "
-            "(m = 2) maximum."
+            "En laser med våglängd $\\lambda = 633\\;\\text{nm}$ träffar ett diffraktionsgitter "
+            "med $500$ spalter per mm. Bestäm diffraktionsvinkeln $\\theta$ för andra ordningens "
+            "($m = 2$) maximum."
         ),
         "answer_type": "numeric",
         "correct_answer": 39.3,
         "tolerance": 0.02,
         "unit": "°",
         "solution": (
-            "Spaltavstånd d = 1 / (500 mm⁻¹) = 2.00 × 10⁻⁶ m.\n"
-            "Gitterekvationen: d sin θ = mλ ⇒ sin θ = mλ / d = (2)(633×10⁻⁹) / (2.00×10⁻⁶) = 0.633.\n"
-            "Alltså θ = arcsin(0.633) ≈ 39.3°."
+            "Spaltavstånd $d = 1/(500\\;\\text{mm}^{-1}) = 2{,}00 \\times 10^{-6}\\;\\text{m}$.\n"
+            "Gitterekvationen: $d \\sin \\theta = m\\lambda$ $\\Rightarrow$ $\\sin \\theta = m\\lambda / d = (2)(633 \\times 10^{-9}) / (2{,}00 \\times 10^{-6}) = 0{,}633$.\n"
+            "Alltså $\\theta = \\arcsin(0{,}633) \\approx 39{,}3°$."
         ),
         "choices": None,
     },
@@ -34,16 +34,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "Ljus träffar ett gitter med spaltavstånd d = 2.50 μm. "
-            "Första ordningens (m = 1) maximum uppträder vid θ = 15.0°. Bestäm våglängden λ."
+            "Ljus träffar ett gitter med spaltavstånd $d = 2{,}50\\;\\mu\\text{m}$. "
+            "Första ordningens ($m = 1$) maximum uppträder vid $\\theta = 15{,}0°$. Bestäm våglängden $\\lambda$."
         ),
         "answer_type": "numeric",
         "correct_answer": 647.0,
-        "tolerance": 0.02,
+        "tolerance": 0.05,
         "unit": "nm",
         "solution": (
-            "d sin θ = mλ med m = 1 ger λ = d sin θ.\n"
-            "λ = (2.50×10⁻⁶ m) sin(15.0°) ≈ 6.47×10⁻⁷ m ≈ 647 nm."
+            "$d \\sin \\theta = m\\lambda$ med $m = 1$ ger $\\lambda = d \\sin \\theta$.\n"
+            "$\\lambda = (2{,}50 \\times 10^{-6}\\;\\text{m}) \\sin(15{,}0°) \\approx 6{,}47 \\times 10^{-7}\\;\\text{m} \\approx 647\\;\\text{nm}$."
         ),
         "choices": None,
     },
@@ -56,7 +56,7 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "Ett gitter har 400 spalter/mm. För λ = 550 nm, vad är den högsta heltalsordningen m "
+            "Ett gitter har $400$ spalter/mm. För $\\lambda = 550\\;\\text{nm}$, vad är den högsta heltalsordningen $m$ "
             "för vilken diffraktionsmaxima existerar (på vardera sida om centralmaximum)?"
         ),
         "answer_type": "numeric",
@@ -64,8 +64,8 @@ FYXF04_QUESTIONS = [
         "tolerance": 0.0,
         "unit": "",
         "solution": (
-            "d = 1/(400 mm⁻¹) = 2.50×10⁻⁶ m = 2500 nm.\n"
-            "Ordningar kräver |sin θ| ≤ 1 ⇒ m ≤ d/λ = 2500/550 ≈ 4.54, så den högsta heltalsordningen är m = 4."
+            "$d = 1/(400\\;\\text{mm}^{-1}) = 2{,}50 \\times 10^{-6}\\;\\text{m} = 2500\\;\\text{nm}$.\n"
+            "Ordningar kräver $|\\sin \\theta| \\leq 1$ $\\Rightarrow$ $m \\leq d/\\lambda = 2500/550 \\approx 4{,}54$, så den högsta heltalsordningen är $m = 4$."
         ),
         "choices": None,
     },
@@ -78,16 +78,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "Thorium-228 (²²⁸Th) genomgår alfa (α)-sönderfall. Skriv symbolen för dotterkärnan "
-            "(t.ex. ²²⁶Ra eller Ra-226)."
+            "Thorium-228 genomgår alfasönderfall. "
+            "Skriv den fullständiga sönderfallsreaktionen och identifiera dotterkärnan."
         ),
         "answer_type": "text",
         "correct_answer": "Ra-224",
         "tolerance": None,
         "unit": None,
         "solution": (
-            "α-sönderfall minskar Z med 2 och A med 4: ²²⁸Th → ²²⁴Ra + ⁴He.\n"
-            "Dotterkärnan är radium-224 (²²⁴Ra), ofta skrivet Ra-224."
+            "$\\alpha$-sönderfall minskar $Z$ med $2$ och $A$ med $4$: ${}^{228}_{\\;90}\\text{Th} \\to {}^{224}_{\\;88}\\text{Ra} + {}^{4}_{2}\\text{He}$.\n"
+            "Dotterkärnan är radium-224 (${}^{224}_{\\;88}\\text{Ra}$), ofta skrivet Ra-224."
         ),
         "choices": None,
     },
@@ -96,20 +96,22 @@ FYXF04_QUESTIONS = [
         "exam": "fyxf04",
         "topic": "nuclear_decay",
         "topic_display": "Kärnfysik – sönderfall",
-        "points": 2,
+        "points": 3,
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "I α-sönderfallet Po-210 (massa 209.9829 u) → Pb-206 (205.9745 u) + He-4 (4.0026 u), "
-            "bestäm den frigjorda energin Q i MeV. Använd 1 u ≈ 931.5 MeV/c²."
+            "Polonium-210 genomgår alfasönderfall. "
+            "Skriv sönderfallsreaktionen och bestäm den frigjorda energin $Q$ i MeV.\\n"
+            "Atommassor: Po-210: $209{,}9829\\;\\text{u}$, Pb-206: $205{,}9745\\;\\text{u}$, He-4: $4{,}0026\\;\\text{u}$.\\n"
+            "($1\\;\\text{u} \\approx 931{,}5\\;\\text{MeV}/c^2$)"
         ),
         "answer_type": "numeric",
         "correct_answer": 5.40,
         "tolerance": 0.02,
         "unit": "MeV",
         "solution": (
-            "Δm = m(Po) − m(Pb) − m(He) = 209.9829 − 205.9745 − 4.0026 = 0.0058 u.\n"
-            "Q = Δm c² ≈ 0.0058 × 931.5 MeV ≈ 5.40 MeV."
+            "$\\Delta m = m(\\text{Po}) - m(\\text{Pb}) - m(\\text{He}) = 209{,}9829 - 205{,}9745 - 4{,}0026 = 0{,}0058\\;\\text{u}$.\n"
+            "$Q = \\Delta m \\, c^2 \\approx 0{,}0058 \\times 931{,}5\\;\\text{MeV} \\approx 5{,}40\\;\\text{MeV}$."
         ),
         "choices": None,
     },
@@ -122,16 +124,19 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "Kol-14 genomgår β⁻-sönderfall till kväve-14. Givet m(¹⁴C) = 14.003242 u och "
-            "m(¹⁴N) = 14.003074 u, bestäm den frigjorda energin i MeV (1 u ≈ 931.5 MeV/c²)."
+            "Kol-14 genomgår $\\beta^-$-sönderfall.\\n"
+            "a) Identifiera dotterkärnan.\\n"
+            "b) Bestäm den frigjorda energin $Q$ i MeV.\\n"
+            "Atommassor: C-14: $14{,}003242\\;\\text{u}$, N-14: $14{,}003074\\;\\text{u}$.\\n"
+            "($1\\;\\text{u} \\approx 931{,}5\\;\\text{MeV}/c^2$)"
         ),
         "answer_type": "numeric",
         "correct_answer": 0.156,
         "tolerance": 0.03,
         "unit": "MeV",
         "solution": (
-            "Δm = 14.003242 − 14.003074 = 0.000168 u.\n"
-            "Q ≈ 0.000168 × 931.5 MeV ≈ 0.156 MeV."
+            "$\\Delta m = 14{,}003242 - 14{,}003074 = 0{,}000168\\;\\text{u}$.\n"
+            "$Q \\approx 0{,}000168 \\times 931{,}5\\;\\text{MeV} \\approx 0{,}156\\;\\text{MeV}$."
         ),
         "choices": None,
     },
@@ -144,16 +149,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "Ett prov har initial aktivitet A₀ = 60 kBq. Efter t = 11 h är aktiviteten A = 17 kBq. "
-            "Anta exponentiellt sönderfall A = A₀ e^(−λt) och bestäm halveringstiden t₁/₂."
+            "Ett prov har initial aktivitet $A_0 = 60\\;\\text{kBq}$. Efter $t = 11\\;\\text{h}$ är aktiviteten $A = 17\\;\\text{kBq}$. "
+            "Bestäm halveringstiden."
         ),
         "answer_type": "numeric",
         "correct_answer": 6.04,
         "tolerance": 0.03,
         "unit": "h",
         "solution": (
-            "A/A₀ = e^(−λt) ⇒ λ = (1/t) ln(A₀/A) = (1/11 h) ln(60/17) ≈ 0.1148 h⁻¹.\n"
-            "t₁/₂ = ln 2 / λ ≈ 0.693/0.1148 h ≈ 6.04 h."
+            "$A/A_0 = e^{-\\lambda t}$ $\\Rightarrow$ $\\lambda = (1/t) \\ln(A_0/A) = (1/11\\;\\text{h}) \\ln(60/17) \\approx 0{,}1148\\;\\text{h}^{-1}$.\n"
+            "$t_{1/2} = \\ln 2 / \\lambda \\approx 0{,}693/0{,}1148\\;\\text{h} \\approx 6{,}04\\;\\text{h}$."
         ),
         "choices": None,
     },
@@ -166,15 +171,15 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "Jod-131 har halveringstid t₁/₂ = 8.02 dagar. Hur lång tid tar det innan aktiviteten sjunkit till "
-            "25 % av sitt ursprungliga värde?"
+            "Jod-131 har halveringstid $t_{1/2} = 8{,}02$ dagar. Hur lång tid tar det innan aktiviteten sjunkit till "
+            "$25\\;\\%$ av sitt ursprungliga värde?"
         ),
         "answer_type": "numeric",
         "correct_answer": 16.04,
         "tolerance": 0.02,
         "unit": "dagar",
         "solution": (
-            "25 % = 1/4 = (1/2)², alltså två halveringstider: t = 2 t₁/₂ = 2(8.02 dagar) = 16.04 dagar."
+            "$25\\;\\% = 1/4 = (1/2)^2$, alltså två halveringstider: $t = 2 \\, t_{1/2} = 2(8{,}02\\;\\text{dagar}) = 16{,}04$ dagar."
         ),
         "choices": None,
     },
@@ -187,16 +192,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "En radioaktiv källas aktivitet minskar till 37 % av sitt ursprungsvärde på 60 dagar. "
-            "Bestäm halveringstiden (anta exponentiellt sönderfall)."
+            "En radioaktiv källas aktivitet minskar till $37\\;\\%$ av sitt ursprungsvärde på $60$ dagar. "
+            "Bestäm halveringstiden."
         ),
         "answer_type": "numeric",
         "correct_answer": 41.8,
         "tolerance": 0.03,
         "unit": "dagar",
         "solution": (
-            "0.37 = e^(−λ·60 d) ⇒ λ = ln(1/0.37)/60 d ≈ 0.01657 d⁻¹.\n"
-            "t₁/₂ = ln 2/λ ≈ 0.693/0.01657 d ≈ 41.8 dagar."
+            "$0{,}37 = e^{-\\lambda \\cdot 60\\;\\text{d}}$ $\\Rightarrow$ $\\lambda = \\ln(1/0{,}37)/60\\;\\text{d} \\approx 0{,}01657\\;\\text{d}^{-1}$.\n"
+            "$t_{1/2} = \\ln 2/\\lambda \\approx 0{,}693/0{,}01657\\;\\text{d} \\approx 41{,}8$ dagar."
         ),
         "choices": None,
     },
@@ -209,16 +214,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.875,
         "no_calculator": False,
         "question": (
-            "Ett glödande kol har temperaturen T = 750 °C. Använd Wiens förskjutningslag "
-            "λ_max T = b med b = 2.898×10⁻³ m·K och bestäm toppvåglängden λ_max."
+            "Ett glödande kol har temperaturen $T = 750\\;°\\text{C}$. Bestäm toppvåglängden $\\lambda_{\\text{max}}$. "
+            "($b = 2{,}898 \\times 10^{-3}\\;\\text{m}\\cdot\\text{K}$)"
         ),
         "answer_type": "numeric",
         "correct_answer": 2.83,
         "tolerance": 0.02,
         "unit": "μm",
         "solution": (
-            "T(K) = 750 + 273.15 ≈ 1023 K.\n"
-            "λ_max = b/T ≈ 2.898×10⁻³ / 1023 m ≈ 2.83×10⁻⁶ m ≈ 2.83 μm."
+            "$T(\\text{K}) = 750 + 273{,}15 \\approx 1023\\;\\text{K}$.\n"
+            "$\\lambda_{\\text{max}} = b/T \\approx 2{,}898 \\times 10^{-3} / 1023\\;\\text{m} \\approx 2{,}83 \\times 10^{-6}\\;\\text{m} \\approx 2{,}83\\;\\mu\\text{m}$."
         ),
         "choices": None,
     },
@@ -231,16 +236,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.875,
         "no_calculator": False,
         "question": (
-            "En metallsfär utstrålar totaleffekten P = 32 W från ytan A = 0.020 m². "
-            "Använd Stefan–Boltzmanns lag P = σAT⁴ med σ = 5.67×10⁻⁸ W/(m²·K⁴) och bestäm T."
+            "En metallsfär utstrålar totaleffekten $P = 32\\;\\text{W}$ från ytan $A = 0{,}020\\;\\text{m}^2$. "
+            "Bestäm yttemperaturen $T$. ($\\sigma = 5{,}67 \\times 10^{-8}\\;\\text{W}/(\\text{m}^2 \\cdot \\text{K}^4)$)"
         ),
         "answer_type": "numeric",
         "correct_answer": 410.0,
-        "tolerance": 0.03,
+        "tolerance": 0.05,
         "unit": "K",
         "solution": (
-            "T⁴ = P/(σA) = 32 / (5.67×10⁻⁸ × 0.020) ≈ 2.82×10¹⁰ K⁴.\n"
-            "T ≈ (2.82×10¹⁰)^(1/4) K ≈ 410 K."
+            "$T^4 = P/(\\sigma A) = 32 / (5{,}67 \\times 10^{-8} \\times 0{,}020) \\approx 2{,}82 \\times 10^{10}\\;\\text{K}^4$.\n"
+            "$T \\approx (2{,}82 \\times 10^{10})^{1/4}\\;\\text{K} \\approx 410\\;\\text{K}$."
         ),
         "choices": None,
     },
@@ -253,16 +258,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.875,
         "no_calculator": False,
         "question": (
-            "En 40 W halogenlampa har en glödtråd vid T = 3000 K med emissivitet ε = 1.0. "
-            "Bestäm glödtrådens yta A med hjälp av P = εσAT⁴ (σ = 5.67×10⁻⁸ W/(m²·K⁴))."
+            "En $40\\;\\text{W}$ halogenlampa har en glödtråd vid $T = 3000\\;\\text{K}$ med emissivitet $\\varepsilon = 1{,}0$. "
+            "Bestäm glödtrådens yta $A$. ($\\sigma = 5{,}67 \\times 10^{-8}\\;\\text{W}/(\\text{m}^2 \\cdot \\text{K}^4)$)"
         ),
         "answer_type": "numeric",
-        "correct_answer": 8.71e-3,
+        "correct_answer": 8.71e-6,
         "tolerance": 0.03,
         "unit": "m²",
         "solution": (
-            "A = P/(σT⁴) = 40 / (5.67×10⁻⁸ × 3000⁴) ≈ 40/4593 m² ≈ 8.71×10⁻³ m² "
-            "(≈ 87 cm²)."
+            "$A = \\frac{P}{\\sigma T^4} = \\frac{40}{5{,}67 \\times 10^{-8} \\times 3000^4} \\approx \\frac{40}{4{,}59 \\times 10^{6}}\\;\\text{m}^2 \\approx 8{,}71 \\times 10^{-6}\\;\\text{m}^2$ "
+            "($\\approx 0{,}087\\;\\text{cm}^2$)."
         ),
         "choices": None,
     },
@@ -275,16 +280,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.75,
         "no_calculator": False,
         "question": (
-            "Koppars utträdesarbete är W = 4.7 eV. Vad är gränsfrekvensen f₀ "
-            "(Plancks konstant h = 6.626×10⁻³⁴ J·s, e = 1.60×10⁻¹⁹ C)?"
+            "Koppars utträdesarbete är $W = 4{,}7\\;\\text{eV}$. Vad är gränsfrekvensen $f_0$ "
+            "(Plancks konstant $h = 6{,}626 \\times 10^{-34}\\;\\text{J}\\cdot\\text{s}$, $e = 1{,}60 \\times 10^{-19}\\;\\text{C}$)?"
         ),
         "answer_type": "numeric",
         "correct_answer": 1.14e15,
         "tolerance": 0.03,
         "unit": "Hz",
         "solution": (
-            "W = h f₀ med W i joule: W = 4.7 e × 1 J/e.\n"
-            "f₀ = W/h ≈ 1.14×10¹⁵ Hz."
+            "$W = h f_0$ med $W$ i joule: $W = 4{,}7\\;\\text{eV} \\times 1{,}60 \\times 10^{-19}\\;\\text{J/eV}$.\n"
+            "$f_0 = W/h \\approx 1{,}14 \\times 10^{15}\\;\\text{Hz}$."
         ),
         "choices": None,
     },
@@ -297,18 +302,18 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.75,
         "no_calculator": False,
         "question": (
-            "Ljus med λ = 434 nm träffar en metall. De emitterade elektronernas maximala hastighet är "
-            "v = 4.2×10⁵ m/s. Bestäm utträdesarbetet W i eV (m_e = 9.11×10⁻³¹ kg, "
-            "h = 6.626×10⁻³⁴ J·s, c = 3.00×10⁸ m/s)."
+            "Ljus med $\\lambda = 434\\;\\text{nm}$ träffar en metall. De emitterade elektronernas maximala hastighet är "
+            "$v = 4{,}2 \\times 10^{5}\\;\\text{m/s}$. Bestäm utträdesarbetet $W$ i eV ($m_e = 9{,}11 \\times 10^{-31}\\;\\text{kg}$, "
+            "$h = 6{,}626 \\times 10^{-34}\\;\\text{J}\\cdot\\text{s}$, $c = 3{,}00 \\times 10^{8}\\;\\text{m/s}$)."
         ),
         "answer_type": "numeric",
         "correct_answer": 2.36,
         "tolerance": 0.03,
         "unit": "eV",
         "solution": (
-            "E_k,max = ½ m_e v² ≈ 8.04×10⁻²⁰ J.\n"
-            "E_photon = hc/λ ≈ 4.58×10⁻¹⁹ J.\n"
-            "W = E_photon − E_k,max ≈ 3.77×10⁻¹⁹ J ≈ 2.36 eV."
+            "$E_{k,\\text{max}} = \\frac{1}{2} m_e v^2 \\approx 8{,}04 \\times 10^{-20}\\;\\text{J}$.\n"
+            "$E_{\\text{photon}} = hc/\\lambda \\approx 4{,}58 \\times 10^{-19}\\;\\text{J}$.\n"
+            "$W = E_{\\text{photon}} - E_{k,\\text{max}} \\approx 3{,}77 \\times 10^{-19}\\;\\text{J} \\approx 2{,}36\\;\\text{eV}$."
         ),
         "choices": None,
     },
@@ -321,15 +326,15 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.875,
         "no_calculator": False,
         "question": (
-            "En elektron har rörelsemängd p = 3.0×10⁻²³ kg·m/s. Bestäm dess de Broglie-våglängd λ = h/p "
-            "(h = 6.626×10⁻³⁴ J·s)."
+            "En elektron har rörelsemängd $p = 3{,}0 \\times 10^{-23}\\;\\text{kg}\\cdot\\text{m/s}$. "
+            "Bestäm dess de Broglie-våglängd. ($h = 6{,}626 \\times 10^{-34}\\;\\text{J}\\cdot\\text{s}$)"
         ),
         "answer_type": "numeric",
         "correct_answer": 2.21e-11,
         "tolerance": 0.03,
         "unit": "m",
         "solution": (
-            "λ = h/p = 6.626×10⁻³⁴ / 3.0×10⁻²³ m ≈ 2.21×10⁻¹¹ m (≈ 22.1 pm)."
+            "$\\lambda = h/p = 6{,}626 \\times 10^{-34} / 3{,}0 \\times 10^{-23}\\;\\text{m} \\approx 2{,}21 \\times 10^{-11}\\;\\text{m}$ ($\\approx 22{,}1\\;\\text{pm}$)."
         ),
         "choices": None,
     },
@@ -342,16 +347,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.875,
         "no_calculator": False,
         "question": (
-            "En elektron accelereras genom spänningen U = 120 V. Bestäm dess de Broglie-våglängd "
-            "(icke-relativistiskt; e = 1.60×10⁻¹⁹ C, m_e = 9.11×10⁻³¹ kg, h = 6.626×10⁻³⁴ J·s)."
+            "En elektron accelereras genom spänningen $U = 120\\;\\text{V}$. Bestäm dess de Broglie-våglängd "
+            "(icke-relativistiskt; $e = 1{,}60 \\times 10^{-19}\\;\\text{C}$, $m_e = 9{,}11 \\times 10^{-31}\\;\\text{kg}$, $h = 6{,}626 \\times 10^{-34}\\;\\text{J}\\cdot\\text{s}$)"
         ),
         "answer_type": "numeric",
         "correct_answer": 1.12e-10,
         "tolerance": 0.03,
         "unit": "m",
         "solution": (
-            "E_k = eU = 1.92×10⁻¹⁷ J, p = √(2 m_e E_k) ≈ 5.91×10⁻²⁴ kg·m/s.\n"
-            "λ = h/p ≈ 1.12×10⁻¹⁰ m (≈ 112 pm)."
+            "$E_k = eU = 1{,}92 \\times 10^{-17}\\;\\text{J}$, $p = \\sqrt{2 m_e E_k} \\approx 5{,}91 \\times 10^{-24}\\;\\text{kg}\\cdot\\text{m/s}$.\n"
+            "$\\lambda = h/p \\approx 1{,}12 \\times 10^{-10}\\;\\text{m}$ ($\\approx 112\\;\\text{pm}$)."
         ),
         "choices": None,
     },
@@ -364,16 +369,15 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.625,
         "no_calculator": False,
         "question": (
-            "En väteatom övergår från n = 6 till n = 2. Bestäm den utsända fotonens våglängd. "
-            "Använd E_n = −13.6 eV / n² och λ(nm) ≈ 1240 / ΔE(eV) där så är lämpligt."
+            "En väteatom övergår från $n = 6$ till $n = 2$. Bestäm den utsända fotonens våglängd."
         ),
         "answer_type": "numeric",
         "correct_answer": 410.0,
-        "tolerance": 0.02,
+        "tolerance": 0.05,
         "unit": "nm",
         "solution": (
-            "ΔE = E_6 − E_2 = −13.6/36 − (−13.6/4) ≈ 3.022 eV.\n"
-            "λ ≈ 1240/3.022 nm ≈ 410 nm."
+            "$\\Delta E = E_6 - E_2 = -13{,}6/36 - (-13{,}6/4) \\approx 3{,}022\\;\\text{eV}$.\n"
+            "$\\lambda \\approx 1240/3{,}022\\;\\text{nm} \\approx 410\\;\\text{nm}$."
         ),
         "choices": None,
     },
@@ -386,16 +390,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.625,
         "no_calculator": False,
         "question": (
-            "Natrium emitterar λ = 589 nm vid övergång till grundtillståndet med E₀ = −5.13 eV. "
-            "Bestäm den exciterade nivåns energi E (använd E_photon ≈ 1240/λ med λ i nm)."
+            "Natrium emitterar $\\lambda = 589\\;\\text{nm}$ vid övergång till grundtillståndet med $E_0 = -5{,}13\\;\\text{eV}$. "
+            "Bestäm den exciterade nivåns energi $E$."
         ),
         "answer_type": "numeric",
         "correct_answer": -3.025,
         "tolerance": 0.02,
         "unit": "eV",
         "solution": (
-            "E_photon ≈ 1240/589 eV ≈ 2.105 eV.\n"
-            "E − E₀ = E_photon ⇒ E = −5.13 + 2.105 eV ≈ −3.025 eV."
+            "$E_{\\text{photon}} \\approx 1240/589\\;\\text{eV} \\approx 2{,}105\\;\\text{eV}$.\n"
+            "$E - E_0 = E_{\\text{photon}}$ $\\Rightarrow$ $E = -5{,}13 + 2{,}105\\;\\text{eV} \\approx -3{,}025\\;\\text{eV}$."
         ),
         "choices": None,
     },
@@ -408,16 +412,16 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.75,
         "no_calculator": False,
         "question": (
-            "Ljus går från glas (n₁ = 1.6) till vatten (n₂ = 1.3) med infallsvinkel "
-            "θ₁ = 18°. Bestäm brytningsvinkeln θ₂ i vattnet."
+            "Ljus går från glas ($n_1 = 1{,}6$) till vatten ($n_2 = 1{,}3$) med infallsvinkel "
+            "$\\theta_1 = 18°$. Bestäm brytningsvinkeln $\\theta_2$ i vattnet."
         ),
         "answer_type": "numeric",
         "correct_answer": 22.4,
-        "tolerance": 0.02,
+        "tolerance": 0.05,
         "unit": "°",
         "solution": (
-            "Snells lag: n₁ sin θ₁ = n₂ sin θ₂ ⇒ sin θ₂ = (1.6/1.3) sin 18° ≈ 0.380.\n"
-            "Alltså θ₂ ≈ 22.4°."
+            "Snells lag: $n_1 \\sin \\theta_1 = n_2 \\sin \\theta_2$ $\\Rightarrow$ $\\sin \\theta_2 = (1{,}6/1{,}3) \\sin 18° \\approx 0{,}380$.\n"
+            "Alltså $\\theta_2 \\approx 22{,}4°$."
         ),
         "choices": None,
     },
@@ -430,15 +434,15 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.625,
         "no_calculator": False,
         "question": (
-            "Ett röntgenrör drivs vid spänningen U = 96 kV. Bestäm den kortaste våglängden λ_min "
-            "(Duane–Hunt: λ_min = hc/(eU); h = 6.626×10⁻³⁴ J·s, c = 3.00×10⁸ m/s, e = 1.60×10⁻¹⁹ C)."
+            "Ett röntgenrör drivs vid spänningen $U = 96\\;\\text{kV}$. Bestäm den kortaste våglängden $\\lambda_{\\text{min}}$ i röntgenspektrumet. "
+            "($h = 6{,}626 \\times 10^{-34}\\;\\text{J}\\cdot\\text{s}$, $c = 3{,}00 \\times 10^{8}\\;\\text{m/s}$, $e = 1{,}60 \\times 10^{-19}\\;\\text{C}$)"
         ),
         "answer_type": "numeric",
         "correct_answer": 12.9,
         "tolerance": 0.03,
         "unit": "pm",
         "solution": (
-            "λ_min = hc/(eU) ≈ 1.29×10⁻¹¹ m ≈ 12.9 pm."
+            "$\\lambda_{\\text{min}} = hc/(eU) \\approx 1{,}29 \\times 10^{-11}\\;\\text{m} \\approx 12{,}9\\;\\text{pm}$."
         ),
         "choices": None,
     },
@@ -451,14 +455,15 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 0.75,
         "no_calculator": False,
         "question": (
-            "Galaxen M51 har en recessionshastighet v = 463 km/s. Använd H₀ = 70 km/s/Mpc och uppskatta dess avstånd d."
+            "Galaxen M51 har en recessionshastighet $v = 463\\;\\text{km/s}$. Uppskatta dess avstånd $d$. "
+            "($H_0 = 70\\;\\text{km/s/Mpc}$)"
         ),
         "answer_type": "numeric",
         "correct_answer": 6.61,
         "tolerance": 0.02,
         "unit": "Mpc",
         "solution": (
-            "Hubbles lag v = H₀ d ⇒ d = v/H₀ = 463/70 Mpc ≈ 6.61 Mpc."
+            "Hubbles lag $v = H_0 d$ $\\Rightarrow$ $d = v/H_0 = 463/70\\;\\text{Mpc} \\approx 6{,}61\\;\\text{Mpc}$."
         ),
         "choices": None,
     },
@@ -474,21 +479,21 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": True,
         "question": (
-            "En låda med massan 2 kg ligger på ett friktionsfritt horisontellt underlag och skjuts "
-            "med en horisontell kraft på 10 N. Vad blir accelerationen?"
+            "En låda med massan $2\\;\\text{kg}$ ligger på ett friktionsfritt horisontellt underlag och skjuts "
+            "med en horisontell kraft på $10\\;\\text{N}$. Vad blir accelerationen?"
         ),
         "answer_type": "multiple_choice",
         "correct_answer": "B",
         "tolerance": None,
         "unit": None,
         "solution": (
-            "Newtons andra lag: F = ma ⇒ a = F/m = 10 N / 2 kg = 5 m/s². Alternativ B."
+            "Newtons andra lag: $F = ma$ $\\Rightarrow$ $a = F/m = 10\\;\\text{N} / 2\\;\\text{kg} = 5\\;\\text{m/s}^2$. Alternativ B."
         ),
         "choices": [
-            "A) 2 m/s²",
-            "B) 5 m/s²",
-            "C) 10 m/s²",
-            "D) 20 m/s²",
+            "A) $2\\;\\text{m/s}^2$",
+            "B) $5\\;\\text{m/s}^2$",
+            "C) $10\\;\\text{m/s}^2$",
+            "D) $20\\;\\text{m/s}^2$",
         ],
     },
     {
@@ -500,21 +505,21 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": True,
         "question": (
-            "En boll kastas rakt uppåt med begynnelsehastigheten 20 m/s. Hur högt når den? "
-            "Använd g = 10 m/s²."
+            "En boll kastas rakt uppåt med begynnelsehastigheten $20\\;\\text{m/s}$. Hur högt når den? "
+            "Använd $g = 10\\;\\text{m/s}^2$."
         ),
         "answer_type": "multiple_choice",
         "correct_answer": "B",
         "tolerance": None,
         "unit": None,
         "solution": (
-            "I toppen är v = 0. v² = v₀² − 2gh ⇒ h = v₀²/(2g) = (20²)/(2·10) = 400/20 = 20 m. Alternativ B."
+            "I toppen är $v = 0$. $v^2 = v_0^2 - 2gh$ $\\Rightarrow$ $h = v_0^2/(2g) = (20^2)/(2 \\cdot 10) = 400/20 = 20\\;\\text{m}$. Alternativ B."
         ),
         "choices": [
-            "A) 10 m",
-            "B) 20 m",
-            "C) 40 m",
-            "D) 200 m",
+            "A) $10\\;\\text{m}$",
+            "B) $20\\;\\text{m}$",
+            "C) $40\\;\\text{m}$",
+            "D) $200\\;\\text{m}$",
         ],
     },
     {
@@ -526,17 +531,17 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": True,
         "question": (
-            "En kula med massan 3 kg rör sig med 4 m/s och kolliderar rakt med en stillastående kula "
-            "på 1 kg på ett friktionsfritt underlag. Efter kollisionen rör sig 3 kg-kulan med 2 m/s "
-            "i samma riktning som före. Vad är 1 kg-kulans hastighet (positiv = 3 kg-kulans ursprungliga riktning)?"
+            "En kula med massan $3\\;\\text{kg}$ rör sig med $4\\;\\text{m/s}$ och kolliderar rakt med en stillastående kula "
+            "på $1\\;\\text{kg}$ på ett friktionsfritt underlag. Efter kollisionen rör sig $3\\;\\text{kg}$-kulan med $2\\;\\text{m/s}$ "
+            "i samma riktning som före. Vad är $1\\;\\text{kg}$-kulans hastighet (positiv = $3\\;\\text{kg}$-kulans ursprungliga riktning)?"
         ),
         "answer_type": "numeric",
         "correct_answer": 6.0,
         "tolerance": 0.0,
         "unit": "m/s",
         "solution": (
-            "Rörelsemängdens bevarande: m₁v₁,i = m₁v₁,f + m₂v₂,f.\n"
-            "3·4 = 3·2 + 1·v ⇒ 12 = 6 + v ⇒ v = 6 m/s."
+            "Rörelsemängdens bevarande: $m_1 v_{1,i} = m_1 v_{1,f} + m_2 v_{2,f}$.\n"
+            "$3 \\cdot 4 = 3 \\cdot 2 + 1 \\cdot v$ $\\Rightarrow$ $12 = 6 + v$ $\\Rightarrow$ $v = 6\\;\\text{m/s}$."
         ),
         "choices": None,
     },
@@ -549,7 +554,7 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": True,
         "question": (
-            "En fjäder med fjäderkonstant k = 200 N/m trycks ihop x = 0.1 m från jämviktsläget. "
+            "En fjäder med fjäderkonstant $k = 200\\;\\text{N/m}$ trycks ihop $x = 0{,}1\\;\\text{m}$ från jämviktsläget. "
             "Hur stor elastisk potentiell energi lagras i fjädern?"
         ),
         "answer_type": "multiple_choice",
@@ -557,13 +562,13 @@ FYSIK12_QUESTIONS = [
         "tolerance": None,
         "unit": None,
         "solution": (
-            "U = ½ k x² = ½ (200)(0.1)² = 100 · 0.01 = 1 J. Alternativ B."
+            "$U = \\frac{1}{2} k x^2 = \\frac{1}{2} (200)(0{,}1)^2 = 100 \\cdot 0{,}01 = 1\\;\\text{J}$. Alternativ B."
         ),
         "choices": [
-            "A) 0.5 J",
-            "B) 1 J",
-            "C) 2 J",
-            "D) 10 J",
+            "A) $0{,}5\\;\\text{J}$",
+            "B) $1\\;\\text{J}$",
+            "C) $2\\;\\text{J}$",
+            "D) $10\\;\\text{J}$",
         ],
     },
     {
@@ -575,7 +580,7 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": True,
         "question": (
-            "En person med massan 50 kg står på en sviktbräda 10 m ovanför vattenytan (använd g = 10 m/s²). "
+            "En person med massan $50\\;\\text{kg}$ står på en sviktbräda $10\\;\\text{m}$ ovanför vattenytan (använd $g = 10\\;\\text{m/s}^2$). "
             "Om den mekaniska energin bevaras, vad är personens hastighet precis innan denne träffar vattnet?"
         ),
         "answer_type": "numeric",
@@ -583,7 +588,7 @@ FYSIK12_QUESTIONS = [
         "tolerance": 0.02,
         "unit": "m/s",
         "solution": (
-            "½mv² = mgh ⇒ v = √(2gh) = √(2·10·10) = √200 = 10√2 m/s ≈ 14.1 m/s."
+            "$\\frac{1}{2}mv^2 = mgh$ $\\Rightarrow$ $v = \\sqrt{2gh} = \\sqrt{2 \\cdot 10 \\cdot 10} = \\sqrt{200} = 10\\sqrt{2}\\;\\text{m/s} \\approx 14{,}1\\;\\text{m/s}$."
         ),
         "choices": None,
     },
@@ -596,7 +601,7 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": True,
         "question": (
-            "Två krafter, 3 N och 4 N, verkar vinkelrätt mot varandra på ett föremål. "
+            "Två krafter, $3\\;\\text{N}$ och $4\\;\\text{N}$, verkar vinkelrätt mot varandra på ett föremål. "
             "Hur stor är den resulterande kraftens belopp?"
         ),
         "answer_type": "multiple_choice",
@@ -604,13 +609,13 @@ FYSIK12_QUESTIONS = [
         "tolerance": None,
         "unit": None,
         "solution": (
-            "Vinkelräta vektorer: R = √(3² + 4²) = √(9+16) = √25 = 5 N (3-4-5-triangel). Alternativ B."
+            "Vinkelräta vektorer: $R = \\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5\\;\\text{N}$ (3-4-5-triangel). Alternativ B."
         ),
         "choices": [
-            "A) 1 N",
-            "B) 5 N",
-            "C) 7 N",
-            "D) 12 N",
+            "A) $1\\;\\text{N}$",
+            "B) $5\\;\\text{N}$",
+            "C) $7\\;\\text{N}$",
+            "D) $12\\;\\text{N}$",
         ],
     },
     {
@@ -622,8 +627,8 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": True,
         "question": (
-            "En homogen horisontell balk med längden 4 m och massan 20 kg vilar på stöd vid båda ändar. "
-            "En punktmassa på 40 kg placeras på balken 1 m från det vänstra stödet. Använd g = 10 m/s². "
+            "En homogen horisontell balk med längden $4\\;\\text{m}$ och massan $20\\;\\text{kg}$ vilar på stöd vid båda ändar. "
+            "En punktmassa på $40\\;\\text{kg}$ placeras på balken $1\\;\\text{m}$ från det vänstra stödet. Använd $g = 10\\;\\text{m/s}^2$. "
             "Bestäm reaktionskraften från det vänstra stödet."
         ),
         "answer_type": "numeric",
@@ -631,10 +636,10 @@ FYSIK12_QUESTIONS = [
         "tolerance": 0.0,
         "unit": "N",
         "solution": (
-            "Total tyngd = (20+40)·10 = 600 N.\n"
-            "Momentjämvikt kring vänster stöd: R_höger·4 = (20·10)·2 + (40·10)·1 = 400 + 400 = 800 ⇒ "
-            "R_höger = 200 N.\n"
-            "Vertikal jämvikt: R_vänster = 600 − 200 = 400 N."
+            "Total tyngd $= (20+40) \\cdot 10 = 600\\;\\text{N}$.\n"
+            "Momentjämvikt kring vänster stöd: $R_{\\text{höger}} \\cdot 4 = (20 \\cdot 10) \\cdot 2 + (40 \\cdot 10) \\cdot 1 = 400 + 400 = 800$ $\\Rightarrow$ "
+            "$R_{\\text{höger}} = 200\\;\\text{N}$.\n"
+            "Vertikal jämvikt: $R_{\\text{vänster}} = 600 - 200 = 400\\;\\text{N}$."
         ),
         "choices": None,
     },
@@ -647,20 +652,20 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 0.7,
         "no_calculator": True,
         "question": (
-            "Två resistorer, 6 Ω och 3 Ω, är parallellkopplade. Vad är den ekvivalenta resistansen?"
+            "Två resistorer, $6\\;\\Omega$ och $3\\;\\Omega$, är parallellkopplade. Vad är den ekvivalenta resistansen?"
         ),
         "answer_type": "multiple_choice",
         "correct_answer": "B",
         "tolerance": None,
         "unit": None,
         "solution": (
-            "Parallellkoppling: 1/R = 1/6 + 1/3 = 1/6 + 2/6 = 3/6 = 1/2 ⇒ R = 2 Ω. Alternativ B."
+            "Parallellkoppling: $1/R = 1/6 + 1/3 = 1/6 + 2/6 = 3/6 = 1/2$ $\\Rightarrow$ $R = 2\\;\\Omega$. Alternativ B."
         ),
         "choices": [
-            "A) 1 Ω",
-            "B) 2 Ω",
-            "C) 4.5 Ω",
-            "D) 9 Ω",
+            "A) $1\\;\\Omega$",
+            "B) $2\\;\\Omega$",
+            "C) $4{,}5\\;\\Omega$",
+            "D) $9\\;\\Omega$",
         ],
     },
     {
@@ -672,15 +677,15 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 0.7,
         "no_calculator": True,
         "question": (
-            "En elektromagnetisk våg i vakuum har frekvensen f = 5×10¹⁴ Hz. Vad är dess våglängd? "
-            "Använd c = 3×10⁸ m/s."
+            "En elektromagnetisk våg i vakuum har frekvensen $f = 5 \\times 10^{14}\\;\\text{Hz}$. Vad är dess våglängd? "
+            "Använd $c = 3 \\times 10^{8}\\;\\text{m/s}$."
         ),
         "answer_type": "numeric",
         "correct_answer": 600.0,
         "tolerance": 0.0,
         "unit": "nm",
         "solution": (
-            "λ = c/f = (3×10⁸)/(5×10¹⁴) m = (3/5)×10⁻⁶ m = 0.6×10⁻⁶ m = 6×10⁻⁷ m = 600 nm."
+            "$\\lambda = c/f = (3 \\times 10^{8})/(5 \\times 10^{14})\\;\\text{m} = (3/5) \\times 10^{-6}\\;\\text{m} = 0{,}6 \\times 10^{-6}\\;\\text{m} = 6 \\times 10^{-7}\\;\\text{m} = 600\\;\\text{nm}$."
         ),
         "choices": None,
     },
@@ -693,20 +698,20 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 0.7,
         "no_calculator": True,
         "question": (
-            "En ljudvåg har frekvensen f = 340 Hz och hastigheten v = 340 m/s. Vad är våglängden?"
+            "En ljudvåg har frekvensen $f = 340\\;\\text{Hz}$ och hastigheten $v = 340\\;\\text{m/s}$. Vad är våglängden?"
         ),
         "answer_type": "multiple_choice",
         "correct_answer": "B",
         "tolerance": None,
         "unit": None,
         "solution": (
-            "λ = v/f = 340/340 m = 1.0 m. Alternativ B."
+            "$\\lambda = v/f = 340/340\\;\\text{m} = 1{,}0\\;\\text{m}$. Alternativ B."
         ),
         "choices": [
-            "A) 0.5 m",
-            "B) 1.0 m",
-            "C) 2.0 m",
-            "D) 340 m",
+            "A) $0{,}5\\;\\text{m}$",
+            "B) $1{,}0\\;\\text{m}$",
+            "C) $2{,}0\\;\\text{m}$",
+            "D) $340\\;\\text{m}$",
         ],
     },
     {
@@ -718,17 +723,16 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 0.7,
         "no_calculator": True,
         "question": (
-            "Två högtalare med 2 m avstånd sänder ljud i fas vid f = 680 Hz. Ljudets hastighet är v = 340 m/s. "
-            "Vad är våglängden? (För konstruktiv interferens vid en avlägsen punkt i den vanliga "
-            "tvåkälleuppställningen gäller att gångskillnaden är nλ för heltal n — ange λ.)"
+            "En ljudvåg har frekvensen $f = 680\\;\\text{Hz}$ och utbreder sig med hastigheten $v = 340\\;\\text{m/s}$. "
+            "Bestäm våglängden."
         ),
         "answer_type": "numeric",
         "correct_answer": 0.5,
         "tolerance": 0.0,
         "unit": "m",
         "solution": (
-            "λ = v/f = 340/680 m = 0.5 m.\n"
-            "Konstruktiv interferens: ΔL = nλ med n = 0, 1, 2, …"
+            "$\\lambda = v/f = 340/680\\;\\text{m} = 0{,}5\\;\\text{m}$.\n"
+            "Konstruktiv interferens: $\\Delta L = n\\lambda$ med $n = 0, 1, 2, \\ldots$"
         ),
         "choices": None,
     },
@@ -741,21 +745,21 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 0.5,
         "no_calculator": True,
         "question": (
-            "m = 200 g vatten värms från 20 °C till 70 °C. Hur mycket värme krävs? "
-            "Använd c = 4200 J/(kg·K)."
+            "$m = 200\\;\\text{g}$ vatten värms från $20\\;°\\text{C}$ till $70\\;°\\text{C}$. Hur mycket värme krävs? "
+            "Använd $c = 4200\\;\\text{J/(kg}\\cdot\\text{K)}$."
         ),
         "answer_type": "multiple_choice",
         "correct_answer": "C",
         "tolerance": None,
         "unit": None,
         "solution": (
-            "Q = m c ΔT = 0.200 kg · 4200 J/(kg·K) · (70−20) K = 0.2·4200·50 J = 42000 J. Alternativ C."
+            "$Q = mc\\Delta T = 0{,}200\\;\\text{kg} \\cdot 4200\\;\\text{J/(kg}\\cdot\\text{K)} \\cdot (70-20)\\;\\text{K} = 0{,}2 \\cdot 4200 \\cdot 50\\;\\text{J} = 42000\\;\\text{J}$. Alternativ C."
         ),
         "choices": [
-            "A) 4200 J",
-            "B) 8400 J",
-            "C) 42000 J",
-            "D) 84000 J",
+            "A) $4200\\;\\text{J}$",
+            "B) $8400\\;\\text{J}$",
+            "C) $42000\\;\\text{J}$",
+            "D) $84000\\;\\text{J}$",
         ],
     },
     {
@@ -767,20 +771,20 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 0.5,
         "no_calculator": True,
         "question": (
-            "En foton har energin E = 2 eV. Vad är dess våglängd i nm? Använd genvägen E(eV) ≈ 1240/λ(nm)."
+            "En foton har energin $E = 2\\;\\text{eV}$. Vad är dess våglängd i nm?"
         ),
         "answer_type": "multiple_choice",
         "correct_answer": "B",
         "tolerance": None,
         "unit": None,
         "solution": (
-            "λ ≈ 1240/2 nm = 620 nm. Alternativ B."
+            "$\\lambda \\approx 1240/2\\;\\text{nm} = 620\\;\\text{nm}$. Alternativ B."
         ),
         "choices": [
-            "A) 310 nm",
-            "B) 620 nm",
-            "C) 1240 nm",
-            "D) 2480 nm",
+            "A) $310\\;\\text{nm}$",
+            "B) $620\\;\\text{nm}$",
+            "C) $1240\\;\\text{nm}$",
+            "D) $2480\\;\\text{nm}$",
         ],
     },
     {
@@ -792,17 +796,17 @@ FYSIK12_QUESTIONS = [
         "exam_frequency": 0.5,
         "no_calculator": True,
         "question": (
-            "Ett rymdskepp rör sig med v = 0.8c relativt jorden. En klocka ombord mäter Δt₀ = 10 s "
-            "mellan två tick. Vilket tidsintervall Δt mäter en jordobservatör för samma process?"
+            "Ett rymdskepp rör sig med $v = 0{,}8c$ relativt jorden. En klocka ombord mäter $\\Delta t_0 = 10\\;\\text{s}$ "
+            "mellan två tick. Vilket tidsintervall $\\Delta t$ mäter en jordobservatör för samma process?"
         ),
         "answer_type": "numeric",
         "correct_answer": 16.666666666666668,
         "tolerance": 0.001,
         "unit": "s",
         "solution": (
-            "Tidsdilatation: Δt = γ Δt₀ med γ = 1/√(1 − v²/c²).\n"
-            "v = 0.8c ⇒ v²/c² = 0.64 ⇒ √(1 − 0.64) = √0.36 = 0.6 ⇒ γ = 1/0.6 = 5/3.\n"
-            "Δt = (5/3)·10 s = 50/3 s ≈ 16.7 s."
+            "Tidsdilatation: $\\Delta t = \\gamma \\Delta t_0$ med $\\gamma = 1/\\sqrt{1 - v^2/c^2}$.\n"
+            "$v = 0{,}8c$ $\\Rightarrow$ $v^2/c^2 = 0{,}64$ $\\Rightarrow$ $\\sqrt{1 - 0{,}64} = \\sqrt{0{,}36} = 0{,}6$ $\\Rightarrow$ $\\gamma = 1/0{,}6 = 5/3$.\n"
+            "$\\Delta t = (5/3) \\cdot 10\\;\\text{s} = 50/3\\;\\text{s} \\approx 16{,}7\\;\\text{s}$."
         ),
         "choices": None,
     },

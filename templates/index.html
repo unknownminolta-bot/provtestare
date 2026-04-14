@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Provtestare</title>
   <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
 
@@ -51,13 +54,54 @@
       <div class="question-text" id="q-text"></div>
       <div id="answer-area"></div>
       <div id="solution-area"></div>
-      <div id="explain-area"></div>
       <div class="btn-row">
         <button class="btn btn-secondary" id="btn-skip" onclick="skipQuestion()">Hoppa över</button>
-        <button class="btn btn-explain" id="btn-explain" onclick="requestExplanation()">Förklara</button>
+        <button class="btn btn-blackboard" id="btn-toggle-bb" onclick="toggleBlackboard()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Svarta tavlan
+        </button>
         <button class="btn btn-primary" id="btn-submit-answer" onclick="submitAnswer()">Svara</button>
         <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()" style="display:none">Nästa</button>
       </div>
+    </div>
+
+    <!-- Blackboard panel -->
+    <div class="blackboard-panel" id="blackboard-panel" style="display:none">
+      <div class="blackboard-toolbar">
+        <div class="bb-tool-group">
+          <button class="bb-tool active" id="bb-pen" onclick="bbSetTool('pen')" title="Penna">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+          </button>
+          <button class="bb-tool" id="bb-eraser" onclick="bbSetTool('eraser')" title="Suddgummi">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>
+          </button>
+          <button class="bb-tool" onclick="bbUndo()" title="Ångra">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          </button>
+          <button class="bb-tool" onclick="bbClear()" title="Rensa">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+          </button>
+        </div>
+        <div class="bb-tool-group">
+          <span class="bb-color-swatch active" data-color="#ffffff" style="background:#ffffff" onclick="bbSetColor(this)"></span>
+          <span class="bb-color-swatch" data-color="#f0c040" style="background:#f0c040" onclick="bbSetColor(this)"></span>
+          <span class="bb-color-swatch" data-color="#6c8cff" style="background:#6c8cff" onclick="bbSetColor(this)"></span>
+          <span class="bb-color-swatch" data-color="#f05050" style="background:#f05050" onclick="bbSetColor(this)"></span>
+          <span class="bb-color-swatch" data-color="#3dd68c" style="background:#3dd68c" onclick="bbSetColor(this)"></span>
+        </div>
+        <div class="bb-tool-group">
+          <input type="range" id="bb-width" min="2" max="8" value="3" class="bb-width-slider" oninput="bbStrokeWidth=+this.value" title="Linjebredd">
+        </div>
+      </div>
+      <canvas id="blackboard" width="760" height="300"></canvas>
+      <div class="bb-ask-row">
+        <input type="text" id="bb-prompt" class="bb-prompt-input" placeholder="Beskriv vad du behöver hjälp med (valfritt)..." autocomplete="off">
+        <button class="btn btn-primary bb-ask-btn" id="bb-ask-btn" onclick="bbAskGemini()" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          Fråga Gemini
+        </button>
+      </div>
+      <div class="bb-response" id="bb-response" style="display:none"></div>
     </div>
   </div>
 </div>
@@ -92,10 +136,264 @@ let questionTimes = {};
 let timerInterval = null;
 let questionStartTime = null;
 let answered = false;
-let explainCache = {};
-let explainInFlight = false;
-let explainController = null;
 
+function renderMath(el) {
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(el, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+      ],
+      throwOnError: false,
+    });
+  }
+}
+
+/* ── Blackboard state ── */
+const BB_BG = '#1a1d27';
+let bbStrokes = [];
+let bbCurrentStroke = null;
+let bbTool = 'pen';
+let bbColor = '#ffffff';
+let bbStrokeWidth = 3;
+let bbDrawing = false;
+let bbController = null;
+
+function bbCanvas() { return document.getElementById('blackboard'); }
+function bbCtx() { return bbCanvas().getContext('2d'); }
+
+function toggleBlackboard() {
+  const panel = document.getElementById('blackboard-panel');
+  const btn = document.getElementById('btn-toggle-bb');
+  if (panel.style.display === 'none') {
+    panel.style.display = '';
+    btn.classList.add('active');
+    bbResizeCanvas();
+  } else {
+    panel.style.display = 'none';
+    btn.classList.remove('active');
+  }
+}
+
+function bbResizeCanvas() {
+  const cv = bbCanvas();
+  const w = cv.parentElement.clientWidth;
+  if (w > 0 && cv.width !== w) {
+    const img = bbCtx().getImageData(0, 0, cv.width, cv.height);
+    cv.width = w;
+    bbRedraw();
+  }
+}
+
+function bbFillBg() {
+  const ctx = bbCtx(), cv = bbCanvas();
+  ctx.fillStyle = BB_BG;
+  ctx.fillRect(0, 0, cv.width, cv.height);
+}
+
+function bbDrawStroke(ctx, s) {
+  if (s.pts.length < 2) return;
+  ctx.beginPath();
+  ctx.strokeStyle = s.color;
+  ctx.lineWidth = s.width;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.moveTo(s.pts[0].x, s.pts[0].y);
+  for (let i = 1; i < s.pts.length; i++) {
+    ctx.lineTo(s.pts[i].x, s.pts[i].y);
+  }
+  ctx.stroke();
+}
+
+function bbRedraw() {
+  bbFillBg();
+  const ctx = bbCtx();
+  for (const s of bbStrokes) bbDrawStroke(ctx, s);
+}
+
+function bbUpdateAskBtn() {
+  document.getElementById('bb-ask-btn').disabled = bbStrokes.length === 0;
+}
+
+function bbPointerPos(e) {
+  const r = bbCanvas().getBoundingClientRect();
+  return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+
+function bbPointerDown(e) {
+  if (e.button !== 0) return;
+  bbDrawing = true;
+  bbCanvas().setPointerCapture(e.pointerId);
+  const p = bbPointerPos(e);
+  const isEraser = bbTool === 'eraser';
+  bbCurrentStroke = {
+    pts: [p],
+    color: isEraser ? BB_BG : bbColor,
+    width: isEraser ? bbStrokeWidth * 3 : bbStrokeWidth,
+  };
+}
+
+function bbPointerMove(e) {
+  if (!bbDrawing || !bbCurrentStroke) return;
+  const p = bbPointerPos(e);
+  bbCurrentStroke.pts.push(p);
+  bbDrawStroke(bbCtx(), { pts: bbCurrentStroke.pts.slice(-2), color: bbCurrentStroke.color, width: bbCurrentStroke.width });
+}
+
+function bbPointerUp() {
+  if (!bbDrawing) return;
+  bbDrawing = false;
+  if (bbCurrentStroke && bbCurrentStroke.pts.length >= 2) {
+    bbStrokes.push(bbCurrentStroke);
+  }
+  bbCurrentStroke = null;
+  bbUpdateAskBtn();
+}
+
+function bbSetTool(tool) {
+  bbTool = tool;
+  document.querySelectorAll('.bb-tool').forEach(b => b.classList.remove('active'));
+  document.getElementById(tool === 'pen' ? 'bb-pen' : 'bb-eraser').classList.add('active');
+}
+
+function bbSetColor(el) {
+  bbColor = el.dataset.color;
+  document.querySelectorAll('.bb-color-swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  bbSetTool('pen');
+}
+
+function bbUndo() {
+  if (bbStrokes.length === 0) return;
+  bbStrokes.pop();
+  bbRedraw();
+  bbUpdateAskBtn();
+}
+
+function bbClear() {
+  bbStrokes = [];
+  bbRedraw();
+  bbUpdateAskBtn();
+  const resp = document.getElementById('bb-response');
+  resp.style.display = 'none';
+  resp.innerHTML = '';
+}
+
+function bbResetForQuestion() {
+  bbStrokes = [];
+  bbCurrentStroke = null;
+  const panel = document.getElementById('blackboard-panel');
+  panel.style.display = 'none';
+  document.getElementById('btn-toggle-bb').classList.remove('active');
+  const resp = document.getElementById('bb-response');
+  resp.style.display = 'none';
+  resp.innerHTML = '';
+  document.getElementById('bb-prompt').value = '';
+  if (bbController) { bbController.abort(); bbController = null; }
+  bbRedraw();
+  bbUpdateAskBtn();
+}
+
+/* ── Gemini blackboard request ── */
+async function bbAskGemini() {
+  const btn = document.getElementById('bb-ask-btn');
+  const resp = document.getElementById('bb-response');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="bb-loading-pulse"></span> Tänker...';
+  resp.style.display = '';
+  resp.innerHTML = '<span class="bb-loading-pulse"></span>';
+
+  if (bbController) bbController.abort();
+  bbController = new AbortController();
+
+  const cv = bbCanvas();
+  const dataUrl = cv.toDataURL('image/png');
+  const b64 = dataUrl.split(',')[1];
+
+  const q = questions[currentIdx];
+  const userText = document.getElementById('bb-prompt').value.trim();
+
+  try {
+    const res = await fetch('/api/blackboard-ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        image: b64,
+        text: userText,
+        question_id: q.id,
+      }),
+      signal: bbController.signal,
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      resp.innerHTML = `<span class="bb-error">${err.error || 'Något gick fel.'}</span>`;
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg> Fråga Gemini';
+      return;
+    }
+
+    resp.innerHTML = '';
+    let fullText = '';
+
+    if (res.body && typeof res.body.getReader === 'function') {
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const payload = line.slice(6);
+          if (payload === '[DONE]') break;
+          try {
+            const msg = JSON.parse(payload);
+            if (msg.error) {
+              resp.innerHTML += `<span class="bb-error">${msg.error}</span>`;
+            } else if (msg.text) {
+              fullText += msg.text;
+              resp.textContent = fullText;
+              renderMath(resp);
+            }
+          } catch {}
+        }
+      }
+    } else {
+      const text = await res.text();
+      for (const line of text.split('\n')) {
+        if (!line.startsWith('data: ')) continue;
+        const payload = line.slice(6);
+        if (payload === '[DONE]') continue;
+        try {
+          const msg = JSON.parse(payload);
+          if (msg.text) fullText += msg.text;
+        } catch {}
+      }
+      resp.textContent = fullText;
+      renderMath(resp);
+    }
+
+    if (!fullText) resp.innerHTML = '<span class="bb-error">Inget svar mottaget.</span>';
+
+  } catch (e) {
+    if (e.name !== 'AbortError') {
+      resp.innerHTML = `<span class="bb-error">Anslutningsfel: ${e.message}</span>`;
+    }
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg> Fråga Gemini';
+  bbUpdateAskBtn();
+}
+
+/* ── Quiz logic ── */
 async function startQuiz(mode) {
   const res = await fetch('/api/start', {
     method: 'POST',
@@ -123,6 +421,7 @@ function showQuestion() {
   if (q.no_calculator) metaHtml += `<span class="badge badge-no-calc">Utan miniräknare</span>`;
   document.getElementById('q-meta').innerHTML = metaHtml;
   document.getElementById('q-text').textContent = q.question;
+  renderMath(document.getElementById('q-text'));
 
   const area = document.getElementById('answer-area');
   if (q.answer_type === 'multiple_choice') {
@@ -133,6 +432,7 @@ function showQuestion() {
     });
     html += '</div>';
     area.innerHTML = html;
+    renderMath(area);
   } else {
     let placeholder = q.answer_type === 'numeric' ? 'Ange numeriskt svar' : 'Ange ditt svar';
     let html = `<input class="answer-input" id="user-answer" type="text" placeholder="${placeholder}" autocomplete="off">`;
@@ -145,24 +445,11 @@ function showQuestion() {
   }
 
   document.getElementById('solution-area').innerHTML = '';
-
-  if (explainController) { explainController.abort(); explainController = null; }
-  explainInFlight = false;
-  const explainArea = document.getElementById('explain-area');
-  const btnExplain = document.getElementById('btn-explain');
-  if (explainCache[q.id]) {
-    showExplanation(explainCache[q.id]);
-  } else {
-    explainArea.innerHTML = '';
-    btnExplain.style.display = '';
-    btnExplain.disabled = false;
-    btnExplain.textContent = 'Förklara';
-  }
-
   document.getElementById('btn-submit-answer').style.display = '';
   document.getElementById('btn-skip').style.display = '';
   document.getElementById('btn-next').style.display = 'none';
 
+  bbResetForQuestion();
   questionStartTime = Date.now();
   startTimer();
 }
@@ -317,95 +604,45 @@ function renderResults(data) {
   document.getElementById('screen-results').style.display = '';
 }
 
-function showExplanation(text) {
-  const el = document.getElementById('explain-area');
-  el.innerHTML = '<div class="explain-box"><div class="explain-header">Konceptförklaring</div><div class="explain-text" id="explain-text"></div></div>';
-  document.getElementById('explain-text').textContent = text;
-  document.getElementById('btn-explain').style.display = 'none';
-}
-
-async function requestExplanation() {
-  if (explainInFlight) return;
-  const q = questions[currentIdx];
-
-  if (explainCache[q.id]) { showExplanation(explainCache[q.id]); return; }
-
-  explainInFlight = true;
-  explainController = new AbortController();
-  const btn = document.getElementById('btn-explain');
-  btn.disabled = true;
-  btn.textContent = 'Laddar…';
-
-  const el = document.getElementById('explain-area');
-  el.innerHTML = '<div class="explain-box"><div class="explain-header">Konceptförklaring</div><div class="explain-text" id="explain-text"><span class="explain-loading-pulse">Analyserar frågan…</span></div></div>';
-  const textEl = document.getElementById('explain-text');
-
-  try {
-    const res = await fetch('/api/explain', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({question_id: q.id}),
-      signal: explainController.signal,
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      textEl.innerHTML = '';
-      textEl.textContent = err.error || 'Kunde inte hämta förklaring.';
-      textEl.classList.add('explain-error-text');
-      btn.disabled = false;
-      btn.textContent = 'Förklara';
-      explainInFlight = false;
-      return;
-    }
-
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let fullText = '';
-    textEl.textContent = '';
-
-    while (true) {
-      const {done, value} = await reader.read();
-      if (done) break;
-      const lines = decoder.decode(value, {stream: true}).split('\n');
-      for (const line of lines) {
-        if (!line.startsWith('data: ')) continue;
-        const payload = line.slice(6);
-        if (payload === '[DONE]') continue;
-        try {
-          const parsed = JSON.parse(payload);
-          if (parsed.error) {
-            fullText += '\n[Fel: ' + parsed.error + ']';
-          } else {
-            fullText += parsed.text;
-          }
-          textEl.textContent = fullText;
-        } catch {}
-      }
-    }
-
-    explainCache[q.id] = fullText;
-    btn.style.display = 'none';
-  } catch (err) {
-    if (err.name !== 'AbortError') {
-      textEl.innerHTML = '';
-      textEl.textContent = 'Nätverksfel. Försök igen.';
-      textEl.classList.add('explain-error-text');
-      btn.disabled = false;
-      btn.textContent = 'Förklara';
-    }
-  }
-
-  explainInFlight = false;
-  explainController = null;
-}
-
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !answered && document.getElementById('screen-quiz').style.display !== 'none') {
     submitAnswer();
   } else if (e.key === 'Enter' && answered) {
     nextQuestion();
   }
+});
+
+/* ── AI availability check ── */
+let aiAvailable = false;
+
+async function checkAiStatus() {
+  try {
+    const res = await fetch('/api/status');
+    const data = await res.json();
+    aiAvailable = data.ai_available;
+  } catch { aiAvailable = false; }
+
+  const askBtn = document.getElementById('bb-ask-btn');
+  if (askBtn && !aiAvailable) {
+    askBtn.title = 'AI-handledare ej konfigurerad (ingen API-nyckel)';
+  }
+}
+
+/* ── Canvas event binding (after DOM ready) ── */
+document.addEventListener('DOMContentLoaded', () => {
+  checkAiStatus();
+  const cv = document.getElementById('blackboard');
+  if (!cv) return;
+  cv.addEventListener('pointerdown', bbPointerDown);
+  cv.addEventListener('pointermove', bbPointerMove);
+  cv.addEventListener('pointerup', bbPointerUp);
+  cv.addEventListener('pointerleave', bbPointerUp);
+  bbFillBg();
+  window.addEventListener('resize', () => {
+    if (document.getElementById('blackboard-panel').style.display !== 'none') {
+      bbResizeCanvas();
+    }
+  });
 });
 </script>
 </body>

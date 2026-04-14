@@ -3,6 +3,10 @@ __pycache__/
 *.pyc
 *.pyo
 .env
+.email-monitor-state
+.email-monitor-state.json
+monitor-email.py
+monitor-email.sh
 
 # Generated Casio outputs (rebuild with the converter scripts)
 casio/eam/

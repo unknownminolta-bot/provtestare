@@ -29,32 +29,27 @@ Säg till om det inte går så vet jag hur jag ska tänka vidare.
 
 ---
 
-## 2. PREFEKT / INSTITUTIONSCHEF (om Michael vidhåller sitt nej)
+## 2. BITR. PREFEKT UTBILDNING (Michael har vidhållit sitt nej)
 
-Ämne: Begäran om alternativt omtentamenstillfälle – FYXF03, 9 maj 2026
+Mottagare: Ulf Hulling (bitr. prefekt, utbildning) – ulf.hulling@hv.se
 
-Till prefekt, Institutionen för ingenjörsvetenskap
-Högskolan Väst
+Ämne: Kolliderande omtenta FYXF03 – behöver hjälp
 
-Jag skriver med anledning av en schemakonflikt som jag inte kan lösa på egen hand.
+Hej Ulf,
 
-Den 9 maj 2026 kolliderar min omtentamen i FYXF03 (Fysik 3, tekniskt basår) med Matematik- och fysikprovet, ett nationellt urvalsprov som ges en gång per år och som utgör en egen urvalsgrupp vid antagning till civilingenjörsprogram vid Chalmers, KTH, GU och Stockholms universitet. Provet har inga alternativa tillfällen.
+Jag heter Max Andersson och läser tekniskt basår. Jag har hamnat i en situation som jag inte riktigt kan lösa själv och hoppas att du kan hjälpa.
 
-Jag har bett kursens examinator, Michael Pieslinger, om ett alternativt datum för omtentan men fått avslag med hänvisning till att det inte går att flytta datumet.
+Min omtenta i FYXF03 (Fysik 3) ligger den 9 maj, samma dag som Matematik- och fysikprovet. Det är ett nationellt urvalsprov som ges en gång per år och som är en egen urvalsgrupp för antagning till civilingenjörsprogram på Chalmers, KTH, GU och SU. Det finns inga andra tillfällen att skriva det.
 
-Jag befinner mig i en situation där jag måste välja mellan att:
-a) Missa mitt enda tillfälle att skriva det nationella provet (som ges en gång per år)
-b) Missa min omtentamen och inte kunna slutföra basåret i tid
+Jag har pratat med Michael Pieslinger om det här två gånger, men han säger att det är "helt omöjligt att flytta omtentadatum för FYXF03". Jag förstår att det är krångligt, men just nu tvingas jag välja mellan att missa det nationella provet (som inte går att ta igen) eller att missa omtentan och inte kunna slutföra basåret.
 
-Jag har en dokumenterad ADHD-diagnos och har sedan tidigare ett formellt beslut om särskilt pedagogiskt stöd vid Högskolan Väst (utökad tid och enskilt rum vid tentamen). Enligt diskrimineringslagen (2008:567), 1 kap. 4 § p. 3, utgör bristande tillgänglighet en form av diskriminering. Högskolan har redan erkänt mitt behov av anpassningar genom det befintliga beslutet, och jag menar att en rimlig anpassning i detta fall vore att erbjuda omtentan vid ett närliggande datum.
+Det enda jag ber om är att få skriva omtentan någon dag före eller efter den 9 maj. Jag är helt flexibel med datum.
 
-Enligt högskolans egna regler för examination (beslutade 2024-04-11, HV 2024/222), avsnitt 5, kan examinator besluta om anpassad examination för studenter med beslut om särskilt pedagogiskt stöd på grund av funktionsvariation. Vidare har studenten enligt avsnitt 6 rätt till omexamination, och jag önskar att denna rätt inte ska begränsas av en extern schemakonflikt som jag inte rår över.
+Jag hade varit väldigt tacksam om du kunde titta på det här och se om det finns någon möjlighet.
 
-Jag ber er vänligen att granska ärendet och, om möjligt, instruera examinatorn att erbjuda ett alternativt omtentamenstillfälle.
-
-Med vänliga hälsningar,
+Med vänlig hälsning,
 Max Andersson
-[personnummer]
+19970111-0471
 Tekniskt basår, Högskolan Väst
 max.andersson97@live.com
 
@@ -63,27 +58,25 @@ max.andersson97@live.com
 
 ## 3. SAMORDNARE FÖR PEDAGOGISKT STÖD (HV)
 
-Ämne: Behov av stöd – tentamenskollision och ADHD-anpassning
+Mottagare: riktatstod@hv.se
+(Maria Erlander – maria.erlander@hv.se / Karin Andreasson – karin.andreasson@hv.se)
+Telefontider: mån 13:00-13:30, ons 9:00-9:30, fre 9:00-9:30
 
-Hej,
+Ämne: Omtenta krockar med nationellt prov – behöver hjälp
 
-Jag heter Max Andersson och läser tekniskt basår vid Högskolan Väst. Jag har en dokumenterad ADHD-diagnos och vänder mig till er för stöd i följande ärende.
+Hej Maria,
 
-Den 9 maj 2026 kolliderar min omtentamen i FYXF03 (Fysik 3) med Matematik- och fysikprovet, ett nationellt urvalsprov för antagning till civilingenjörsprogram. Provet ges en gång per år och jag har betalat anmälningsavgiften.
+Vi har haft kontakt tidigare angående mitt pedagogiska stöd (utökad tid och enskilt rum vid tentamen). Nu har det dykt upp en ny situation som jag hoppas du kan hjälpa mig med.
 
-Jag har kontaktat kursens examinator, Michael Pieslinger, som meddelat att det inte går att flytta omtentan.
+Min omtenta i FYXF03 (Fysik 3) den 9 maj krockar med Matematik- och fysikprovet, ett nationellt urvalsprov för antagning till civilingenjörsprogram som ges en gång per år. Det finns inga alternativa tillfällen.
 
-Jag har redan ett formellt beslut om särskilt pedagogiskt stöd vid HV (utökad tid samt enskilt rum vid tentamen) baserat på min ADHD-diagnos.
+Jag har pratat med examinatorn Michael Pieslinger om att flytta omtentan, men han säger att det är "helt omöjligt". Så just nu hamnar jag i en sits där jag antingen måste ge upp det nationella provet eller missa omtentan.
 
-Mina frågor:
-1. Kan ni hjälpa mig att förmedla en begäran om alternativt tentamenstillfälle till examinatorn, med hänvisning till mitt befintliga beslut om pedagogiskt stöd?
-2. Anser ni att en anpassning av tentamensdatum faller inom ramen för skäliga anpassningar enligt diskrimineringslagen?
-3. Inför Matematik- och fysikprovet den 9 maj har jag även ansökt om anpassningar via NAIS (utökad tid).
+Jag undrar om ni kan hjälpa mig att driva frågan vidare, till exempel genom att förmedla en begäran om alternativt tentamenstillfälle till examinatorn eller institutionen? Med tanke på att jag redan har ett beslut om anpassningar känns det rimligt att det borde gå att lösa.
 
-Tack på förhand för er hjälp.
+Tack på förhand!
 
-Med vänliga hälsningar,
-Max Andersson
+/Max
 max.andersson97@live.com
 
 
@@ -99,7 +92,7 @@ Jag vänder mig till er som studentombud för att få stöd i ett ärende som r�
 
 Bakgrund:
 - Den 9 maj 2026 kolliderar min omtentamen i FYXF03 med Matematik- och fysikprovet (nationellt urvalsprov, ges 1 gång/år).
-- Jag har bett examinatorn Michael Pieslinger om alternativt datum men fått avslag.
+- Jag har vid två tillfällen bett examinatorn Michael Pieslinger om alternativt datum. Han har svarat att det är "helt omöjligt" att flytta datumet.
 - Jag har en dokumenterad ADHD-diagnos och ett formellt beslut om särskilt pedagogiskt stöd vid HV (utökad tid + enskilt rum).
 - Jag anser att högskolans beslut innebär bristande tillgänglighet enligt diskrimineringslagen (2008:567). Högskolan har redan erkänt mitt behov av anpassningar.
 
@@ -122,7 +115,10 @@ max.andersson97@live.com
 
 ## ESKALERINGSORDNING
 
-1. **Nu**: Skicka uppföljningen till Michael (utkast 1)
-2. **Om Michael säger nej igen**: Skicka till samordnare för pedagogiskt stöd (utkast 3) + prefekt (utkast 2) parallellt
-3. **Sista utväg**: Studentombudet (utkast 4)
-4. **Yttersta sista utväg**: Anmälan till Diskrimineringsombudsmannen (DO)
+1. ~~**Klart**: Skickade uppföljningen till Michael (utkast 1)~~
+2. ~~**Klart**: Michael svarade 14 apr – "helt omöjligt att flytta omtentadatum för FYXF03"~~
+3. **NU**: Skicka till samordnare för pedagogiskt stöd (utkast 3) + bitr. prefekt utbildning (utkast 2) **parallellt**
+   - Utkast 2 → ulf.hulling@hv.se (CC: per.nylen@hv.se)
+   - Utkast 3 → riktatstod@hv.se
+4. **Om det inte hjälper**: Studentombudet (utkast 4)
+5. **Yttersta sista utväg**: Anmälan till Diskrimineringsombudsmannen (DO)
