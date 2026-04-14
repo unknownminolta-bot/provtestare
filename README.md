@@ -1,5 +1,7 @@
 # Provtestare
 
+**[provtestare.onrender.com](https://provtestare.onrender.com)** -- klicka och kör direkt.
+
 Flask-baserad övningsapp for svenska högskolekurser i fysik, matematik och kemi. Inkluderar en svart tavla (rityta) med AI-handledare via Gemini, plus ett verktygskit för Casio fx-9860 formelsamlingar.
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/unknownminolta-bot/provtestare)
