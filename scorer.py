@@ -21,6 +21,8 @@ def _parse_float(raw: str) -> float | None:
     s = str(raw).strip()
     if not s:
         return None
+    s = s.replace(",", ".")
+    s = s.replace(" ", "")
     try:
         return float(s)
     except ValueError:

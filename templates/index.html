@@ -53,6 +53,26 @@
       <div class="question-meta" id="q-meta"></div>
       <div class="question-text" id="q-text"></div>
       <div id="answer-area"></div>
+      <div id="input-help" class="input-help" style="display:none">
+        <button class="input-help-toggle" onclick="toggleInputHelp()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Inmatningshjälp
+        </button>
+        <div id="input-help-content" class="input-help-content" style="display:none">
+          <table class="help-table">
+            <tr><td class="help-label">Decimaltal</td><td>Både komma och punkt fungerar: <code>3,14</code> eller <code>3.14</code></td></tr>
+            <tr><td class="help-label">Tiopotens</td><td><code>2.5e-6</code> eller <code>2.5E-6</code> = 2,5 × 10⁻⁶</td></tr>
+            <tr><td class="help-label">Negativa tal</td><td>Minustecken före: <code>-3.025</code></td></tr>
+            <tr><td class="help-label">Enheter</td><td>Skriv <strong>bara talet</strong> — enheten visas under fältet</td></tr>
+            <tr><td class="help-label">Flerval</td><td>Klicka på alternativet — ingen inmatning behövs</td></tr>
+            <tr><td class="help-label">Textfrågor</td><td>Skriv svaret i fritext (ej skiftlägeskänsligt)</td></tr>
+          </table>
+          <div class="help-examples">
+            <strong>Exempel:</strong>
+            <code>647</code> · <code>3,14</code> · <code>8.71e-6</code> · <code>-0.156</code> · <code>1.14e15</code>
+          </div>
+        </div>
+      </div>
       <div id="solution-area"></div>
       <div class="btn-row">
         <button class="btn btn-secondary" id="btn-skip" onclick="skipQuestion()">Hoppa över</button>
@@ -393,6 +413,12 @@ async function bbAskGemini() {
   bbUpdateAskBtn();
 }
 
+/* ── Input help ── */
+function toggleInputHelp() {
+  const el = document.getElementById('input-help-content');
+  el.style.display = el.style.display === 'none' ? '' : 'none';
+}
+
 /* ── Quiz logic ── */
 async function startQuiz(mode) {
   const res = await fetch('/api/start', {
@@ -443,6 +469,10 @@ function showQuestion() {
       if (inp) inp.focus();
     }, 50);
   }
+
+  const helpEl = document.getElementById('input-help');
+  helpEl.style.display = q.answer_type !== 'multiple_choice' ? '' : 'none';
+  document.getElementById('input-help-content').style.display = 'none';
 
   document.getElementById('solution-area').innerHTML = '';
   document.getElementById('btn-submit-answer').style.display = '';
