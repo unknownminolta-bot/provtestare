@@ -1,33 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Exam Knowledge Tester</title>
+  <title>Provtestare</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
 <!-- START SCREEN -->
 <div id="screen-start" class="container">
-  <h1>EXAM KNOWLEDGE TESTER</h1>
-  <h2>Test your readiness for upcoming exams</h2>
+  <h1>PROVTESTARE</h1>
+  <h2>Testa din beredskap inför kommande prov</h2>
   <div class="mode-grid">
+    <div class="mode-card" onclick="startQuiz('kexf01')">
+      <h3>KEXF01 — Kemi 1</h3>
+      <p>Omtenta-förberedelse — 30 frågor<br>Jonföreningar, pH, stökiometri, redox, gaslag</p>
+    </div>
     <div class="mode-card" onclick="startQuiz('fyxf04')">
       <h3>FYXF04</h3>
-      <p>Fysik 4 — 21 questions<br>Optics, nuclear, atomic, quantum, astro</p>
+      <p>Fysik 4 — 21 frågor<br>Optik, kärnfysik, atomfysik, kvant, astro</p>
     </div>
     <div class="mode-card" onclick="startQuiz('maxf02')">
-      <h3>MAXF02 / Mat-Fys Math</h3>
-      <p>Matematik 3c/4 — 20 questions<br>Trig, derivatives, optimization</p>
+      <h3>MAXF02 / Mat-Fys Matte</h3>
+      <p>Matematik 3c/4 — 20 frågor<br>Trig, derivata, optimering</p>
     </div>
     <div class="mode-card" onclick="startQuiz('fysik12')">
       <h3>Fysik 1+2</h3>
-      <p>Mat-Fys provet physics — 14 questions<br>Mechanics, EM, waves, quantum</p>
+      <p>Mat-Fys-provet fysik — 14 frågor<br>Mekanik, EM, vågor, kvant</p>
     </div>
     <div class="mode-card" onclick="startQuiz('full')">
-      <h3>FULL DIAGNOSTIC</h3>
-      <p>All 55 questions<br>Complete readiness assessment</p>
+      <h3>FULLSTÄNDIG DIAGNOSTIK</h3>
+      <p>{{ exam_labels['full'] }}<br>Komplett beredskapsbedömning</p>
     </div>
   </div>
 </div>
@@ -35,7 +39,7 @@
 <!-- QUIZ SCREEN -->
 <div id="screen-quiz" style="display:none">
   <div class="quiz-header">
-    <span class="question-counter" id="q-counter">1 / 55</span>
+    <span class="question-counter" id="q-counter"></span>
     <div style="flex:1; margin: 0 1rem;">
       <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
@@ -47,10 +51,12 @@
       <div class="question-text" id="q-text"></div>
       <div id="answer-area"></div>
       <div id="solution-area"></div>
+      <div id="explain-area"></div>
       <div class="btn-row">
-        <button class="btn btn-secondary" id="btn-skip" onclick="skipQuestion()">Skip</button>
-        <button class="btn btn-primary" id="btn-submit-answer" onclick="submitAnswer()">Submit</button>
-        <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()" style="display:none">Next</button>
+        <button class="btn btn-secondary" id="btn-skip" onclick="skipQuestion()">Hoppa över</button>
+        <button class="btn btn-explain" id="btn-explain" onclick="requestExplanation()">Förklara</button>
+        <button class="btn btn-primary" id="btn-submit-answer" onclick="submitAnswer()">Svara</button>
+        <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()" style="display:none">Nästa</button>
       </div>
     </div>
   </div>
@@ -58,23 +64,23 @@
 
 <!-- RESULTS SCREEN -->
 <div id="screen-results" style="display:none" class="container">
-  <h1>DIAGNOSTIC REPORT</h1>
+  <h1>DIAGNOSTISK RAPPORT</h1>
   <h2 id="results-subtitle"></h2>
   <div id="critical-area"></div>
   <div class="score-cards" id="score-cards"></div>
   <div class="results-section">
-    <h2>Topic Breakdown</h2>
+    <h2>Ämnesfördelning</h2>
     <table class="topic-table" id="topic-table">
-      <thead><tr><th>Topic</th><th>Score</th><th>%</th><th>Freq</th><th>Status</th></tr></thead>
+      <thead><tr><th>Ämne</th><th>Poäng</th><th>%</th><th>Frekv</th><th>Status</th></tr></thead>
       <tbody id="topic-tbody"></tbody>
     </table>
   </div>
   <div class="results-section">
-    <h2>Study Priorities</h2>
+    <h2>Studieprioriteter</h2>
     <ol class="priority-list" id="priority-list"></ol>
   </div>
   <div style="text-align:center; margin-top:2rem;">
-    <button class="btn btn-primary" onclick="location.reload()">Test Again</button>
+    <button class="btn btn-primary" onclick="location.reload()">Testa igen</button>
   </div>
 </div>
 
@@ -86,6 +92,9 @@ let questionTimes = {};
 let timerInterval = null;
 let questionStartTime = null;
 let answered = false;
+let explainCache = {};
+let explainInFlight = false;
+let explainController = null;
 
 async function startQuiz(mode) {
   const res = await fetch('/api/start', {
@@ -111,7 +120,7 @@ function showQuestion() {
 
   let metaHtml = `<span class="badge badge-topic">${q.topic_display}</span>`;
   metaHtml += `<span class="badge badge-points">${q.points}p</span>`;
-  if (q.no_calculator) metaHtml += `<span class="badge badge-no-calc">No Calc</span>`;
+  if (q.no_calculator) metaHtml += `<span class="badge badge-no-calc">Utan miniräknare</span>`;
   document.getElementById('q-meta').innerHTML = metaHtml;
   document.getElementById('q-text').textContent = q.question;
 
@@ -125,9 +134,9 @@ function showQuestion() {
     html += '</div>';
     area.innerHTML = html;
   } else {
-    let placeholder = q.answer_type === 'numeric' ? 'Enter numeric answer' : 'Enter your answer';
+    let placeholder = q.answer_type === 'numeric' ? 'Ange numeriskt svar' : 'Ange ditt svar';
     let html = `<input class="answer-input" id="user-answer" type="text" placeholder="${placeholder}" autocomplete="off">`;
-    if (q.unit) html += `<div class="unit-label">Unit: ${q.unit}</div>`;
+    if (q.unit) html += `<div class="unit-label">Enhet: ${q.unit}</div>`;
     area.innerHTML = html;
     setTimeout(() => {
       const inp = document.getElementById('user-answer');
@@ -136,6 +145,20 @@ function showQuestion() {
   }
 
   document.getElementById('solution-area').innerHTML = '';
+
+  if (explainController) { explainController.abort(); explainController = null; }
+  explainInFlight = false;
+  const explainArea = document.getElementById('explain-area');
+  const btnExplain = document.getElementById('btn-explain');
+  if (explainCache[q.id]) {
+    showExplanation(explainCache[q.id]);
+  } else {
+    explainArea.innerHTML = '';
+    btnExplain.style.display = '';
+    btnExplain.disabled = false;
+    btnExplain.textContent = 'Förklara';
+  }
+
   document.getElementById('btn-submit-answer').style.display = '';
   document.getElementById('btn-skip').style.display = '';
   document.getElementById('btn-next').style.display = 'none';
@@ -183,9 +206,8 @@ function submitAnswer() {
   document.getElementById('btn-submit-answer').style.display = 'none';
   document.getElementById('btn-skip').style.display = 'none';
   document.getElementById('btn-next').style.display = '';
-  document.getElementById('btn-next').textContent = currentIdx < questions.length - 1 ? 'Next' : 'Finish';
+  document.getElementById('btn-next').textContent = currentIdx < questions.length - 1 ? 'Nästa' : 'Avsluta';
 
-  // Disable inputs
   const inp = document.getElementById('user-answer');
   if (inp) inp.disabled = true;
   document.querySelectorAll('.choice-btn').forEach(b => { b.style.pointerEvents = 'none'; });
@@ -228,27 +250,25 @@ function renderResults(data) {
   const scored = data.scored;
 
   document.getElementById('results-subtitle').textContent =
-    `${scored.total_correct} / ${scored.total_questions} correct — ${scored.total_points_earned} / ${scored.total_points_possible} points`;
+    `${scored.total_correct} / ${scored.total_questions} rätt — ${scored.total_points_earned} / ${scored.total_points_possible} poäng`;
 
-  // Score cards per exam
   const cardsEl = document.getElementById('score-cards');
   let cardsHtml = '';
   for (const [exam, info] of Object.entries(d.exam_scores || {})) {
     const pct = info.percentage;
     const color = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)';
-    const label = exam === 'fyxf04' ? 'FYXF04' : exam === 'maxf02' ? 'Math' : exam === 'fysik12' ? 'Fysik 1+2' : exam;
+    const label = exam === 'fyxf04' ? 'FYXF04' : exam === 'maxf02' ? 'Matte' : exam === 'fysik12' ? 'Fysik 1+2' : exam === 'kexf01' ? 'Kemi 1' : exam;
     const readiness = d.readiness?.[exam] ?? pct;
     cardsHtml += `
       <div class="score-card">
         <div class="score-value" style="color:${color}">${Math.round(pct)}%</div>
         <div class="score-label">${label}: ${info.earned}/${info.possible}p</div>
         <div class="readiness-bar"><div class="readiness-fill" style="width:${readiness}%; background:${color}"></div></div>
-        <div class="score-label" style="margin-top:0.3rem">Readiness: ${Math.round(readiness)}%</div>
+        <div class="score-label" style="margin-top:0.3rem">Beredskap: ${Math.round(readiness)}%</div>
       </div>`;
   }
   cardsEl.innerHTML = cardsHtml;
 
-  // Critical misses
   const critEl = document.getElementById('critical-area');
   if (d.critical_misses && d.critical_misses.length > 0) {
     const topics = d.critical_misses.map(t => {
@@ -257,19 +277,18 @@ function renderResults(data) {
     });
     critEl.innerHTML = `
       <div class="critical-banner">
-        <h3>CRITICAL: High-frequency topics where you scored weak</h3>
+        <h3>KRITISKT: Högfrekventa ämnen där du presterade svagt</h3>
         <p>${topics.join(', ')}</p>
       </div>`;
   } else {
     critEl.innerHTML = '';
   }
 
-  // Topic table
   const tbody = document.getElementById('topic-tbody');
   let rows = '';
   const topicEntries = Object.entries(d.topic_scores || {}).sort((a, b) => a[1].percentage - b[1].percentage);
   for (const [topic, info] of topicEntries) {
-    const statusClass = info.status === 'strong' ? 'status-strong' : info.status === 'review' ? 'status-review' : 'status-weak';
+    const statusClass = info.status === 'stark' ? 'status-strong' : info.status === 'repetition' ? 'status-review' : 'status-weak';
     rows += `<tr>
       <td><span class="status-dot ${statusClass}"></span>${info.topic_display || topic}</td>
       <td>${info.earned}/${info.possible}</td>
@@ -280,7 +299,6 @@ function renderResults(data) {
   }
   tbody.innerHTML = rows;
 
-  // Study priorities
   const prioEl = document.getElementById('priority-list');
   let prioHtml = '';
   const priorities = (d.study_priorities || []).slice(0, 10);
@@ -290,13 +308,96 @@ function renderResults(data) {
         <span class="priority-rank">#${i + 1}</span>
         <div class="priority-info">
           <h4>${p.topic_display || p.topic}</h4>
-          <p>${p.reason} (exam: ${p.exam})</p>
+          <p>${p.reason} (prov: ${p.exam})</p>
         </div>
       </li>`;
   });
   prioEl.innerHTML = prioHtml;
 
   document.getElementById('screen-results').style.display = '';
+}
+
+function showExplanation(text) {
+  const el = document.getElementById('explain-area');
+  el.innerHTML = '<div class="explain-box"><div class="explain-header">Konceptförklaring</div><div class="explain-text" id="explain-text"></div></div>';
+  document.getElementById('explain-text').textContent = text;
+  document.getElementById('btn-explain').style.display = 'none';
+}
+
+async function requestExplanation() {
+  if (explainInFlight) return;
+  const q = questions[currentIdx];
+
+  if (explainCache[q.id]) { showExplanation(explainCache[q.id]); return; }
+
+  explainInFlight = true;
+  explainController = new AbortController();
+  const btn = document.getElementById('btn-explain');
+  btn.disabled = true;
+  btn.textContent = 'Laddar…';
+
+  const el = document.getElementById('explain-area');
+  el.innerHTML = '<div class="explain-box"><div class="explain-header">Konceptförklaring</div><div class="explain-text" id="explain-text"><span class="explain-loading-pulse">Analyserar frågan…</span></div></div>';
+  const textEl = document.getElementById('explain-text');
+
+  try {
+    const res = await fetch('/api/explain', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({question_id: q.id}),
+      signal: explainController.signal,
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      textEl.innerHTML = '';
+      textEl.textContent = err.error || 'Kunde inte hämta förklaring.';
+      textEl.classList.add('explain-error-text');
+      btn.disabled = false;
+      btn.textContent = 'Förklara';
+      explainInFlight = false;
+      return;
+    }
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let fullText = '';
+    textEl.textContent = '';
+
+    while (true) {
+      const {done, value} = await reader.read();
+      if (done) break;
+      const lines = decoder.decode(value, {stream: true}).split('\n');
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const payload = line.slice(6);
+        if (payload === '[DONE]') continue;
+        try {
+          const parsed = JSON.parse(payload);
+          if (parsed.error) {
+            fullText += '\n[Fel: ' + parsed.error + ']';
+          } else {
+            fullText += parsed.text;
+          }
+          textEl.textContent = fullText;
+        } catch {}
+      }
+    }
+
+    explainCache[q.id] = fullText;
+    btn.style.display = 'none';
+  } catch (err) {
+    if (err.name !== 'AbortError') {
+      textEl.innerHTML = '';
+      textEl.textContent = 'Nätverksfel. Försök igen.';
+      textEl.classList.add('explain-error-text');
+      btn.disabled = false;
+      btn.textContent = 'Förklara';
+    }
+  }
+
+  explainInFlight = false;
+  explainController = null;
 }
 
 document.addEventListener('keydown', e => {

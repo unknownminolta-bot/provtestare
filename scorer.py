@@ -1,5 +1,5 @@
 """
-Scoring engine and diagnostic report generator for exam practice.
+Poängräknare och diagnostikgenerator för provträning.
 """
 
 from __future__ import annotations
@@ -93,18 +93,18 @@ def _question_id(q: dict[str, Any]) -> str:
 
 def score_answers(questions: list[dict], user_answers: dict) -> dict:
     """
-    Score user answers against correct answers.
+    Poängsätt användarens svar mot facit.
 
     Args:
-        questions: list of question dicts (each has id, correct_answer, answer_type, tolerance, etc.)
-        user_answers: dict mapping question_id -> user's answer string
+        questions: lista av fråge-dicts (varje med id, correct_answer, answer_type, tolerance, etc.)
+        user_answers: dict som mappar question_id -> användarens svar (sträng)
 
-    Returns dict with:
+    Returnerar dict med:
         - "total_correct": int
         - "total_questions": int
         - "total_points_earned": int
         - "total_points_possible": int
-        - "per_question": list of dicts with {id, correct, user_answer, correct_answer, points, topic, topic_display}
+        - "per_question": lista av dicts med {id, correct, user_answer, correct_answer, points, topic, topic_display}
     """
     per_question: list[dict[str, Any]] = []
     total_correct = 0
@@ -161,10 +161,10 @@ def _safe_percentage(earned: float, possible: float) -> float:
 
 def _topic_status(pct: float) -> str:
     if pct >= 80.0:
-        return "strong"
+        return "stark"
     if pct >= 50.0:
-        return "review"
-    return "weak"
+        return "repetition"
+    return "svag"
 
 
 def _exam_name(q: dict[str, Any]) -> str:
@@ -172,7 +172,7 @@ def _exam_name(q: dict[str, Any]) -> str:
         v = q.get(key)
         if v is not None and str(v).strip():
             return str(v).strip()
-    return "Unknown"
+    return "Okänd"
 
 
 def _exam_frequency(q: dict[str, Any]) -> float:
@@ -192,8 +192,8 @@ def generate_diagnostic(scored_results: dict, questions: list[dict]) -> dict:
     Returns dict with:
         - "exam_scores": dict mapping exam name -> {earned, possible, percentage}
         - "topic_scores": dict mapping topic -> {earned, possible, percentage, exam_frequency, status}
-          where status is "strong" (>=80%), "review" (50-79%), or "weak" (<50%)
-        - "critical_misses": list of topics with exam_frequency >= 0.8 and status "weak"
+          where status is "stark" (>=80%), "repetition" (50-79%), or "svag" (<50%)
+        - "critical_misses": list of topics with exam_frequency >= 0.8 and status "svag"
         - "readiness": dict mapping exam name -> percentage (weighted by exam_frequency)
         - "study_priorities": list of {topic, topic_display, exam, priority_score, reason}
           sorted by priority_score descending
@@ -270,7 +270,7 @@ def generate_diagnostic(scored_results: dict, questions: list[dict]) -> dict:
 
     critical_misses: list[str] = []
     for topic, info in topic_scores.items():
-        if float(info["exam_frequency"]) >= 0.8 and info["status"] == "weak":
+        if float(info["exam_frequency"]) >= 0.8 and info["status"] == "svag":
             critical_misses.append(topic)
 
     study_priorities: list[dict[str, Any]] = []
@@ -283,14 +283,14 @@ def generate_diagnostic(scored_results: dict, questions: list[dict]) -> dict:
         if exam_weights:
             primary_exam = max(exam_weights.items(), key=lambda kv: kv[1])[0]
         else:
-            primary_exam = "Unknown"
+            primary_exam = "Okänd"
 
         pct = float(info["percentage"])
         status = str(info["status"])
         reason = (
-            f"Topic appears often on exams (frequency {freq:.0%}) and your score is {pct:.0f}% ({status})."
+            f"Ämnet förekommer ofta på prov (frekvens {freq:.0%}) och ditt resultat är {pct:.0f}% ({status})."
             if freq >= 0.5
-            else f"Score is {pct:.0f}% ({status}); improving this topic still helps overall readiness."
+            else f"Resultatet är {pct:.0f}% ({status}); förbättring av detta ämne höjer den totala beredskapen."
         )
 
         study_priorities.append(

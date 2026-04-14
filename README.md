@@ -1,19 +1,20 @@
-# Exam Knowledge Tester
+# Provtestare
 
-Flask-based practice exam app for Swedish university physics and math courses, plus a Casio fx-9860 formula sheet toolchain.
+Flask-baserad övningsapp för svenska högskolekurser i fysik, matematik och kemi, plus ett verktygskit för Casio fx-9860 formelsamlingar.
 
-## Exam modules
+## Provmoduler
 
-| Mode | Slug | Description |
-|------|------|-------------|
-| FYXF04 | `fyxf04` | Fysik 4 (Chalmers/LiU) |
-| MAXF02 | `maxf02` | Matematik 3c/4 |
-| Fysik 1+2 | `fysik12` | Fysik 1+2 (Mat-Fys provet) |
-| Full Diagnostic | `full` | All 55 questions |
+| Läge | Slug | Beskrivning | Frågor |
+|------|------|-------------|--------|
+| KEXF01 | `kexf01` | Kemi 1 — Tekniskt basår (omtenta) | 30 |
+| FYXF04 | `fyxf04` | Fysik 4 | 21 |
+| MAXF02 | `maxf02` | Matematik 3c/4 | 20 |
+| Fysik 1+2 | `fysik12` | Fysik 1+2 (Mat-Fys-provet) | 14 |
+| Fullständig diagnostik | `full` | Alla frågor | 85 |
 
-Questions are multiple-choice or numeric with tolerance-based grading. The scorer produces per-topic diagnostics and point breakdowns.
+Frågorna är flerval, numeriska (med toleransbaserad bedömning), eller fritext. Poängräknaren ger ämnesvis diagnostik, beredskapsvärden och studieprioriteter.
 
-## Quick start
+## Snabbstart
 
 ```bash
 python3 -m venv .venv
@@ -22,37 +23,39 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Open http://localhost:5111 in your browser.
+Öppna http://localhost:5111 i webbläsaren.
 
-## Casio fx-9860 formula tools
+### AI-förklaringar (valfritt)
 
-The `casio/` directory contains formula sheets and converters for the Casio fx-9860GIII calculator:
-
-- **`*.txt`** — Plain-text formula sheets per topic (Mekanik, Vagor, Elmagn, Termo, Modern, Konstanter)
-- **`FORMLER.py`** — Interactive Python menu for browsing formulas directly on the calculator
-- **`convert_to_eam.py`** — Converts `.txt` sheets to `.eam` format for [eAct Maker](https://tools.planet-casio.com/EactMaker/)
-- **`txt_to_g1e.py`** — Converts `.txt` sheets to `.g1e` files (transfer via USB)
-- **`generate_eam_g2e.py`** — Generates `.g2e` eActivity files with embedded formulas
-
-To regenerate the binary outputs:
-
-```bash
-cd casio
-python convert_to_eam.py    # -> eam/
-python txt_to_g1e.py         # -> g1e/
-python generate_eam_g2e.py   # -> eam_g2e/, g2e_out/
-```
-
-## Project structure
+Appen har en "Förklara"-knapp som via Gemini ger konceptförklaringar utan att avslöja svaret. Skapa en `.env`-fil i projektroten:
 
 ```
-app.py                  Flask application (port 5111)
-scorer.py               Scoring engine and diagnostic reports
-questions_physics.py    FYXF04 + Fysik 1+2 question banks
-questions_math.py       MAXF02 question bank
-templates/index.html    Web UI
-static/style.css        Styles
-requirements.txt        Python dependencies
-docs/                   Exam scheduling drafts
-casio/                  Calculator formula tools
+GEMINI_API_KEY=din-nyckel-här
+```
+
+Utan nyckel fungerar appen som vanligt — knappen visar ett tydligt felmeddelande. Modellen kan ändras med `GEMINI_MODEL` (standard: `gemini-2.5-flash`).
+
+## Casio fx-9860 formelverktyg
+
+Katalogen `casio/` innehåller formelsamlingar och konverterare för Casio fx-9860GIII:
+
+- **`*.txt`** — Formelsamlingar per ämne (Mekanik, Vågor, Elmagn, Termo, Modern, Konstanter)
+- **`FORMLER.py`** — Interaktiv Python-meny för att bläddra formler direkt på räknaren
+- **`convert_to_eam.py`** — Konverterar `.txt` till `.eam`-format
+- **`txt_to_g1e.py`** — Konverterar `.txt` till `.g1e`-filer (USB-överföring)
+- **`generate_eam_g2e.py`** — Genererar `.g2e` eActivity-filer med inbäddade formler
+
+## Projektstruktur
+
+```
+app.py                   Flask-app (port 5111)
+scorer.py                Poängräknare och diagnostikgenerator
+questions_physics.py     FYXF04 + Fysik 1+2 frågebanker
+questions_math.py        MAXF02 frågebank
+questions_chemistry.py   KEXF01 frågebank
+templates/index.html     Webb-UI
+static/style.css         Stilmall
+requirements.txt         Python-beroenden
+docs/                    Provschema-utkast
+casio/                   Räknarverktyg
 ```

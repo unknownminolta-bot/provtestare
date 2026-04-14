@@ -278,6 +278,51 @@ h2 {
   line-height: 1.6;
 }
 
+/* Explain / AI tutor */
+.btn-explain {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent-dim);
+}
+.btn-explain:hover:not(:disabled) { background: var(--accent-dim); color: #fff; }
+.btn-explain:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.explain-box {
+  margin-top: 1rem;
+  padding: 1.2rem;
+  border-radius: 8px;
+  background: #161a28;
+  border: 1px solid var(--accent-dim);
+}
+
+.explain-header {
+  font-family: var(--font);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.explain-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+.explain-error-text { color: var(--red); }
+
+.explain-loading-pulse {
+  color: var(--text-dim);
+  animation: pulse-fade 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-fade {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
 /* Results screen */
 .results-section {
   margin-bottom: 2rem;
