@@ -5,6 +5,7 @@ import base64
 import json
 import os
 import random
+from pathlib import Path
 
 from dotenv import load_dotenv
 from flask import Flask, Response, render_template, request, jsonify, session, stream_with_context
@@ -14,6 +15,8 @@ load_dotenv()
 from questions_physics import FYXF04_QUESTIONS, FYSIK12_QUESTIONS
 from questions_math import MAXF02_QUESTIONS
 from questions_chemistry import KEXF01_QUESTIONS
+from questions_hp import HP_PASSAGES, HP_DIAGRAMS, HP_SECTIONS, HP_QUESTIONS, build_hp_lookup, get_hp_questions_for_mode
+from hp_scorer import score_hp
 from scorer import score_answers, generate_diagnostic
 
 app = Flask(__name__)
@@ -45,11 +48,17 @@ def index():
     return render_template("index.html", exam_labels=EXAM_LABELS)
 
 
+@app.route("/hp")
+def hp_index():
+    return render_template("hp.html")
+
+
 @app.route("/api/status")
 def api_status():
     return jsonify({
         "ai_available": bool(os.environ.get("GEMINI_API_KEY")),
         "total_questions": len(ALL_QUESTIONS),
+        "hp_total_questions": len(HP_QUESTIONS),
     })
 
 
@@ -109,6 +118,117 @@ def submit_quiz():
         "solutions": solutions,
         "times": time_per_question,
     })
+
+
+def _hp_mode_limit(mode: str) -> int | None:
+    mode = (mode or "full").strip().lower()
+    return {
+        "full": 160,
+        "quant": 80,
+        "verbal": 80,
+        "diagnostic": 40,
+        "timeless": 160,
+    }.get(mode)
+
+
+def _hp_safe_question(q: dict) -> dict:
+    section = (q.get("section") or "").lower()
+    diagram = HP_DIAGRAMS.get(q.get("diagram_id", ""))
+    if not diagram and q.get("diagram_path"):
+        static_root = Path(__file__).with_name("static")
+        candidate = static_root / str(q.get("diagram_path"))
+        if candidate.exists():
+            diagram = {
+                "image_path": str(q.get("diagram_path")),
+                "description": "Importerat DTK-diagram",
+            }
+    out = {
+        "id": q["id"],
+        "section": section,
+        "domain_display": "Kvantitativ" if HP_SECTIONS.get(section, {}).get("domain") == "quantitative" else "Verbal",
+        "provpass": q.get("provpass", 2),
+        "question": q.get("question", ""),
+        "choices": q.get("choices", []),
+        "passage": HP_PASSAGES.get(q.get("passage_id", "")),
+        "diagram": diagram,
+        "nog_statement_1": q.get("nog_statement_1"),
+        "nog_statement_2": q.get("nog_statement_2"),
+        "kva_quantity_1": q.get("kva_quantity_1"),
+        "kva_quantity_2": q.get("kva_quantity_2"),
+    }
+    return out
+
+
+@app.route("/api/hp/start", methods=["POST"])
+def hp_start():
+    data = request.get_json() or {}
+    mode = str(data.get("mode", "full")).strip().lower()
+    section = str(data.get("section", "")).strip().lower()
+    timeless = mode == "timeless"
+
+    questions = get_hp_questions_for_mode(mode, section=section)
+    random.shuffle(questions)
+    limit = _hp_mode_limit(mode)
+    if limit:
+        questions = questions[: min(limit, len(questions))]
+
+    safe = [_hp_safe_question(q) for q in questions]
+    session["hp_mode"] = mode
+    session["hp_question_ids"] = [q["id"] for q in questions]
+    session["hp_normering_key"] = str(data.get("normering_key", "2025-ht"))
+    session["hp_timed"] = not timeless
+
+    return jsonify(
+        {
+            "questions": safe,
+            "total": len(safe),
+            "timeless": timeless,
+            "pass_seconds": 55 * 60,
+        }
+    )
+
+
+@app.route("/api/hp/submit", methods=["POST"])
+def hp_submit():
+    data = request.get_json() or {}
+    answers = data.get("answers", {}) or {}
+    times = data.get("times", {}) or {}
+
+    qids = session.get("hp_question_ids", [])
+    normering_key = session.get("hp_normering_key", "2025-ht")
+    lookup = build_hp_lookup()
+    questions = [lookup[qid] for qid in qids if qid in lookup]
+    score = score_hp(questions, answers, normering_key=normering_key)
+
+    return jsonify({"score": score, "times": times})
+
+
+@app.route("/api/hp/import-pdf", methods=["POST"])
+def hp_import_pdf():
+    api_key = os.environ.get("GEMINI_API_KEY")
+    data = request.get_json() or {}
+    years = data.get("years")
+    try:
+        from hp_pdf_parser import import_all_exams
+
+        result = import_all_exams(years=years)
+        return jsonify(result)
+    except Exception as exc:
+        return jsonify({"error": str(exc), "ai_available": bool(api_key)}), 500
+
+
+@app.route("/api/hp/generate", methods=["POST"])
+def hp_generate():
+    data = request.get_json() or {}
+    section = str(data.get("section", "xyz"))
+    count = int(data.get("count", 10))
+    try:
+        from hp_generator import generate_hp_questions
+
+        generated = generate_hp_questions(section=section, count=count)
+        return jsonify({"questions": generated, "count": len(generated)})
+    except Exception as exc:
+        return jsonify({"error": str(exc)}), 500
 
 
 _BLACKBOARD_SYSTEM_PROMPT = (

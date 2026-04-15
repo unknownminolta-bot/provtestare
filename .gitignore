@@ -13,3 +13,10 @@ casio/eam/
 casio/eam_g2e/
 casio/g1e/
 casio/g2e_out/
+
+# QA artifacts (screenshots, reports, manifests)
+artifacts/
+
+# HP import cache/generated assets
+data/hp_pdfs/
+static/hp/dtk/imported/

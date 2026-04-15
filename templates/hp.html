@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Provtestare – Högskoleprovet</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+  <div id="hp-screen-start" class="container hp-container">
+    <div class="hp-top-row">
+      <h1>HÖGSKOLEPROVET – FULL PRACTICE</h1>
+      <a class="btn btn-secondary" href="/">Tillbaka till Provtestare</a>
+    </div>
+    <h2>Öva med full provstruktur: XYZ, KVA, NOG, DTK, ORD, LÄS, MEK, ELF</h2>
+    <div class="hp-mode-grid">
+      <button class="hp-mode-card" onclick="hpStart('full')">
+        <h3>Helt prov</h3>
+        <p>160 frågor, 5 provpass à 55 min (inkl. utprövningspass)</p>
+      </button>
+      <button class="hp-mode-card" onclick="hpStart('quant')">
+        <h3>Kvantitativ del</h3>
+        <p>XYZ + KVA + NOG + DTK</p>
+      </button>
+      <button class="hp-mode-card" onclick="hpStart('verbal')">
+        <h3>Verbal del</h3>
+        <p>ORD + LÄS + MEK + ELF</p>
+      </button>
+      <button class="hp-mode-card" onclick="hpStart('diagnostic')">
+        <h3>Diagnostiskt test</h3>
+        <p>Kort mixad screening över alla delprov</p>
+      </button>
+      <button class="hp-mode-card" onclick="hpStart('timeless')">
+        <h3>Tidlöst läge</h3>
+        <p>Som helt prov men utan nedräkning</p>
+      </button>
+    </div>
+
+    <div class="hp-section-picker">
+      <label for="hp-section">Enskilt delprov:</label>
+      <select id="hp-section">
+        <option value="xyz">XYZ</option>
+        <option value="kva">KVA</option>
+        <option value="nog">NOG</option>
+        <option value="dtk">DTK</option>
+        <option value="ord">ORD</option>
+        <option value="las">LÄS</option>
+        <option value="mek">MEK</option>
+        <option value="elf">ELF</option>
+      </select>
+      <button class="btn btn-primary" onclick="hpStartSection()">Starta delprov</button>
+    </div>
+  </div>
+
+  <div id="hp-screen-quiz" style="display:none">
+    <div class="quiz-header">
+      <span class="question-counter" id="hp-counter">1 / 1</span>
+      <div style="flex:1; margin:0 1rem;">
+        <div class="progress-bar"><div class="progress-fill" id="hp-progress"></div></div>
+      </div>
+      <span class="timer" id="hp-timer">55:00</span>
+    </div>
+
+    <div class="container hp-container">
+      <div class="question-card hp-card">
+        <div class="hp-meta-row">
+          <span class="badge badge-topic" id="hp-section-badge">XYZ</span>
+          <span class="badge badge-points" id="hp-domain-badge">Kvantitativ</span>
+          <span class="badge badge-no-calc" id="hp-provpass-badge">Provpass 2</span>
+        </div>
+
+        <div class="hp-layout">
+          <div class="hp-left-pane" id="hp-left-pane" style="display:none">
+            <h3 id="hp-passage-title"></h3>
+            <div id="hp-passage-text" class="hp-passage-text"></div>
+          </div>
+
+          <div class="hp-right-pane">
+            <div id="hp-diagram-wrap" style="display:none">
+              <img id="hp-diagram-img" alt="DTK-diagram" class="hp-diagram-img">
+              <div id="hp-diagram-desc" class="unit-label"></div>
+            </div>
+
+            <div id="hp-kva-wrap" class="hp-kva-wrap" style="display:none">
+              <div class="hp-kva-box">
+                <h4>Kvantitet I</h4>
+                <div id="hp-kva-q1"></div>
+              </div>
+              <div class="hp-kva-box">
+                <h4>Kvantitet II</h4>
+                <div id="hp-kva-q2"></div>
+              </div>
+              <div class="hp-kva-legend">
+                <strong>Fast KVA-legend:</strong><br>
+                A: Kvantitet I är större<br>
+                B: Kvantitet II är större<br>
+                C: Kvantiteterna är lika stora<br>
+                D: Informationen är otillräcklig
+              </div>
+            </div>
+
+            <div id="hp-nog-wrap" class="hp-nog-wrap" style="display:none">
+              <div class="hp-nog-statement">
+                <strong>(1)</strong> <span id="hp-nog-1"></span>
+              </div>
+              <div class="hp-nog-statement">
+                <strong>(2)</strong> <span id="hp-nog-2"></span>
+              </div>
+            </div>
+
+            <div class="question-text" id="hp-question-text"></div>
+            <div id="hp-choice-area" class="choices-list"></div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="hpSkip()">Hoppa över</button>
+          <button class="btn btn-primary" id="hp-next-btn" onclick="hpNext()">Nästa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="hp-screen-results" class="container hp-container" style="display:none">
+    <h1>HP-RAPPORT</h1>
+    <h2 id="hp-results-headline"></h2>
+    <div class="hp-normering-gauge">
+      <div class="hp-normering-track"><div id="hp-normering-fill" class="hp-normering-fill"></div></div>
+      <div class="hp-normering-label" id="hp-normering-label"></div>
+    </div>
+
+    <div class="score-cards" id="hp-score-cards"></div>
+
+    <div class="results-section">
+      <h2>Delprovsresultat</h2>
+      <table class="topic-table">
+        <thead>
+        <tr>
+          <th>Delprov</th>
+          <th>Rätt</th>
+          <th>%</th>
+          <th>Domän</th>
+        </tr>
+        </thead>
+        <tbody id="hp-results-table"></tbody>
+      </table>
+    </div>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <button class="btn btn-primary" onclick="location.reload()">Nytt HP-pass</button>
+    </div>
+  </div>
+
+<script>
+let hpQuestions = [];
+let hpIdx = 0;
+let hpAnswers = {};
+let hpTimes = {};
+let hpStartStamp = null;
+let hpTimerInterval = null;
+let hpSecondsLeft = 55 * 60;
+let hpTimed = true;
+
+function hpRenderMath(el) {
+  if (typeof renderMathInElement === "function") {
+    renderMathInElement(el, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
+      ],
+      throwOnError: false,
+    });
+  }
+}
+
+async function hpStart(mode) {
+  const res = await fetch("/api/hp/start", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({mode}),
+  });
+  const data = await res.json();
+  hpQuestions = data.questions || [];
+  hpIdx = 0;
+  hpAnswers = {};
+  hpTimes = {};
+  hpTimed = !data.timeless;
+  hpSecondsLeft = data.pass_seconds || 55 * 60;
+  document.getElementById("hp-screen-start").style.display = "none";
+  document.getElementById("hp-screen-quiz").style.display = "";
+  hpShowQuestion();
+}
+
+function hpStartSection() {
+  const section = document.getElementById("hp-section").value;
+  fetch("/api/hp/start", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({mode: "section", section}),
+  }).then(r => r.json()).then(data => {
+    hpQuestions = data.questions || [];
+    hpIdx = 0;
+    hpAnswers = {};
+    hpTimes = {};
+    hpTimed = !data.timeless;
+    hpSecondsLeft = data.pass_seconds || 55 * 60;
+    document.getElementById("hp-screen-start").style.display = "none";
+    document.getElementById("hp-screen-quiz").style.display = "";
+    hpShowQuestion();
+  });
+}
+
+function hpShowQuestion() {
+  if (!hpQuestions.length) return;
+  const q = hpQuestions[hpIdx];
+  hpStartStamp = Date.now();
+  document.getElementById("hp-counter").textContent = `${hpIdx + 1} / ${hpQuestions.length}`;
+  document.getElementById("hp-progress").style.width = `${(hpIdx / hpQuestions.length) * 100}%`;
+  document.getElementById("hp-section-badge").textContent = (q.section || "").toUpperCase();
+  document.getElementById("hp-domain-badge").textContent = q.domain_display || "";
+  document.getElementById("hp-provpass-badge").textContent = `Provpass ${q.provpass || "-"}`;
+
+  document.getElementById("hp-question-text").textContent = q.question || "";
+  hpRenderMath(document.getElementById("hp-question-text"));
+
+  const isPassage = q.section === "las" || q.section === "elf";
+  const leftPane = document.getElementById("hp-left-pane");
+  leftPane.style.display = isPassage ? "" : "none";
+  if (isPassage && q.passage) {
+    document.getElementById("hp-passage-title").textContent = q.passage.title || "";
+    document.getElementById("hp-passage-text").textContent = q.passage.text || "";
+  }
+
+  const diagramWrap = document.getElementById("hp-diagram-wrap");
+  diagramWrap.style.display = (q.section === "dtk" && q.diagram) ? "" : "none";
+  if (q.section === "dtk" && q.diagram) {
+    document.getElementById("hp-diagram-img").src = "/" + (q.diagram.image_path || "").replace(/^\/+/, "");
+    document.getElementById("hp-diagram-desc").textContent = q.diagram.description || "";
+  }
+
+  const kvaWrap = document.getElementById("hp-kva-wrap");
+  kvaWrap.style.display = q.section === "kva" ? "" : "none";
+  if (q.section === "kva") {
+    document.getElementById("hp-kva-q1").textContent = q.kva_quantity_1 || "";
+    document.getElementById("hp-kva-q2").textContent = q.kva_quantity_2 || "";
+    hpRenderMath(document.getElementById("hp-kva-wrap"));
+  }
+
+  const nogWrap = document.getElementById("hp-nog-wrap");
+  nogWrap.style.display = q.section === "nog" ? "" : "none";
+  if (q.section === "nog") {
+    document.getElementById("hp-nog-1").textContent = q.nog_statement_1 || "";
+    document.getElementById("hp-nog-2").textContent = q.nog_statement_2 || "";
+  }
+
+  const choiceArea = document.getElementById("hp-choice-area");
+  choiceArea.innerHTML = "";
+  (q.choices || []).forEach(choice => {
+    const btn = document.createElement("button");
+    btn.className = "choice-btn";
+    btn.textContent = choice;
+    btn.onclick = () => {
+      document.querySelectorAll("#hp-choice-area .choice-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      hpAnswers[q.id] = (choice || "").trim().slice(0, 1).toUpperCase();
+    };
+    choiceArea.appendChild(btn);
+  });
+  hpRenderMath(choiceArea);
+  hpRunTimer();
+}
+
+function hpRunTimer() {
+  clearInterval(hpTimerInterval);
+  const timerEl = document.getElementById("hp-timer");
+  if (!hpTimed) {
+    timerEl.textContent = "Tidlöst";
+    return;
+  }
+  const render = () => {
+    const m = Math.floor(hpSecondsLeft / 60);
+    const s = hpSecondsLeft % 60;
+    timerEl.textContent = `${m}:${String(s).padStart(2, "0")}`;
+  };
+  render();
+  hpTimerInterval = setInterval(() => {
+    hpSecondsLeft -= 1;
+    render();
+    if (hpSecondsLeft <= 0) {
+      clearInterval(hpTimerInterval);
+      hpFinish();
+    }
+  }, 1000);
+}
+
+function hpRecordTime(qid) {
+  if (!hpStartStamp) return;
+  hpTimes[qid] = Math.floor((Date.now() - hpStartStamp) / 1000);
+}
+
+function hpSkip() {
+  const q = hpQuestions[hpIdx];
+  hpAnswers[q.id] = hpAnswers[q.id] || "";
+  hpRecordTime(q.id);
+  hpNext();
+}
+
+function hpNext() {
+  const q = hpQuestions[hpIdx];
+  hpAnswers[q.id] = hpAnswers[q.id] || "";
+  hpRecordTime(q.id);
+  if (hpIdx < hpQuestions.length - 1) {
+    hpIdx += 1;
+    hpShowQuestion();
+  } else {
+    hpFinish();
+  }
+}
+
+async function hpFinish() {
+  clearInterval(hpTimerInterval);
+  document.getElementById("hp-screen-quiz").style.display = "none";
+  const res = await fetch("/api/hp/submit", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({answers: hpAnswers, times: hpTimes}),
+  });
+  const data = await res.json();
+  hpRenderResults(data);
+}
+
+function hpRenderResults(data) {
+  document.getElementById("hp-screen-results").style.display = "";
+  const s = data.score || {};
+  document.getElementById("hp-results-headline").textContent =
+    `${s.total_correct || 0} / ${s.total_questions || 0} rätt • Slutscore: ${s.final_norm ?? 0.0}`;
+  const gauge = Math.max(0, Math.min(100, ((s.final_norm || 0) / 2.0) * 100));
+  document.getElementById("hp-normering-fill").style.width = `${gauge}%`;
+  document.getElementById("hp-normering-label").textContent =
+    `Kvant: ${s.quant_norm ?? 0} • Verbal: ${s.verbal_norm ?? 0} • Percentilestimat: ${s.percentile_estimate ?? 0}%`;
+
+  const cards = document.getElementById("hp-score-cards");
+  cards.innerHTML = `
+    <div class="score-card"><div class="score-value">${s.quant_raw ?? 0}</div><div class="score-label">Kvant råpoäng (max 80)</div></div>
+    <div class="score-card"><div class="score-value">${s.verbal_raw ?? 0}</div><div class="score-label">Verbal råpoäng (max 80)</div></div>
+    <div class="score-card"><div class="score-value">${s.final_norm ?? 0}</div><div class="score-label">Normerat 0.0–2.0</div></div>
+  `;
+
+  const tbody = document.getElementById("hp-results-table");
+  tbody.innerHTML = "";
+  const sections = s.per_section || {};
+  Object.keys(sections).forEach(k => {
+    const row = sections[k];
+    const pct = row.total ? Math.round((row.correct / row.total) * 100) : 0;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${row.display}</td><td>${row.correct}/${row.total}</td><td>${pct}%</td><td>${row.domain}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+</script>
+</body>
+</html>

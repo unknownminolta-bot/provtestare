@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+  <rect width="640" height="360" fill="#1a1d27"/>
+  <text x="24" y="36" fill="#e2e4ea" font-family="sans-serif" font-size="18">Pendlingstid per kommun (min)</text>
+  <line x1="70" y1="300" x2="590" y2="300" stroke="#8b8fa3" stroke-width="2"/>
+  <line x1="70" y1="300" x2="70" y2="70" stroke="#8b8fa3" stroke-width="2"/>
+  <rect x="120" y="220" width="70" height="80" fill="#6c8cff"/>
+  <rect x="240" y="190" width="70" height="110" fill="#f0c040"/>
+  <rect x="360" y="150" width="70" height="150" fill="#3dd68c"/>
+  <rect x="480" y="250" width="70" height="50" fill="#f05050"/>
+  <text x="150" y="325" fill="#e2e4ea" font-family="sans-serif" font-size="16">A</text>
+  <text x="270" y="325" fill="#e2e4ea" font-family="sans-serif" font-size="16">B</text>
+  <text x="390" y="325" fill="#e2e4ea" font-family="sans-serif" font-size="16">C</text>
+  <text x="510" y="325" fill="#e2e4ea" font-family="sans-serif" font-size="16">D</text>
+  <text x="20" y="305" fill="#8b8fa3" font-family="sans-serif" font-size="12">0</text>
+  <text x="16" y="245" fill="#8b8fa3" font-family="sans-serif" font-size="12">10</text>
+  <text x="16" y="185" fill="#8b8fa3" font-family="sans-serif" font-size="12">20</text>
+  <text x="16" y="125" fill="#8b8fa3" font-family="sans-serif" font-size="12">30</text>
+</svg>

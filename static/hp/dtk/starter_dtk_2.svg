@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+  <rect width="640" height="360" fill="#1a1d27"/>
+  <text x="24" y="36" fill="#e2e4ea" font-family="sans-serif" font-size="18">Elforbrukning per kvartal</text>
+  <line x1="70" y1="300" x2="590" y2="300" stroke="#8b8fa3" stroke-width="2"/>
+  <line x1="70" y1="300" x2="70" y2="70" stroke="#8b8fa3" stroke-width="2"/>
+  <polyline points="110,250 230,200 350,150 470,120" fill="none" stroke="#6c8cff" stroke-width="3"/>
+  <polyline points="110,230 230,220 350,210 470,190" fill="none" stroke="#f0c040" stroke-width="3"/>
+  <polyline points="110,270 230,260 350,245 470,230" fill="none" stroke="#3dd68c" stroke-width="3"/>
+  <text x="100" y="325" fill="#e2e4ea" font-family="sans-serif" font-size="16">Q1</text>
+  <text x="220" y="325" fill="#e2e4ea" font-family="sans-serif" font-size="16">Q2</text>
+  <text x="340" y="325" fill="#e2e4ea" font-family="sans-serif" font-size="16">Q3</text>
+  <text x="460" y="325" fill="#e2e4ea" font-family="sans-serif" font-size="16">Q4</text>
+  <rect x="510" y="78" width="14" height="14" fill="#6c8cff"/><text x="532" y="90" fill="#e2e4ea" font-family="sans-serif" font-size="13">Nord</text>
+  <rect x="510" y="102" width="14" height="14" fill="#f0c040"/><text x="532" y="114" fill="#e2e4ea" font-family="sans-serif" font-size="13">Syd</text>
+  <rect x="510" y="126" width="14" height="14" fill="#3dd68c"/><text x="532" y="138" fill="#e2e4ea" font-family="sans-serif" font-size="13">Ost</text>
+</svg>
