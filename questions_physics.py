@@ -746,14 +746,14 @@ FYSIK12_QUESTIONS = [
         "no_calculator": True,
         "question": (
             "$m = 200\\;\\text{g}$ vatten värms från $20\\;°\\text{C}$ till $70\\;°\\text{C}$. Hur mycket värme krävs? "
-            "Använd $c = 4200\\;\\text{J/(kg}\\cdot\\text{K)}$."
+            "Använd $c = 4200\\;\\text{J/(kg·K)}$."
         ),
         "answer_type": "multiple_choice",
         "correct_answer": "C",
         "tolerance": None,
         "unit": None,
         "solution": (
-            "$Q = mc\\Delta T = 0{,}200\\;\\text{kg} \\cdot 4200\\;\\text{J/(kg}\\cdot\\text{K)} \\cdot (70-20)\\;\\text{K} = 0{,}2 \\cdot 4200 \\cdot 50\\;\\text{J} = 42000\\;\\text{J}$. Alternativ C."
+            "$Q = mc\\Delta T = 0{,}200\\;\\text{kg} \\cdot 4200\\;\\text{J/(kg·K)} \\cdot (70-20)\\;\\text{K} = 0{,}2 \\cdot 4200 \\cdot 50\\;\\text{J} = 42000\\;\\text{J}$. Alternativ C."
         ),
         "choices": [
             "A) $4200\\;\\text{J}$",

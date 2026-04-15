@@ -533,7 +533,7 @@ KEXF01_QUESTIONS = [
         "question": (
             "Vilka intermolekylära bindningar (bindningar mellan molekyler) "
             "finns i följande föreningar?\n"
-            "$\\text{HF(l)}$ \\u2003 $\\text{N}_2\\text{(l)}$ \\u2003 $\\text{NH}_3\\text{(l)}$ \\u2003 $\\text{H}_2\\text{O(l)}$ \\u2003 $\\text{CH}_4\\text{(l)}$ \\u2003 $\\text{H}_2\\text{S(l)}$\n\n"
+            "$\\text{HF(l)}$   $\\text{N}_2\\text{(l)}$   $\\text{NH}_3\\text{(l)}$   $\\text{H}_2\\text{O(l)}$   $\\text{CH}_4\\text{(l)}$   $\\text{H}_2\\text{S(l)}$\n\n"
             "Vilken eller vilka av molekylerna ovan är dipoler?"
         ),
         "answer_type": "text",
