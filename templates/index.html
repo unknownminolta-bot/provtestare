@@ -113,7 +113,7 @@
           <input type="range" id="bb-width" min="2" max="8" value="3" class="bb-width-slider" oninput="bbStrokeWidth=+this.value" title="Linjebredd">
         </div>
       </div>
-      <canvas id="blackboard" width="760" height="300"></canvas>
+      <canvas id="blackboard"></canvas>
       <div class="bb-ask-row">
         <input type="text" id="bb-prompt" class="bb-prompt-input" placeholder="Beskriv vad du behöver hjälp med (valfritt)..." autocomplete="off">
         <button class="btn btn-primary bb-ask-btn" id="bb-ask-btn" onclick="bbAskGemini()" disabled>
@@ -178,6 +178,7 @@ let bbColor = '#ffffff';
 let bbStrokeWidth = 3;
 let bbDrawing = false;
 let bbController = null;
+let bbSnapshots = [];
 
 function bbCanvas() { return document.getElementById('blackboard'); }
 function bbCtx() { return bbCanvas().getContext('2d'); }
@@ -188,41 +189,60 @@ function toggleBlackboard() {
   if (panel.style.display === 'none') {
     panel.style.display = '';
     btn.classList.add('active');
-    bbResizeCanvas();
+    bbSyncSize();
   } else {
     panel.style.display = 'none';
     btn.classList.remove('active');
   }
 }
 
-function bbResizeCanvas() {
+function bbSyncSize() {
   const cv = bbCanvas();
-  const w = cv.parentElement.clientWidth;
-  if (w > 0 && cv.width !== w) {
-    const img = bbCtx().getImageData(0, 0, cv.width, cv.height);
+  const rect = cv.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const w = Math.round(rect.width * dpr);
+  const h = Math.round(rect.height * dpr);
+  if (cv.width !== w || cv.height !== h) {
     cv.width = w;
+    cv.height = h;
+    bbCtx().scale(dpr, dpr);
     bbRedraw();
   }
 }
 
+function bbPointerPos(e) {
+  const cv = bbCanvas();
+  const r = cv.getBoundingClientRect();
+  return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+
 function bbFillBg() {
   const ctx = bbCtx(), cv = bbCanvas();
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.fillStyle = BB_BG;
   ctx.fillRect(0, 0, cv.width, cv.height);
+  ctx.restore();
 }
 
 function bbDrawStroke(ctx, s) {
   if (s.pts.length < 2) return;
-  ctx.beginPath();
-  ctx.strokeStyle = s.color;
+  ctx.save();
+  if (s.eraser) {
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.strokeStyle = 'rgba(0,0,0,1)';
+  } else {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = s.color;
+  }
   ctx.lineWidth = s.width;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
+  ctx.beginPath();
   ctx.moveTo(s.pts[0].x, s.pts[0].y);
-  for (let i = 1; i < s.pts.length; i++) {
-    ctx.lineTo(s.pts[i].x, s.pts[i].y);
-  }
+  for (let i = 1; i < s.pts.length; i++) ctx.lineTo(s.pts[i].x, s.pts[i].y);
   ctx.stroke();
+  ctx.restore();
 }
 
 function bbRedraw() {
@@ -231,13 +251,13 @@ function bbRedraw() {
   for (const s of bbStrokes) bbDrawStroke(ctx, s);
 }
 
-function bbUpdateAskBtn() {
-  document.getElementById('bb-ask-btn').disabled = bbStrokes.length === 0;
+function bbSaveSnapshot() {
+  const cv = bbCanvas();
+  bbSnapshots.push(bbCtx().getImageData(0, 0, cv.width, cv.height));
 }
 
-function bbPointerPos(e) {
-  const r = bbCanvas().getBoundingClientRect();
-  return { x: e.clientX - r.left, y: e.clientY - r.top };
+function bbUpdateAskBtn() {
+  document.getElementById('bb-ask-btn').disabled = bbStrokes.length === 0;
 }
 
 function bbPointerDown(e) {
@@ -246,10 +266,12 @@ function bbPointerDown(e) {
   bbCanvas().setPointerCapture(e.pointerId);
   const p = bbPointerPos(e);
   const isEraser = bbTool === 'eraser';
+  bbSaveSnapshot();
   bbCurrentStroke = {
     pts: [p],
     color: isEraser ? BB_BG : bbColor,
-    width: isEraser ? bbStrokeWidth * 3 : bbStrokeWidth,
+    width: isEraser ? bbStrokeWidth * 4 : bbStrokeWidth,
+    eraser: isEraser,
   };
 }
 
@@ -257,7 +279,9 @@ function bbPointerMove(e) {
   if (!bbDrawing || !bbCurrentStroke) return;
   const p = bbPointerPos(e);
   bbCurrentStroke.pts.push(p);
-  bbDrawStroke(bbCtx(), { pts: bbCurrentStroke.pts.slice(-2), color: bbCurrentStroke.color, width: bbCurrentStroke.width });
+  const ctx = bbCtx();
+  const seg = { pts: bbCurrentStroke.pts.slice(-2), color: bbCurrentStroke.color, width: bbCurrentStroke.width, eraser: bbCurrentStroke.eraser };
+  bbDrawStroke(ctx, seg);
 }
 
 function bbPointerUp() {
@@ -265,6 +289,8 @@ function bbPointerUp() {
   bbDrawing = false;
   if (bbCurrentStroke && bbCurrentStroke.pts.length >= 2) {
     bbStrokes.push(bbCurrentStroke);
+  } else {
+    bbSnapshots.pop();
   }
   bbCurrentStroke = null;
   bbUpdateAskBtn();
@@ -272,6 +298,8 @@ function bbPointerUp() {
 
 function bbSetTool(tool) {
   bbTool = tool;
+  const cv = bbCanvas();
+  cv.style.cursor = tool === 'eraser' ? 'cell' : 'crosshair';
   document.querySelectorAll('.bb-tool').forEach(b => b.classList.remove('active'));
   document.getElementById(tool === 'pen' ? 'bb-pen' : 'bb-eraser').classList.add('active');
 }
@@ -286,12 +314,23 @@ function bbSetColor(el) {
 function bbUndo() {
   if (bbStrokes.length === 0) return;
   bbStrokes.pop();
-  bbRedraw();
+  const snap = bbSnapshots.pop();
+  if (snap) {
+    const cv = bbCanvas();
+    if (snap.width === cv.width && snap.height === cv.height) {
+      bbCtx().putImageData(snap, 0, 0);
+    } else {
+      bbRedraw();
+    }
+  } else {
+    bbRedraw();
+  }
   bbUpdateAskBtn();
 }
 
 function bbClear() {
   bbStrokes = [];
+  bbSnapshots = [];
   bbRedraw();
   bbUpdateAskBtn();
   const resp = document.getElementById('bb-response');
@@ -301,6 +340,7 @@ function bbClear() {
 
 function bbResetForQuestion() {
   bbStrokes = [];
+  bbSnapshots = [];
   bbCurrentStroke = null;
   const panel = document.getElementById('blackboard-panel');
   panel.style.display = 'none';
@@ -310,7 +350,8 @@ function bbResetForQuestion() {
   resp.innerHTML = '';
   document.getElementById('bb-prompt').value = '';
   if (bbController) { bbController.abort(); bbController = null; }
-  bbRedraw();
+  const cv = bbCanvas();
+  if (cv.width > 0) bbRedraw();
   bbUpdateAskBtn();
 }
 
@@ -327,7 +368,14 @@ async function bbAskGemini() {
   bbController = new AbortController();
 
   const cv = bbCanvas();
-  const dataUrl = cv.toDataURL('image/png');
+  const exportCv = document.createElement('canvas');
+  exportCv.width = cv.width;
+  exportCv.height = cv.height;
+  const ectx = exportCv.getContext('2d');
+  ectx.fillStyle = BB_BG;
+  ectx.fillRect(0, 0, exportCv.width, exportCv.height);
+  ectx.drawImage(cv, 0, 0);
+  const dataUrl = exportCv.toDataURL('image/png');
   const b64 = dataUrl.split(',')[1];
 
   const q = questions[currentIdx];
@@ -667,10 +715,9 @@ document.addEventListener('DOMContentLoaded', () => {
   cv.addEventListener('pointermove', bbPointerMove);
   cv.addEventListener('pointerup', bbPointerUp);
   cv.addEventListener('pointerleave', bbPointerUp);
-  bbFillBg();
   window.addEventListener('resize', () => {
     if (document.getElementById('blackboard-panel').style.display !== 'none') {
-      bbResizeCanvas();
+      bbSyncSize();
     }
   });
 });
