@@ -199,13 +199,11 @@ function toggleBlackboard() {
 function bbSyncSize() {
   const cv = bbCanvas();
   const rect = cv.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  const w = Math.round(rect.width * dpr);
-  const h = Math.round(rect.height * dpr);
+  const w = Math.round(rect.width);
+  const h = Math.round(rect.height);
   if (cv.width !== w || cv.height !== h) {
     cv.width = w;
     cv.height = h;
-    bbCtx().scale(dpr, dpr);
     bbRedraw();
   }
 }
@@ -213,16 +211,16 @@ function bbSyncSize() {
 function bbPointerPos(e) {
   const cv = bbCanvas();
   const r = cv.getBoundingClientRect();
-  return { x: e.clientX - r.left, y: e.clientY - r.top };
+  return {
+    x: (e.clientX - r.left) * (cv.width / r.width),
+    y: (e.clientY - r.top) * (cv.height / r.height)
+  };
 }
 
 function bbFillBg() {
   const ctx = bbCtx(), cv = bbCanvas();
-  ctx.save();
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.fillStyle = BB_BG;
   ctx.fillRect(0, 0, cv.width, cv.height);
-  ctx.restore();
 }
 
 function bbDrawStroke(ctx, s) {
