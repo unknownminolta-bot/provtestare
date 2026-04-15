@@ -101,8 +101,8 @@ FYXF04_QUESTIONS = [
         "no_calculator": False,
         "question": (
             "Polonium-210 genomgår alfasönderfall. "
-            "Skriv sönderfallsreaktionen och bestäm den frigjorda energin $Q$ i MeV.\\n"
-            "Atommassor: Po-210: $209{,}9829\\;\\text{u}$, Pb-206: $205{,}9745\\;\\text{u}$, He-4: $4{,}0026\\;\\text{u}$.\\n"
+            "Skriv sönderfallsreaktionen och bestäm den frigjorda energin $Q$ i MeV.\n"
+            "Atommassor: Po-210: $209{,}9829\\;\\text{u}$, Pb-206: $205{,}9745\\;\\text{u}$, He-4: $4{,}0026\\;\\text{u}$.\n"
             "($1\\;\\text{u} \\approx 931{,}5\\;\\text{MeV}/c^2$)"
         ),
         "answer_type": "numeric",
@@ -124,10 +124,10 @@ FYXF04_QUESTIONS = [
         "exam_frequency": 1.0,
         "no_calculator": False,
         "question": (
-            "Kol-14 genomgår $\\beta^-$-sönderfall.\\n"
-            "a) Identifiera dotterkärnan.\\n"
-            "b) Bestäm den frigjorda energin $Q$ i MeV.\\n"
-            "Atommassor: C-14: $14{,}003242\\;\\text{u}$, N-14: $14{,}003074\\;\\text{u}$.\\n"
+            "Kol-14 genomgår $\\beta^-$-sönderfall.\n"
+            "a) Identifiera dotterkärnan.\n"
+            "b) Bestäm den frigjorda energin $Q$ i MeV.\n"
+            "Atommassor: C-14: $14{,}003242\\;\\text{u}$, N-14: $14{,}003074\\;\\text{u}$.\n"
             "($1\\;\\text{u} \\approx 931{,}5\\;\\text{MeV}/c^2$)"
         ),
         "answer_type": "numeric",
