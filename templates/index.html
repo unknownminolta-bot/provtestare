@@ -17,19 +17,19 @@
   <h2>Testa din beredskap inför kommande prov</h2>
   <div class="mode-grid">
     <div class="mode-card" onclick="startQuiz('kexf01')">
-      <h3>KEXF01 — Kemi 1</h3>
+      <h3>{{ exam_labels['kexf01'] }}</h3>
       <p>Omtenta-förberedelse — 30 frågor<br>Jonföreningar, pH, stökiometri, redox, gaslag</p>
     </div>
     <div class="mode-card" onclick="startQuiz('fyxf04')">
-      <h3>FYXF04</h3>
+      <h3>{{ exam_labels['fyxf04'] }}</h3>
       <p>Fysik 4 — 21 frågor<br>Optik, kärnfysik, atomfysik, kvant, astro</p>
     </div>
     <div class="mode-card" onclick="startQuiz('maxf02')">
-      <h3>MAXF02 / Mat-Fys Matte</h3>
+      <h3>{{ exam_labels['maxf02'] }}</h3>
       <p>Matematik 3c/4 — 20 frågor<br>Trig, derivata, optimering</p>
     </div>
     <div class="mode-card" onclick="startQuiz('fysik12')">
-      <h3>Fysik 1+2</h3>
+      <h3>{{ exam_labels['fysik12'] }}</h3>
       <p>Mat-Fys-provet fysik — 14 frågor<br>Mekanik, EM, vågor, kvant</p>
     </div>
     <div class="mode-card" onclick="startQuiz('full')">

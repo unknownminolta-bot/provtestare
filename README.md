@@ -66,6 +66,8 @@ Kör `./start.sh` — appen startar på `0.0.0.0:5111` och skriptet visar din LA
 docker compose up --build
 ```
 
+Appen körs på port 8080: öppna http://localhost:8080
+
 ### Alt 4: Zipfil
 
 Zippa och skicka. Mottagaren kör:
