@@ -5,7 +5,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app.py scorer.py questions_*.py ./
+COPY app.py scorer.py hp_scorer.py hp_pdf_parser.py hp_generator.py questions_*.py ./
+COPY data/hp_imported_questions.json data/
 COPY templates/ templates/
 COPY static/ static/
 
