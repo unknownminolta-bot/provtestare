@@ -14,6 +14,7 @@ def _section_prompt(section: str) -> str:
     base = (
         "Du skapar frågor i svensk högskoleprovsstil.\n"
         "Krav:\n"
+        "- All svensk löptext ska använda korrekta bokstäverna å, ä och ö (aldrig ersätta dem med a/e/o).\n"
         "- Svara ENDAST med JSON-array.\n"
         "- Varje objekt ska innehålla: question, choices, correct_answer, solution, difficulty.\n"
         "- correct_answer ska vara en bokstav (A-E).\n"

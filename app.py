@@ -21,6 +21,8 @@ from scorer import score_answers, generate_diagnostic
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "exam-tester-local-only-key")
+# Preserve å/ä/ö in JSON responses (UTF-8 body, no \\uXXXX escapes for non-ASCII).
+app.config["JSON_AS_ASCII"] = False
 
 ALL_QUESTIONS = (
     FYXF04_QUESTIONS + FYSIK12_QUESTIONS + MAXF02_QUESTIONS + KEXF01_QUESTIONS

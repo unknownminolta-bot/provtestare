@@ -1,4 +1,4 @@
-"""Scoring for Hogskoleprovet practice modes."""
+"""Scoring for Högskoleprovet practice modes."""
 
 from __future__ import annotations
 
