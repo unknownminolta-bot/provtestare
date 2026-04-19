@@ -15,6 +15,14 @@ Each row maps a **Cursor sub-agent** (`~/.dotfiles/cursor/agents/casio-*.md`) to
 
 ## Regenerate and deploy
 
+From repo root:
+
+```bash
+make          # test + full g2e/g1e build (needs network)
+```
+
+Or from `casio/`:
+
 ```bash
 python3 generate_eam_g2e.py --convert --formats both
 ./deploy_g1e_to_usb.sh    # when USB is connected
