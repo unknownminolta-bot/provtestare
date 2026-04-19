@@ -47,10 +47,10 @@ def mekanik():
 " v=v0+a*t\n"
 " v_m=(v0+v)/2")
   elif v=="2": p(
-"ax=0 vx=v0*cos(a)\n"
+"a_h=0 v_h=v0*cos(a)\n"
 "x=v0*cos(a)*t\n"
-"ay=-g\n"
-"vy=v0*sin(a)-g*t\n"
+"a_v=-g\n"
+"v_v=v0*sin(a)-g*t\n"
 "y=v0*sin(a)*t\n"
 "  -g*t^2/2\n"
 "Stighoejd:\n"
@@ -71,9 +71,9 @@ def mekanik():
 " T=2pi*sqrt(l/g)")
   elif v=="4": p(
 "F_res=m*a\n"
-"FG=G*m1*m2/r^2\n"
-"Fk=k*dl (Hooke)\n"
-"Ff=mu*FN\n"
+"F=G*m1*m2/r^2\n"
+"F=k*dl (Hooke)\n"
+"F=mu*FN\n"
 "M=F*l\n"
 "Summa M=0\n"
 "Kepler: T^2/r^3=C")
@@ -84,7 +84,8 @@ def mekanik():
 "Ek=m*v^2/2\n"
 "E=Ep+Ek\n"
 "P=dE/dt=Fs*v\n"
-"n=E_nytt/E_tillf")
+"eta=E_n/E_t\n"
+"   =P_n/P_t")
   elif v=="6": p(
 "p=m*v\n"
 "I=F*t\n"
@@ -130,13 +131,13 @@ def vagor():
 " (avrunda nedat)\n"
 "Tot max: 2*n_max+1")
   elif v=="5": p(
-"sin(ai)/sin(ab)\n"
-" =vi/vb\n"
+"sin(ai)/sin(ar)\n"
+" =vi/vr\n"
 "n1*sin(a1)\n"
 " =n2*sin(a2)\n"
 "n=c/cm\n"
 "Totalreflektion:\n"
-" sin(ag)=n2/n1")
+" sin(ak)=n2/n1")
   elif v=="6": p(
 "luft     1.00\n"
 "vatten   1.33\n"
@@ -273,14 +274,14 @@ def modern():
 "Masstal: oforandr.\n"
 "Atomnr:  oforandr.")
   elif v=="4": p(
-"lambda=ln2/T_half\n"
-"N=N0*(1/2)^(t/Th)\n"
+"lambda=ln2/T_halv\n"
+"N=N0*(1/2)^(t/T_halv)\n"
 "N=N0*e^(-lam*t)\n"
 "A=lambda*N\n"
-"A=A0*(1/2)^(t/Th)\n"
+"A=A0*(1/2)^(t/T_halv)\n"
 "---Absorption---\n"
-"mu=ln2/d_half\n"
-"I=I0*(1/2)^(x/dh)\n"
+"mu=ln2/d_halv\n"
+"I=I0*(1/2)^(x/d_halv)\n"
 "I=I0*e^(-mu*x)\n"
 "---Massdefekt---\n"
 "E=dm*c^2\n"
@@ -291,6 +292,7 @@ def modern():
 " hf=Wu+Ek\n"
 " f0=Wu/h\n"
 "Vate: En=-13.6/n^2\n"
+"Overgang: E=|E(n1)-E(n2)|\n"
 "Snabbf:\n"
 " E(eV)*l(nm)=1240\n"
 "Foton: p=E/c=h/l\n"
@@ -304,7 +306,7 @@ def modern():
 "Flykthast:\n"
 " v=sqrt(2Gm/R)\n"
 "Schwarzschild:\n"
-" rSch=2Gm/c^2\n"
+" rS=2Gm/c^2\n"
 "Rodforskj:\n"
 " z=(l-l0)/l0~v/c\n"
 "Hubble:\n"

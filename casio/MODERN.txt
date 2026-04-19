@@ -45,6 +45,22 @@ Moderkarnans:
  atomnr   -2
 X -> Y + He-4
 
+Q-varde (atommassor):
+ Q=(m(X)-m(Y)
+    -m(He4))*c^2
+Inga me-korr behovs:
+moder har Z el., dotter
+har Z-2 el., He-atomen
+har 2 el. -> balans.
+
+Ex: Th-232 -> Ra-228
+ m(Th232)=232.038055
+ m(Ra228)=228.031070
+ m(He4)  =  4.002602
+ dm = 0.004383 u
+ Q = 0.004383*931.5
+   = 4.08 MeV
+
 >> BETA-MINUS <<
 Neutron -> proton
  + elektron
@@ -53,6 +69,15 @@ Moderkarnans:
  masstal  oforandrat
  atomnr   +1
 
+Q-varde (atommassor):
+ Q=(m(X)-m(Y))*c^2
+Inga me-korr behovs:
+dotter har Z+1 el. i
+atommassan, vilket
+"absorberar" den ut-
+sanda elektronen.
+(neutrino antas 0.)
+
 >> BETA-PLUS <<
 Proton -> neutron
  + positron
@@ -60,6 +85,48 @@ Proton -> neutron
 Moderkarnans:
  masstal  oforandrat
  atomnr   -1
+
+Q-varde (atommassor):
+ Q=(m(X)-m(Y)
+    -2*me)*c^2
+ me = 0.000549 u
+    = 0.511 MeV/c^2
+OBS faktor 2!
+ 1*me: positronens massa
+ 1*me: dotter har Z-1
+       el. i atommassan
+       (en for lite).
+
+Ex: K-40 -> Ar-40 + e+
+ m(K40) =39.963998
+ m(Ar40)=39.962383
+ 2*me   = 0.001098
+ dm = 0.000517 u
+ Q = 0.482 MeV
+
+Tumregel:
+ Q>0 kravs for att
+ sonderfallet ska
+ ske spontant.
+ B+ kraver minst
+ 2*me*c^2=1.022 MeV
+ i massdiff.
+
+>> ELEKTRONINFANGNING <<
+(alternativ till B+)
+Karna fangar in en
+inre elektron:
+p + e- -> n + neutrino
+Moderkarnans:
+ masstal  oforandrat
+ atomnr   -1
+
+Q-varde (atommassor):
+ Q=(m(X)-m(Y))*c^2
+ (ingen 2me-korr)
+Mojligt aven nar
+B+ ej ar mojligt
+(Q < 1.022 MeV).
 
 >> GAMMA <<
 Karna gar fran
@@ -70,25 +137,29 @@ Atomnr oforandrat.
 Foton (gamma) sands
 ut med E = hf.
 
+Q = E_foton
+   = h*f
+   = h*c/lambda
+
 --- SONDERFALLSLAG ---
 Sonderfallskonstant:
- lambda = ln2/T_half
+ lambda = ln2/T_halv
 
 Sonderfallslagen:
- N = N0*(1/2)^(t/T_h)
+ N = N0*(1/2)^(t/T_halv)
  N = N0*e^(-lambda*t)
 
 Aktivitet:
  A = lambda*N
 Aktivitetslagen:
- A = A0*(1/2)^(t/T_h)
+ A = A0*(1/2)^(t/T_halv)
  A = A0*e^(-lambda*t)
 
 --- ABSORPTION ---
 Absorptionskoeff:
- mu = ln2/d_half
+ mu = ln2/d_halv
 Absorption:
- I = I0*(1/2)^(x/d_h)
+ I = I0*(1/2)^(x/d_halv)
  I = I0*e^(-mu*x)
 
 Energi fran massdef:
@@ -112,7 +183,7 @@ Energinivaer vate:
  (n = 1,2,3,...)
 
 Foton vid overgang:
- E = |En1 - En2|
+ E = |E(n1) - E(n2)|
  lambda = h*c/E
 Snabbformel:
  lambda(nm)=1240/E(eV)
@@ -136,7 +207,7 @@ Flykthastighet:
  v = sqrt(2*G*m/R)
 
 Schwarzschildradie:
- r_Sch = 2*G*m/c^2
+ r_S = 2*G*m/c^2
 
 Rodforskjutning:
  z=(lambda-lambda0)

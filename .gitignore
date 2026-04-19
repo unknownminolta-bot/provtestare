@@ -12,7 +12,10 @@ monitor-email.sh
 casio/eam/
 casio/eam_g2e/
 casio/g1e/
+casio/g1e_fixed/
+casio/g2e_fixed/
 casio/g2e_out/
+casio/backups/
 
 # QA artifacts (screenshots, reports, manifests)
 artifacts/

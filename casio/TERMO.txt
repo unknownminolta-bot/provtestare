@@ -7,7 +7,7 @@ Tryck: p = F/A
 Vatsketryck:
  p = p0 + rho*g*h
 Arkimedes princip:
- F_lyft = rho_v*V*g
+ F = rho_v*V*g
 
 Ideala gaslagen:
  p*V/T = konst

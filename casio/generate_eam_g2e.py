@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Generate .eam files with Eact Maker markup for proper math rendering.
+"""Generate render-safe EactMaker exports for the calculator formula banks.
 
 Uses \\frac{}{}, ^{}, _{}, and \\func; codes for Greek/special chars.
-Then submits to planet-casio EactMaker to produce .g2e files.
+Then submits to planet-casio EactMaker to produce `.g2e` and/or `.g1e` files.
 
 Usage:
-  python generate_eam_g2e.py          # generate .eam files only
-  python generate_eam_g2e.py --convert  # also convert to .g2e via EactMaker
+  python generate_eam_g2e.py                     # generate g2e .eam files only
+  python generate_eam_g2e.py --convert          # also convert to .g2e via EactMaker
+  python generate_eam_g2e.py --convert --formats both   # also build fx-9860GIII .g1e files
 """
 
+import argparse
 import re
 import sys
 import os
@@ -16,8 +18,14 @@ import urllib.request
 import urllib.parse
 from pathlib import Path
 
+from formula_audit import audit_text
+from normalize_eam_subscripts import normalize_calculator_export
+
 SCRIPT_DIR = Path(__file__).parent
 OUT_DIR = SCRIPT_DIR / "g2e_out"
+G1E_DIR = SCRIPT_DIR / "g1e_fixed"
+G2E_FIXED_DIR = SCRIPT_DIR / "g2e_fixed"
+EAM_G2E_DIR = SCRIPT_DIR / "eam_g2e"
 
 SECTIONS = {
     "MEKANIK": {
@@ -40,15 +48,15 @@ Konstant hastighet:
 Konst. acceleration:
  s = v\subs0;t + \frac{at^{2}}{2}
  v = v\subs0; + at
- v\submi; = \frac{v\subs0;+v}{2}
+ v\subm; = \frac{v\subs0;+v}{2}
 
 --- KASTRORELSE ---
 Horisontellt:
- a\submi;=0, v\submi;=v\subs0;cos(\alpha;)
+ a\subh;=0, v\subh;=v\subs0;cos(\alpha;)
  x = v\subs0;cos(\alpha;)t
 Vertikalt:
- a\submi;=\minus;g
- v\submi;=v\subs0;sin(\alpha;)\minus;gt
+ a\subv;=\minus;g
+ v\subv;=v\subs0;sin(\alpha;)\minus;gt
  y=v\subs0;sin(\alpha;)t \minus; \frac{gt^{2}}{2}
 Stigh\ouml;jd:
  h = \frac{v\subs0;^{2}sin^{2}(\alpha;)}{2g}
@@ -60,14 +68,14 @@ Vinkelhast. \omega; = \frac{\Delta;\theta;}{\Delta;t}
 Konst: \theta; = \omega;t
 Banhast. v = \omega;r
 Centrip.acc:
- a\subc; = \frac{v^{2}}{r} = r\omega;^{2}
+ a\subr; = \frac{v^{2}}{r} = r\omega;^{2}
     = \frac{4\pi;^{2}r}{T^{2}}
 
 --- HARM. SV\Auml;NGN. ---
 Vinkelfrekvens:
  \omega; = \sqrt{\frac{k}{m}}
 Elongation:
- x = Asin(\omega;t)
+ x = A\times;sin(\omega;t)
 Period:
  T = 2\pi;\sqrt{\frac{m}{k}}
 Pot. energi:
@@ -77,13 +85,13 @@ Pendel:
 
 --- KRAFTER ---
 Newtons andra lag:
- F\submi; = ma
+ F\subres; = ma
 Gravitation:
- F\subG; = \frac{Gm\subs1;m\subs2;}{r^{2}}
+ F = \frac{Gm\subs1;m\subs2;}{r^{2}}
 Hookes lag:
- F\submi; = k\Delta;l
+ F = k\Delta;l
 Friktion:
- F\subf; = \mu;F\subN;
+ F = \mu;F\subN;
 
 --- GRAVITATION ---
 Keplers 3:e lag:
@@ -105,7 +113,7 @@ Mek. energi:
 Effekt: P = \frac{\Delta;E}{\Delta;t}
  P = F\subs;v
 Verkningsgrad:
- \eta; = \frac{E\submi;}{E\submi;}
+ \eta; = \frac{E\subn;}{E\subt;} = \frac{P\subn;}{P\subt;}
 
 --- R\ouml;RELSEM\Auml;NGD ---
  p = mv
@@ -144,21 +152,21 @@ Destruktiv:
  \Delta;s = (k+\frac{1}{2})\lambda;
 
 --- GITTERFORMELN ---
- n\lambda; = dsin(\alpha;\subn;)
+ n\lambda; = d\times;sin(\alpha;\subn;)
 
 d = gitterkonstant
 n = ordning (0,1,2..)
 \alpha;\subn; = vinkel for max n
 
 Max antal ordningar:
- n\submi; = \frac{d}{\lambda;}
+ n\submax; = \frac{d}{\lambda;}
  (avrunda nedat)
 Totalt antal max:
- 2n\submi; + 1
+ 2n\submax; + 1
 
 --- BRYTNING ---
 Snells lag:
- \frac{sin(\alpha;\subi;)}{sin(\alpha;\subb;)} = \frac{v\subi;}{v\subb;}
+ \frac{sin(\alpha;\subi;)}{sin(\alpha;\subr;)} = \frac{v\subi;}{v\subr;}
 
 Med brytningsindex:
  n\subs1;sin(\alpha;\subs1;) = n\subs2;sin(\alpha;\subs2;)
@@ -167,7 +175,7 @@ Brytningsindex:
  n = \frac{c}{c\subm;}
 
 Totalreflektion vid:
- sin(\alpha;\subg;) = \frac{n\subs2;}{n\subs1;}
+ sin(\alpha;\subk;) = \frac{n\subs2;}{n\subs1;}
  (n\subs1; > n\subs2;)
 
 --- BRYTNINGSINDEX ---
@@ -193,7 +201,7 @@ Ohms lag: U = RI
 
 --- KRETSAR ---
 Kirchhoff str\ouml;m:
- \Sigma;I\submi; = \Sigma;I\submi;
+ \Sigma;I\subi; = \Sigma;I\subu;
 
 Kirchhoff sp\auml;nning:
  U = U\subs1; + ... + U\subn;
@@ -220,7 +228,7 @@ Faltstyrka:
 Homogent falt:
  E = \frac{U}{d}
 Potentialskillnad:
- U\subA;\subB; = |V\subA; \minus; V\subB;|
+ U\subs1;\subs2; = |V\subs1; \minus; V\subs2;|
 
 --- KONDENSATOR ---
 Kapacitans: C = \frac{Q}{U}
@@ -257,12 +265,12 @@ Induktans:
 
 --- V\Auml;XELSTR\Ouml;M ---
 V\auml;xelsp\auml;nning:
- u = u\submi;sin(\omega;t)
+ u = u\submax;sin(\omega;t)
 V\auml;xelstr\ouml;m:
- i = i\submi;sin(\omega;t)
+ i = i\submax;sin(\omega;t)
 Effektivv\auml;rde:
- U = \frac{u\submi;}{\sqrt{2}}
- I = \frac{i\submi;}{\sqrt{2}}
+ U = \frac{u\submax;}{\sqrt{2}}
+ I = \frac{i\submax;}{\sqrt{2}}
 
 Transformator:
  \frac{N\subs1;}{N\subs2;} = \frac{U\subs1;}{U\subs2;} = \frac{I\subs2;}{I\subs1;}
@@ -277,7 +285,7 @@ Tryck: p = \frac{F}{A}
 V\auml;tsketryck:
  p = p\subs0; + \rho;gh
 Arkimedes princip:
- F\submi; = \rho;\subv;Vg
+ F = \rho;\subv;Vg
 
 Ideala gaslagen:
  \frac{pV}{T} = konst
@@ -361,7 +369,7 @@ R\ouml;relseenergi:
 Emittans: M = \frac{P}{A}
 
 Wiens forsk.lag:
- \lambda;\submi;T = a
+ \lambda;\submax;T = a
  a=2.898\times;10^{\minus;3} Km
 
 Stefan-Boltzmanns:
@@ -406,23 +414,23 @@ ut med E = hf.
 
 --- S\ouml;NDERFALLSLAG ---
 S\ouml;nderfallskonstant:
- \lambda; = \frac{ln2}{T\submi;}
+ \lambda; = \frac{ln2}{T\subhal;}
 
 S\ouml;nderfallslagen:
- N = N\subs0;(\frac{1}{2})^{\frac{t}{T\submi;}}
+ N = N\subs0;(\frac{1}{2})^{\frac{t}{T\subhal;}}
  N = N\subs0;e^{\minus;\lambda;t}
 
 Aktivitet:
  A = \lambda;N
 Aktivitetslagen:
- A = A\subs0;(\frac{1}{2})^{\frac{t}{T\submi;}}
+ A = A\subs0;(\frac{1}{2})^{\frac{t}{T\subhal;}}
  A = A\subs0;e^{\minus;\lambda;t}
 
 --- ABSORPTION ---
 Absorptionskoeff:
- \mu; = \frac{ln2}{d\submi;}
+ \mu; = \frac{ln2}{d\subhal;}
 Absorption:
- I = I\subs0;(\frac{1}{2})^{\frac{x}{d\submi;}}
+ I = I\subs0;(\frac{1}{2})^{\frac{x}{d\subhal;}}
  I = I\subs0;e^{\minus;\mu;x}
 
 Energi fran massdef:
@@ -446,7 +454,7 @@ Energiniv\aring;er v\auml;te:
  (n = 1,2,3,...)
 
 Foton vid \ouml;verg\aring;ng:
- E = |E\subn;\subs1; \minus; E\subn;\subs2;|
+ E = |E(n\subs1;) \minus; E(n\subs2;)|
  \lambda; = \frac{hc}{E}
 Snabbformel:
  \lambda;(nm) = \frac{1240}{E(eV)}
@@ -462,15 +470,15 @@ Elektron acc. U volt:
  \lambda; = \frac{h}{p}
 
 R\ouml;ntgenr\ouml;r:
- \lambda;\submi; = \frac{hc}{eU}
- f\submi; = \frac{eU}{h}
+ \lambda;\submin; = \frac{hc}{eU}
+ f\submax; = \frac{eU}{h}
 
 --- ASTROFYSIK ---
 Flykthastighet:
  v = \sqrt{\frac{2Gm}{R}}
 
 Schwarzschildradie:
- r\submi; = \frac{2Gm}{c^{2}}
+ r\subs; = \frac{2Gm}{c^{2}}
 
 R\ouml;df\ouml;rskjutning:
  z = \frac{\lambda;\minus;\lambda;\subs0;}{\lambda;\subs0;}
@@ -572,17 +580,25 @@ He-4 massa:
 }
 
 
-def build_eam(title: str, content: str) -> str:
-    """Build .eam file content in the format EactMaker expects."""
-    return f"g2e\x1e{title}\x1e\x1e{content.strip()}"
+def build_eam(title: str, content: str, fmt: str = "g2e") -> str:
+    """Build .eam file content in the format EactMaker expects.
+
+    g1e: Unicode subscripts (Eact \\sub...; / \\subs...; is shown literally on fx-9860GIII).
+    """
+    body = content.strip()
+    if fmt == "g1e":
+        body = normalize_calculator_export(body)
+    return f"{fmt}\x1e{title}\x1e\x1e{body}"
 
 
-def convert_via_eactmaker(title: str, eam_content: str, output_path: Path) -> bool:
-    """Submit to EactMaker's converter.php and save the resulting .g2e file."""
+def convert_via_eactmaker(
+    title: str, eam_content: str, output_path: Path, output_format: str
+) -> bool:
+    """Submit to EactMaker's converter.php and save the resulting calculator file."""
     url = "https://tools.planet-casio.com/EactMaker/system/converter.php"
     data = urllib.parse.urlencode({
         "titre": title,
-        "format": "g2e",
+        "format": output_format,
         "texte": eam_content.split("\x1e", 3)[3] if "\x1e" in eam_content else eam_content,
         "additional": "",
         "font": "",
@@ -607,36 +623,92 @@ def convert_via_eactmaker(title: str, eam_content: str, output_path: Path) -> bo
         return False
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--convert",
+        action="store_true",
+        help="Convert generated .eam files via EactMaker.",
+    )
+    parser.add_argument(
+        "--formats",
+        default="g2e",
+        help="Comma-separated formats to emit: g2e, g1e, or both.",
+    )
+    return parser.parse_args()
+
+
+def parse_formats(spec: str) -> list[str]:
+    raw = spec.strip().lower()
+    if raw == "both":
+        return ["g2e", "g1e"]
+    formats = [part.strip() for part in raw.split(",") if part.strip()]
+    allowed = {"g2e", "g1e"}
+    bad = [part for part in formats if part not in allowed]
+    if not formats or bad:
+        raise SystemExit(f"Unsupported format selection: {spec!r}")
+    return formats
+
+
+def audit_sections() -> None:
+    for name, section in SECTIONS.items():
+        issues = audit_text(section["content"], scope="eam")
+        if issues:
+            formatted = "\n".join(
+                f"- line {issue.line_no}: [{issue.category}] {issue.message}\n  {issue.line}"
+                for issue in issues
+            )
+            raise SystemExit(f"{name} failed formula audit:\n{formatted}")
+
+
 def main():
     OUT_DIR.mkdir(exist_ok=True)
-    eam_dir = SCRIPT_DIR / "eam_g2e"
-    eam_dir.mkdir(exist_ok=True)
+    G1E_DIR.mkdir(exist_ok=True)
+    G2E_FIXED_DIR.mkdir(exist_ok=True)
+    EAM_G2E_DIR.mkdir(exist_ok=True)
 
-    do_convert = "--convert" in sys.argv
+    args = parse_args()
+    formats = parse_formats(args.formats)
+    audit_sections()
+
+    eam_dirs = {"g2e": EAM_G2E_DIR, "g1e": G1E_DIR}
+    bin_dirs = {"g2e": G2E_FIXED_DIR, "g1e": G1E_DIR}
 
     print("Generating EAM files with math markup:")
-    for name, section in SECTIONS.items():
-        eam_content = build_eam(section["title"], section["content"])
-        eam_path = eam_dir / f"{name}.g2e.eam"
-        eam_path.write_text(eam_content, encoding="utf-8")
-        print(f"  {eam_path.name} ({len(section['content'])} chars)")
-
-    print(f"\nEAM files saved to: {eam_dir}")
-
-    if do_convert:
-        print("\nConverting to G2E via EactMaker:")
-        success = 0
+    for output_format in formats:
         for name, section in SECTIONS.items():
-            eam_content = build_eam(section["title"], section["content"])
-            g2e_path = OUT_DIR / f"{name}.g2e"
-            if convert_via_eactmaker(section["title"], eam_content, g2e_path):
-                success += 1
-        print(f"\nConverted {success}/{len(SECTIONS)} files to: {OUT_DIR}")
+            eam_content = build_eam(section["title"], section["content"], fmt=output_format)
+            suffix = f".{output_format}.eam"
+            eam_path = eam_dirs[output_format] / f"{name}{suffix}"
+            eam_path.write_text(eam_content, encoding="utf-8")
+            if output_format == "g2e":
+                mirrored = G2E_FIXED_DIR / f"{name}{suffix}"
+                mirrored.write_text(eam_content, encoding="utf-8")
+            print(f"  {eam_path.name} ({len(section['content'])} chars)")
+
+    print("\nEAM files saved to:")
+    for output_format in formats:
+        print(f"  {output_format}: {eam_dirs[output_format]}")
+
+    if args.convert:
+        total_success = 0
+        total_expected = len(SECTIONS) * len(formats)
+        for output_format in formats:
+            print(f"\nConverting to {output_format.upper()} via EactMaker:")
+            for name, section in SECTIONS.items():
+                eam_content = build_eam(section["title"], section["content"], fmt=output_format)
+                output_path = bin_dirs[output_format] / f"{name}.{output_format}"
+                if convert_via_eactmaker(
+                    section["title"], eam_content, output_path, output_format
+                ):
+                    if output_format == "g2e":
+                        legacy_copy = OUT_DIR / f"{name}.g2e"
+                        legacy_copy.write_bytes(output_path.read_bytes())
+                    total_success += 1
+        print(f"\nConverted {total_success}/{total_expected} files")
     else:
-        print("\nTo convert to .g2e, either:")
-        print("  1. Run: python generate_eam_g2e.py --convert")
-        print("  2. Or manually load each .eam in https://tools.planet-casio.com/EactMaker/")
-        print("     Set format to G2E, then click the download button")
+        print("\nTo convert calculator files, run:")
+        print("  python generate_eam_g2e.py --convert --formats both")
 
 
 if __name__ == "__main__":

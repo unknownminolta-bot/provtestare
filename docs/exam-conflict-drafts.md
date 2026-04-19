@@ -1,9 +1,17 @@
 # Utkast: Omtentakollision FYXF03 vs Matematik- och fysikprovet
 
-Datum: 13 april 2026
+Datum: 13 april 2026 (uppdaterad 18 april 2026)
 Konflikt: Fredag 9 maj 2026
 - Fysikomtenta FYXF03, 09:15 (HV)
 - Matematik- och fysikprovet, 09:00–16:00 (Chalmers, nationellt prov)
+
+## Status 18 apr
+
+- Michael (Canvas, 14 apr): "helt omöjligt att flytta omtentadatum för FYXF03"
+- Ulf (mail, 17 apr): kan inte ändra kommunicerat datum, drabbar andra studenter, spikade datum 5v innan
+- Maria (mail, 17 apr): "ingen möjlighet att påverka datumet... du får ta och besluta dig för att vara med på en av examinationerna"
+
+Båda missar att jag inte ber om att **flytta tentan för alla** – bara om en individuell lösning för mig.
 
 
 ---
@@ -113,12 +121,59 @@ max.andersson97@live.com
 
 ---
 
+---
+
+## 5. SVAR TILL ULF (efter hans nej 17 apr)
+
+Mottagare: ulf.hulling@hv.se
+Ämne: Re: Kolliderande omtenta FYXF03 – behöver hjälp
+
+Hej Ulf!
+
+Tack för svaret, och inga problem med dröjsmålet.
+
+Jag tror jag formulerade mig lite otydligt – jag ber inte om att hela omtentan ska flyttas. Det jag tänkte på är en individuell lösning bara för mig, så att övriga studenter som planerat för 9 maj inte påverkas alls.
+
+Konkret tänker jag mig något i stil med att jag får skriva samma tenta dagen innan (8 maj) – med ändrade värden i uppgifterna så att inget kan läcka till övriga – eller att Michael skriver ihop en individuell omtenta åt mig vid annat tillfälle. Båda alternativen lämnar 9 maj orört för alla andra.
+
+Det är också värt att flagga att krocken inte är direkt oförutsägbar – Mat-Fys provet ligger samma dag varje år och tekniskt basår är ju precis den utbildning där det är aktuellt. Inte för att peka finger, men det känns som att en sån här krock borde kunna landa i någon form av lösning.
+
+Jag inser att det är extra jobb, men det här är ett ovanligt fall – det nationella provet ges bara en gång om året och utgör en egen urvalsgrupp för antagning till civing på Chalmers, KTH, GU och SU.
+
+Tacksam om du kan kolla om något av det här är möjligt!
+
+/Max
+
+
+---
+
+## 6. SVAR TILL MARIA (efter hennes svar 17 apr)
+
+Mottagare: maria.erlander@hv.se
+Ämne: Re: Omtenta krockar med nationellt prov – behöver hjälp
+
+Hej Maria!
+
+Tack för svaret! En liten sak bara – det är FYXF03 (Fysik 3) det handlar om, inte FYXF06.
+
+Jag tror jag formulerade mig lite klumpigt i förra mailet. När jag skrev att jag måste välja mellan dem var det inte lösningen jag beskrev, utan precis det jag försöker undvika. Jag ber inte om att tentan ska flyttas för alla – jag hoppas på någon individuell lösning bara för mig, typ att jag får skriva samma tenta dagen innan (8 maj) eller att Michael sätter ihop en individuell omtenta åt mig vid annat tillfälle. Inget av det skulle påverka övriga studenter.
+
+Du nämnde att Michael är den som vet om framtida tillfällen – tror du att du skulle kunna hjälpa mig driva den frågan mot honom? Jag har försökt två gånger och Ulf också svarade samma sak, men allihop fastnar på "kan inte flytta datumet för alla", vilket inte är det jag ber om.
+
+Tacksam för all hjälp!
+
+/Max
+
+
+---
+
 ## ESKALERINGSORDNING
 
-1. ~~**Klart**: Skickade uppföljningen till Michael (utkast 1)~~
-2. ~~**Klart**: Michael svarade 14 apr – "helt omöjligt att flytta omtentadatum för FYXF03"~~
-3. **NU**: Skicka till samordnare för pedagogiskt stöd (utkast 3) + bitr. prefekt utbildning (utkast 2) **parallellt**
-   - Utkast 2 → ulf.hulling@hv.se (CC: per.nylen@hv.se)
-   - Utkast 3 → riktatstod@hv.se
-4. **Om det inte hjälper**: Studentombudet (utkast 4)
-5. **Yttersta sista utväg**: Anmälan till Diskrimineringsombudsmannen (DO)
+1. ~~Skickade uppföljning till Michael (utkast 1)~~
+2. ~~Michael svarade 14 apr: "helt omöjligt"~~
+3. ~~Skickade till Ulf Hulling (utkast 2) + Maria Erlander (utkast 3)~~
+4. ~~Ulf svarade 17 apr: kan inte ändra kommunicerat datum~~
+5. ~~Maria svarade 17 apr: "du får besluta dig för en av examinationerna"~~
+6. **NU**: Skicka klargörande svar till Ulf (utkast 5) + Maria (utkast 6) – betona individuell lösning
+7. **Om det inte hjälper**: Studentombudet (utkast 4)
+8. **Yttersta sista utväg**: Anmälan till Diskrimineringsombudsmannen (DO)

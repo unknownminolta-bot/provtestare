@@ -42,8 +42,8 @@ Totalt antal max:
 
 --- BRYTNING ---
 Snells lag:
- sin(ai)/sin(ab)
- = vi/vb
+ sin(ai)/sin(ar)
+ = vi/vr
 
 Med brytningsindex:
  n1*sin(a1)=n2*sin(a2)
@@ -52,7 +52,7 @@ Brytningsindex:
  n = c / cm
 
 Totalreflektion vid:
- sin(ag) = n2/n1
+ sin(ak) = n2/n1
  (n1 > n2)
 
 --- BRYTNINGSINDEX ---

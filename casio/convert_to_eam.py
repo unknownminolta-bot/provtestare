@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Convert TXT formula files to .eam files for eAct Maker (planet-casio.com).
+"""Legacy TXT -> EAM wrapper for eAct Maker (planet-casio.com).
 
 Open the .eam file in https://tools.planet-casio.com/EactMaker/
 then click the format dropdown and export as G1E.
 Transfer the .g1e to calculator via USB.
+
+For the authoritative render-safe pipeline, prefer `generate_eam_g2e.py`.
 """
 
 import os

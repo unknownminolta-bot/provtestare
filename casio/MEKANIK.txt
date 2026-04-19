@@ -18,15 +18,15 @@ Konstant hastighet:
 Konst. acceleration:
  s = v0*t + a*t^2/2
  v = v0 + a*t
- v_medel = (v0+v)/2
+ v_m = (v0+v)/2
 
 --- KASTRORELSE ---
 Horisontellt:
- ax=0, vx=v0*cos(a)
+ a_h=0, v_h=v0*cos(a)
  x = v0*cos(a)*t
 Vertikalt:
- ay=-g
- vy=v0*sin(a)-g*t
+ a_v=-g
+ v_v=v0*sin(a)-g*t
  y=v0*sin(a)*t
    - g*t^2/2
 Stighoejd:
@@ -58,11 +58,11 @@ Pendel:
 Newtons andra lag:
  F_res = m*a
 Gravitation:
- FG = G*m1*m2/r^2
+ F = G*m1*m2/r^2
 Hookes lag:
- Fk = k*dl
+ F = k*dl
 Friktion:
- Ff = mu*FN
+ F = mu*FN
 
 --- GRAVITATION ---
 Keplers 3:e lag:
@@ -84,8 +84,8 @@ Mek. energi:
 Effekt: P = dE/dt
  P = Fs*v
 Verkningsgrad:
- n = E_nytt/E_tillf
-   = P_nytt/P_tillf
+ eta = E_n/E_t
+    = P_n/P_t
 
 --- RORELSEMANGD ---
  p = m*v

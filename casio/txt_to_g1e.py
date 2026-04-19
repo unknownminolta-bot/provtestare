@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""Convert TXT formula files to Casio fx-9860GIII .g2e eActivity files.
+"""Legacy direct TXT -> calculator exporter.
 
-Format reverse-engineered from a working FYS.g2e file on the calculator.
+This script keeps the old plain-text path for quick experiments.
+The authoritative render-safe exports now come from `generate_eam_g2e.py`,
+which builds EactMaker `.eam` plus calculator-ready `.g1e` / `.g2e` files.
 """
 
 import struct
