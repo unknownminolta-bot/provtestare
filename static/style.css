@@ -838,7 +838,18 @@ h2 {
   margin: 0.25rem 0;
 }
 
-.answer-box span {
+.answer-box .answer-line {
+  color: var(--green);
+  font-size: clamp(1rem, 3.8vw, 1.12rem);
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.answer-box .answer-line .katex {
+  color: var(--green);
+}
+
+.answer-box > span {
   display: block;
   margin-top: 0.35rem;
   color: var(--text-dim);
