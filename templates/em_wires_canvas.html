@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canvas — parallella ledare (B-fält &amp; krafter)</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    .em-demo-wrap { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+    .em-demo-wrap h1 { margin-bottom: 0.35rem; }
+    .em-demo-wrap .lead { color: var(--text-dim); margin-bottom: 2rem; font-size: 0.95rem; }
+    .em-task { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+    .em-task h2 { font-family: var(--font); font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--accent); }
+    .em-task .prompt { margin-bottom: 1rem; font-size: 0.95rem; line-height: 1.65; }
+    .em-task canvas { display: block; margin: 0 auto; border-radius: 8px; border: 1px solid var(--border); max-width: 100%; height: auto; }
+    .em-task .hint { margin-top: 0.85rem; font-size: 0.82rem; color: var(--text-dim); }
+    .em-back { display: inline-block; margin-bottom: 1.25rem; color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .em-back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="em-demo-wrap">
+    <a class="em-back" href="/">← Tillbaka till Provtestare</a>
+    <h1>Exempeluppgifter — canvas</h1>
+    <p class="lead">
+      Ritytor i stil med parallellellära ledare: strömriktning, beteckningar och måttsättning.
+      Uppgifterna nedan är tänkta som mallar för \( \vec B \)-fält och resultantkrafter — välj koordinatsystem och riktning enligt konvention (t.ex. högerhandsregel).
+    </p>
+
+    <article class="em-task">
+      <h2>Uppgift 1 — resultantkraft på mittenledaren</h2>
+      <div class="prompt">
+        Tre raka, lika långa och parallella ledare enligt figuren. Strömmarna är \(I\), \(2I\) respektive \(3I\) och alla flyter åt samma håll (nedåt i figuren).
+        Bestäm <strong>riktningen</strong> på magnetkraften på den mittersta ledaren. Motivera med superpositionsprincipen och kraften mellan parallella ledare.
+      </div>
+      <canvas id="cv-task1" width="560" height="360" aria-label="Tre parallella ledare med strömmar I, 2I, 3I"></canvas>
+      <p class="hint">Tips till eleven: för varje granne är \(F \propto I_a I_b / r\); lägg sedan vektorerna (attraktion/repulsion beroende på om strömmarna är lika eller motriktade mellan paret).</p>
+    </article>
+
+    <article class="em-task">
+      <h2>Uppgift 2 — magnetfält i punkten \(P\)</h2>
+      <div class="prompt">
+        Två långa parallella ledare bär strömmarna \(I_1 = I\) och \(I_2 = 2I\) (riktning som i figuren).
+        Punkten \(P\) ligger mitt emellan ledarna på samma höjd. Bestäm storlek och riktning för det resulterande magnetiska fältet \(\vec B(P)\) (kvalitativt eller symboliskt med kända konstanter).
+      </div>
+      <canvas id="cv-task2" width="560" height="360" aria-label="Två ledare och punkt P mitt emellan"></canvas>
+    </article>
+
+    <article class="em-task">
+      <h2>Uppgift 3 — superposition vid två punkter</h2>
+      <div class="prompt">
+        Tre ledare med strömmar \(I\), \(I\) och \(I\) (samma riktning). Punkterna \(Q_1\) och \(Q_2\) är markerade.
+        För varje punkt: ange om \(\vec B\) pekar in i eller ut ur ritningsplanet (eller ge vektorkomponent längs en vald axel). Vilken av punkterna ger starkare \(|\vec B|\) om avstånden är som i figuren?
+      </div>
+      <canvas id="cv-task3" width="560" height="380" aria-label="Tre ledare med punkter Q1 och Q2"></canvas>
+    </article>
+
+    <article class="em-task">
+      <h2>Uppgift 4 — motriktade strömmar</h2>
+      <div class="prompt">
+        Samma geometri som i uppgift 1 men med <strong>motsatt</strong> strömriktning i högra ledaren (\(3I\) uppåt, övriga nedåt).
+        Hur ändras resultantkraften på den mittersta ledaren jämfört med uppgift 1? Beskriv riktning och jämför storleksordning.
+      </div>
+      <canvas id="cv-task4" width="560" height="360" aria-label="Tre ledare med olika strömriktningar"></canvas>
+    </article>
+  </div>
+
+  <script src="/static/em_parallel_wires_canvas.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof renderMathInElement !== "undefined") {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
+          ],
+          throwOnError: false,
+        });
+      }
+
+      var R = EMParallelWiresCanvas.renderParallelWires;
+
+      R(document.getElementById("cv-task1"), {
+        width: 560,
+        height: 360,
+        yTop: 52,
+        yBot: 248,
+        wires: [
+          { x: 160, label: "I", dirY: 1 },
+          { x: 280, label: "2I", dirY: 1 },
+          { x: 400, label: "3I", dirY: 1 },
+        ],
+        dimensions: [
+          { x1: 160, x2: 280, y: 300, label: "d" },
+          { x1: 280, x2: 400, y: 300, label: "d" },
+        ],
+      });
+
+      R(document.getElementById("cv-task2"), {
+        width: 560,
+        height: 360,
+        yTop: 48,
+        yBot: 252,
+        wires: [
+          { x: 200, label: "I", dirY: 1 },
+          { x: 360, label: "2I", dirY: 1 },
+        ],
+        dimensions: [{ x1: 200, x2: 360, y: 298, label: "d" }],
+        points: [{ x: 280, y: 150, label: "P" }],
+      });
+
+      R(document.getElementById("cv-task3"), {
+        width: 560,
+        height: 380,
+        yTop: 50,
+        yBot: 250,
+        wires: [
+          { x: 150, label: "I", dirY: 1 },
+          { x: 280, label: "I", dirY: 1 },
+          { x: 410, label: "I", dirY: 1 },
+        ],
+        dimensions: [
+          { x1: 150, x2: 280, y: 302, label: "d" },
+          { x1: 280, x2: 410, y: 302, label: "d" },
+        ],
+        points: [
+          { x: 215, y: 118, label: "Q₁" },
+          { x: 345, y: 175, label: "Q₂" },
+        ],
+      });
+
+      R(document.getElementById("cv-task4"), {
+        width: 560,
+        height: 360,
+        yTop: 52,
+        yBot: 248,
+        wires: [
+          { x: 160, label: "I", dirY: 1 },
+          { x: 280, label: "2I", dirY: 1 },
+          { x: 400, label: "3I", dirY: -1 },
+        ],
+        dimensions: [
+          { x1: 160, x2: 280, y: 300, label: "d" },
+          { x1: 280, x2: 400, y: 300, label: "d" },
+        ],
+      });
+    });
+  </script>
+</body>
+</html>

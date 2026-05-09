@@ -55,6 +55,12 @@ def hp_index():
     return render_template("hp.html")
 
 
+@app.route("/demo/em-wires")
+def em_wires_canvas_demo():
+    """Canvas-exempel: parallella ledare, B-fält och krafter (mall för uppgifter)."""
+    return render_template("em_wires_canvas.html")
+
+
 @app.route("/api/status")
 def api_status():
     return jsonify({
