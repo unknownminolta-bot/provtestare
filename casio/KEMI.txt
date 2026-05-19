@@ -1,0 +1,108 @@
+====================
+ KEMI
+====================
+
+--- MOL OCH MASSA ---
+ n = m/M
+ N = n*NA
+
+--- IDEAL GAS ---
+ pV = nRT
+ R = 8.314 J/(mol*K)
+ p*V/T = konst (n konst)
+
+--- KONC ---
+ c = n/V
+ Enheter: V i L för mol/L
+ T i K; p i Pa om R=8.314
+
+--- STÖKIOMETRI FÖRBRÄNNING ---
+ Balansera till CO2 och H2O (kolhydrat i luft)
+ Spår: m -> n bränsle -> mol CO2/H2O -> massa
+ Begränsande reaktant: räkna n/koeff för varje reaktant
+ Utbyte: m(verklig)/m(teoretisk) * 100%
+
+--- OXIDATIONSTAL ---
+ Fria grundämnen: 0
+ Monatom jon: som laddning
+ O oftast -2 (peroxid undantag)
+ H oftast +1 (mot icke-metaller)
+ Summa neutral molekyl = 0
+ Summa i jon = jonladdningen
+
+--- REDOX I SUR LÖSNING ---
+ 1) Dela oxidation och reduktion
+ 2) Balansera ämne utom O,H
+ 3) O med H2O
+ 4) H med H+
+ 5) Laddning med e-
+ 6) Mult halvreaktioner, addera
+ Basisk lösn.: gör som sur, lägg OH- på båda sidor, stryk H2O
+
+--- ELEKTROKEMI (spänningsserie) ---
+ Jämför tabell (reduktion)
+ Spontan cell om E(cell) > 0 (konsekvent tecken)
+ E0(cell) = E0(katod) - E0(anod)
+ (båda E0 som reduktion i tabellen)
+ katod: högre E0 (reduktion)
+ anod: lägre E0 (oxidation)
+ Nernst: E = E0 - (RT/nF)lnQ
+ Elektrolys: m = MIt/(zF)
+
+--- SYRA BAS ---
+ pH = -lg[H+]
+ pOH = -lg[OH-]
+ pH + pOH = 14  (25 grader C)
+ Stark syra (fullt dissoc.): [H+] = c
+ Svag syra: Ka = [H+][A-]/[HA]
+ Buffert: pH = pKa + lg([bas]/[syra])
+ Flerprotonig syra: kontrollera stökiometri
+
+--- SPÄDNING OCH TITRERING ---
+ Spädning: c1*V1 = c2*V2 (samma ämne)
+ Titrering stark syra-bas 1:1: c1*V1 = c2*V2
+ Neutralisation vid ekvivalens: n(H+) = n(OH-)
+ Inte 1:1: använd reaktionskoeff.
+
+--- BLANDNING AV LÖSNINGAR ---
+ Per jon: n = c1*V1 + c2*V2 + ...
+ [jon] = n / Vtot
+ Vtot = summa volymer
+ Fällning: Qsp > Ksp ger fällning
+
+--- GASLAG METALL + SYRA ---
+ pV = nRT (T i kelvin)
+ Mg + 2 H+ -> Mg2+ + H2
+ n(H2) = n(Mg)
+ R ~ 8.31 om tenta anger
+
+--- KALORIMETRI (lösning) ---
+ Q = m*c*dT
+ Per mol reaktant: Q/n (t.ex. kJ/mol)
+
+--- LAB KRISTALLVATTEN ---
+ CuSO4 * x H2O
+ m(H2O)/M(H2O) = x * n(salt)
+
+--- KVALITATIV SULFAT ---
+ Ba2+ + SO42- -> BaSO4(s)
+ Reagens: Ba2+-salt (t.ex. BaCl2)
+
+--- JÄMVIKT ---
+ Kc = ([C]^c*[D]^d)/([A]^a*[B]^b)
+ Kp = Kc*(RT)^(delta n)
+ Q jämförs med K: Q<K framåt, Q>K bakåt
+ ICE-tabell: start, ändring, jämvikt
+ Le Chatelier: systemet motverkar störning
+
+--- TERMO ---
+ dG = dH - T*dS
+ dG = -nFE
+ dG0 = -RTlnK
+ Hess: summera reaktioner och dH
+ F = 96485 C/mol
+
+--- KINETIK ---
+ v = k*[A]^m
+ 1:a ordn: ln([A]0/[A]) = kt
+ t(halv) = ln2/k

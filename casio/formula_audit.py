@@ -69,6 +69,11 @@ EAM_PATTERNS: tuple[tuple[str, re.Pattern[str], str], ...] = (
         re.compile(r"(?<!\\)([A-Za-z])(?:sin|cos|tan)\("),
         "Merged function token detected. Insert explicit multiplication before trig functions.",
     ),
+    (
+        "merged-eact-trig-token",
+        re.compile(r"(?:\\subs?\w*;|\})(?:sin|cos|tan)\("),
+        "Eact subscript/superscript is glued to a trig function. Insert `\\times;` before the trig function.",
+    ),
 )
 
 
@@ -102,6 +107,7 @@ def iter_repo_files(root: Path) -> list[Path]:
         candidate = root / name
         if candidate.exists():
             candidates.append(candidate)
+    candidates.extend(sorted(root.glob("form_*.py")))
     filtered: list[Path] = []
     for path in sorted(set(candidates)):
         parts = set(path.parts)

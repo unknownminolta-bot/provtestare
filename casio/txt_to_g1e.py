@@ -132,6 +132,7 @@ FILES = {
     "TERMO": "TERMO",
     "MODERN": "MODERN",
     "KONST": "KONST",
+    "KEMI": "KEMI",
 }
 
 
@@ -141,7 +142,7 @@ def main():
     out_dir.mkdir(exist_ok=True)
 
     calc_dir = Path("/media/maxandersson/disk")
-    calc_connected = calc_dir.exists() and (calc_dir / "FYS.g2e").exists()
+    calc_connected = calc_dir.exists() and (calc_dir / "MEKANIK.g2e").exists()
 
     print("Converting TXT -> G2E (v2):")
     for basename, title in FILES.items():

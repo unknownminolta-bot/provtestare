@@ -105,13 +105,9 @@ def _replace_subs_digits(m: re.Match[str]) -> str:
 
 
 def _ascii_sub_body(body: str) -> str:
-    out: list[str] = []
-    for c in body:
-        if c.isupper():
-            out.append(UPPER_TO_LOWER.get(c, c.lower()))
-        else:
-            out.append(c)
-    return "".join(out)
+    # Preserve original case in the g1e ASCII fallback: N_A and F_N are clearer
+    # than N_a and F_n on the calculator.
+    return body
 
 
 def _replace_sub_letters_ascii(m: re.Match[str]) -> str:
@@ -141,6 +137,9 @@ def lint(text: str) -> list[str]:
     for m in RE_SUB_LETTERS.finditer(text):
         tok = m.group(0)
         body = m.group(1)
+        # K_c (equilibrium); no standard Latin subscript c — kept in Eact / g1e becomes _c
+        if tok == r"\subc;":
+            continue
         upper_bad = [c for c in body if c.isupper() and c not in UPPER_TO_LOWER]
         lower_bad = [c for c in body if c.islower() and c in UNSUPPORTED_LOWER]
         if upper_bad or lower_bad:

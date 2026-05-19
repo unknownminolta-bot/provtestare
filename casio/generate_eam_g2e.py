@@ -52,16 +52,16 @@ Konst. acceleration:
 
 --- KASTRORELSE ---
 Horisontellt:
- a\subh;=0, v\subh;=v\subs0;cos(\alpha;)
- x = v\subs0;cos(\alpha;)t
+ a\subh;=0, v\subh;=v\subs0;\times;cos(\alpha;)
+ x = v\subs0;\times;cos(\alpha;)\times;t
 Vertikalt:
  a\subv;=\minus;g
- v\subv;=v\subs0;sin(\alpha;)\minus;gt
- y=v\subs0;sin(\alpha;)t \minus; \frac{gt^{2}}{2}
+ v\subv;=v\subs0;\times;sin(\alpha;)\minus;gt
+ y=v\subs0;\times;sin(\alpha;)\times;t \minus; \frac{gt^{2}}{2}
 Stigh\ouml;jd:
- h = \frac{v\subs0;^{2}sin^{2}(\alpha;)}{2g}
+ h = \frac{v\subs0;^{2}\times;sin^{2}(\alpha;)}{2g}
 Kastvidd:
- s = \frac{v\subs0;^{2}sin(2\alpha;)}{g}
+ s = \frac{v\subs0;^{2}\times;sin(2\alpha;)}{g}
 
 --- CENTRALR\ouml;RELSE ---
 Vinkelhast. \omega; = \frac{\Delta;\theta;}{\Delta;t}
@@ -92,6 +92,10 @@ Hookes lag:
  F = k\Delta;l
 Friktion:
  F = \mu;F\subN;
+Metod: rita fril\auml;ggn., v\auml;lj axlar, dela upp krafter
+Lutande plan:
+ F\subpar; = mg\times;sin(\alpha;)
+ F\subN; = mg\times;cos(\alpha;)
 
 --- GRAVITATION ---
 Keplers 3:e lag:
@@ -104,6 +108,7 @@ Momentlagen:
 
 --- ENERGI ---
 Arbete: W = F\subs;s
+F\subs; = kraftkomp. i r\ouml;relseriktning
 Energi: \Delta;E = W
 L\auml;gesenergi: E\subp;=mgh
 R\ouml;relseenergi:
@@ -121,6 +126,7 @@ Impuls: I = Ft
 Impulslagen: I = \Delta;p
 Bevarandelagen:
  \Sigma;p\subi; = konst
+St\ouml;t: elastisk bevarar E\subk;, oelastisk inte
 """
     },
     "VAGOR": {
@@ -139,6 +145,7 @@ St\aring;ende v\aring;g i str\auml;ng
 --- DOPPLEREFFEKT ---
 Mekanisk:
  f\subo; = f\subk;\frac{v+v\subo;}{v\minus;v\subk;}
+ v\subo;,v\subk; positiva mot varandra
 
 EM-Doppler:
  \frac{\lambda;}{\lambda;\subs0;} = \sqrt{\frac{1+\frac{v}{c}}{1\minus;\frac{v}{c}}}
@@ -169,7 +176,7 @@ Snells lag:
  \frac{sin(\alpha;\subi;)}{sin(\alpha;\subr;)} = \frac{v\subi;}{v\subr;}
 
 Med brytningsindex:
- n\subs1;sin(\alpha;\subs1;) = n\subs2;sin(\alpha;\subs2;)
+ n\subs1;\times;sin(\alpha;\subs1;) = n\subs2;\times;sin(\alpha;\subs2;)
 
 Brytningsindex:
  n = \frac{c}{c\subm;}
@@ -177,6 +184,13 @@ Brytningsindex:
 Totalreflektion vid:
  sin(\alpha;\subk;) = \frac{n\subs2;}{n\subs1;}
  (n\subs1; > n\subs2;)
+
+--- LINSER ---
+Tunn lins:
+ \frac{1}{f} = \frac{1}{a} + \frac{1}{b}
+F\ouml;rstoring:
+ M = \frac{B}{F} = \frac{b}{a}
+Tecken: reell bild b>0
 
 --- BRYTNINGSINDEX ---
 luft      1.00
@@ -229,11 +243,15 @@ Homogent falt:
  E = \frac{U}{d}
 Potentialskillnad:
  U\subs1;\subs2; = |V\subs1; \minus; V\subs2;|
+Metod krets: ers\auml;tt R, hitta I, g\aring; tillbaka till U/P
 
 --- KONDENSATOR ---
 Kapacitans: C = \frac{Q}{U}
 Plattkondensator:
  C = \frac{\epsilon;\subs0;\epsilon;\subr;A}{d}
+Parallell: C = C\subs1; + C\subs2;
+Serie: \frac{1}{C} = \frac{1}{C\subs1;}+\frac{1}{C\subs2;}
+RC: \tau; = RC
 Lagrad energi:
  E = \frac{QU}{2} = \frac{CU^{2}}{2}
 
@@ -241,22 +259,23 @@ Lagrad energi:
 Fl\ouml;dest\auml;th. ledare:
  B = \frac{\mu;I}{2\pi;a}
 Platt spole:
- B = \frac{N\mu;I}{r}
+ B = \frac{N\mu;I}{2r}
 Solenoid:
  B = \frac{N\mu;I}{l}
 
 Kraft p\aring; laddning:
- F = qvB
+ F = qvB\times;sin(\alpha;)
 Kraft p\aring; ledare:
- F = lIB
+ F = lIB\times;sin(\alpha;)
 
 --- INDUKTION ---
 Magn. fl\ouml;de:
- \phi; = BA
+ \phi; = BA\times;cos(\theta;)
 Generatorformeln:
  e = lvB
 Induktionslagen:
  u = \minus;\frac{\Delta;\phi;}{\Delta;t}
+Lenz: minus visar motverkande riktning
 Spole:
  u = \minus;N\frac{\Delta;\phi;}{\Delta;t}
 Induktans:
@@ -265,9 +284,9 @@ Induktans:
 
 --- V\Auml;XELSTR\Ouml;M ---
 V\auml;xelsp\auml;nning:
- u = u\submax;sin(\omega;t)
+ u = u\submax;\times;sin(\omega;t)
 V\auml;xelstr\ouml;m:
- i = i\submax;sin(\omega;t)
+ i = i\submax;\times;sin(\omega;t)
 Effektivv\auml;rde:
  U = \frac{u\submax;}{\sqrt{2}}
  I = \frac{i\submax;}{\sqrt{2}}
@@ -289,10 +308,20 @@ Arkimedes princip:
 
 Ideala gaslagen:
  \frac{pV}{T} = konst
+ pV = nRT
+
+--- TERMODYNAMIK ---
+F\ouml;rsta lagen:
+ \Delta;U = Q + W
+Gasarbete:
+ W = \minus;p\Delta;V
+Verkn.grad motor:
+ \eta; = \frac{W}{Q\subin;}
 
 --- V\Auml;RME ---
 V\auml;rme och temperatur:
  E = cm\Delta;T
+Metod: v\auml;rmning och fasbyte separat
 
 Sm\auml;ltv\auml;rme:
  E = l\subs;m
@@ -436,6 +465,9 @@ Absorption:
 Energi fran massdef:
  E = \Delta;mc^{2}
  1 u = 931.5 MeV
+Q-v\auml;rde: Q = (m(f\ouml;re) \minus; m(efter))c^{2}
+Atommassor: beta+ kr\auml;ver ofta 2m\sube; avdrag
+EC: elektron inf\auml;ngas, ingen positronmassa ut
 
 --- ATOM & KVANT ---
 Fotonenergi:
@@ -548,6 +580,7 @@ Wiens konst. a
 
 Coulombs konst. k
  8.988\times;10^{9} Nm^{2}/C^{2}
+k = \frac{1}{4\pi;\epsilon;\subs0;}
 
 Vakuumpermitt. \epsilon;\subs0;
  8.854\times;10^{\minus;12} F/m
@@ -575,6 +608,116 @@ Neutronmassa:
  1.008665 u
 He-4 massa:
  4.002602 u
+"""
+    },
+    "KEMI": {
+        "title": "KEMI",
+        "content": r"""== KEMI ==
+
+--- MOL OCH MASSA ---
+ n = \frac{m}{M}
+ N = n\times;N\subA;
+
+--- IDEAL GAS ---
+ pV = nRT
+ R = 8.314 J/(mol\times;K)
+ \frac{p\times;V}{T} = konst \quad;(n konst)
+
+--- KONC ---
+ c = \frac{n}{V}
+ Enheter: V i L f\ouml;r mol/L
+ T i K; p i Pa om R=8.314
+
+--- ST\Ouml;KIOMETRI F\Ouml;RBR\Auml;NNING ---
+ Balansera till CO\subs2; och H\subs2;O (kolhydrat i luft)
+ Sp\aring;r: m \rArr; n br\auml;nsle \rArr; mol CO\subs2;/H\subs2;O \rArr; massa
+ Begr\auml;nsande reaktant: r\auml;kna n/koeff f\ouml;r varje reaktant
+ Utbyte: \frac{m\subverkl;}{m\subteor;} \times 100%
+
+--- OXIDATIONSTAL ---
+ Fria grund\auml;mnen: 0
+ Monatom jon: som laddning
+ O oftast \minus;2 (peroxid undantag)
+ H oftast +1 (mot icke-metaller)
+ Summa neutral molekyl = 0
+ Summa i jon = jonladdningen
+
+--- REDOX I SUR L\Ouml;SNING ---
+ 1) Dela oxidation och reduktion
+ 2) Balansera \auml;mne utom O,H
+ 3) O med H\subs2;O
+ 4) H med H^{+}
+ 5) Laddning med e^{\minus;}
+ 6) Mult halvreaktioner, addera
+ Basisk l\ouml;sn.: g\ouml;r som sur, l\auml;gg OH^{\minus;} p\aring; b\aring;da sidor, stryk H\subs2;O
+
+--- ELEKTROKEMI (sp\auml;nningsserie) ---
+ J\auml;mf\ouml;r tabell (reduktion)
+ Spontan cell om E(cell) > 0 (konsekvent tecken)
+ E\subs0;(cell) = E\subs0;(katod) \minus; E\subs0;(anod)
+ (b\aring;da E\subs0; som reduktion i tabellen)
+ katod: h\ouml;gre E\subs0; (reduktion)
+ anod: l\auml;gre E\subs0; (oxidation)
+ Nernst: E = E\subs0; \minus; \frac{RT}{nF}lnQ
+ Elektrolys: m = \frac{MIt}{zF}
+
+--- SYRA BAS ---
+ pH = \minus;lg[H^{+}]
+ pOH = \minus;lg[OH^{\minus;}]
+ pH + pOH = 14 \quad;(25 grader C)
+ Stark syra (fullt dissoc.): [H^{+}] = c
+ Svag syra: Ka = \frac{[H^{+}][A^{\minus;}]}{[HA]}
+ Buffert: pH = pKa + lg\frac{[bas]}{[syra]}
+ Flerprotonig syra: kontrollera st\ouml;kiometri
+
+--- SP\Auml;DNING OCH TITRERING ---
+ Sp\auml;dning: c\subs1;V\subs1; = c\subs2;V\subs2; (samma \auml;mne)
+ Titrering stark syra-bas 1:1: c\subs1;V\subs1; = c\subs2;V\subs2;
+ Neutralisation vid ekvivalens: n(H^{+}) = n(OH^{\minus;})
+ Inte 1:1: anv\auml;nd reaktionskoeff.
+
+--- BLANDNING AV L\Ouml;SNINGAR ---
+ Per jon: n = c\subs1;V\subs1; + c\subs2;V\subs2; + ...
+ [jon] = n / V\subtot;
+ V\subtot; = summa volymer
+ F\auml;llning: Q\subsp; > K\subsp; ger f\auml;llning
+
+--- GASLAG METALL + SYRA ---
+ pV = nRT \quad;(T i kelvin)
+ Mg + 2 H^{+} \rArr; Mg^{2+} + H\subs2;
+ n(H\subs2;) = n(Mg)
+ R \approx; 8.31 om tenta anger
+
+--- KALORIMETRI (l\ouml;sning) ---
+ Q = m\times;c\times;\Delta;T
+ Per mol reaktant: Q/n \quad;(t.ex. kJ/mol)
+
+--- LAB KRISTALLVATTEN ---
+ CuSO\subs4; \times;x\times;H\subs2;O
+ m(H\subs2;O)/M(H\subs2;O) = x\times;n(salt)
+
+--- KVALITATIV SULFAT ---
+ Ba^{2+} + SO\subs4;^{2\minus;} \rArr; BaSO\subs4;(s)
+ Reagens: Ba^{2+}-salt (t.ex. BaCl\subs2;)
+
+--- J\Auml;MVIKT ---
+ K\subc; = \frac{[C]^c\times;[D]^d}{[A]^a\times;[B]^b}
+ K\subp; = K\subc;\times;(RT)^{\Delta;n}
+ Q j\auml;mf\ouml;rs med K: Q<K fram\aring;t, Q>K bak\aring;t
+ ICE-tabell: start, \auml;ndring, j\auml;mvikt
+ Le Chatelier: systemet motverkar st\ouml;rning
+
+--- TERMO ---
+ dG = dH \minus; T\times;dS
+ dG = \minus;nFE
+ dG\subs0; = \minus;RTlnK
+ Hess: summera reaktioner och dH
+ F = 96485 C/mol
+
+--- KINETIK ---
+ v = k\times;[A]^{m}
+ 1:a ordn: ln\frac{[A]\subs0;}{[A]} = kt
+ t\subhal; = \frac{ln2}{k}
 """
     },
 }

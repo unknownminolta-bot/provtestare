@@ -21,6 +21,7 @@ FILES = {
     "TERMO": "Termofysik",
     "MODERN": "Modern Fysik",
     "KONST": "Konstanter",
+    "KEMI": "Kemi",
 }
 
 

@@ -17,7 +17,7 @@ from questions_math import MAXF02_QUESTIONS
 from questions_chemistry import KEXF01_QUESTIONS
 from questions_hp import HP_PASSAGES, HP_DIAGRAMS, HP_SECTIONS, HP_QUESTIONS, build_hp_lookup, get_hp_questions_for_mode
 from hp_scorer import score_hp
-from scorer import score_answers, generate_diagnostic
+from scorer import score_answers, generate_diagnostic, _answer_correct
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "exam-tester-local-only-key")
@@ -95,6 +95,28 @@ def start_quiz():
     session["question_ids"] = [q["id"] for q in questions]
 
     return jsonify({"questions": safe_questions, "total": len(safe_questions)})
+
+
+@app.route("/api/check", methods=["POST"])
+def check_answer():
+    """Score a single answer immediately for live feedback."""
+    data = request.get_json()
+    qid = str(data.get("question_id", ""))
+    user_answer = str(data.get("answer", ""))
+
+    q_lookup = {q["id"]: q for q in ALL_QUESTIONS}
+    q = q_lookup.get(qid)
+    if q is None:
+        return jsonify({"error": "Unknown question"}), 404
+
+    is_correct = _answer_correct(q, user_answer) if user_answer.strip() else False
+
+    return jsonify({
+        "correct": is_correct,
+        "correct_answer": str(q["correct_answer"]),
+        "unit": q.get("unit", ""),
+        "solution": q.get("solution", ""),
+    })
 
 
 @app.route("/api/submit", methods=["POST"])

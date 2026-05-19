@@ -22,6 +22,7 @@ def main() -> None:
     assert audit_text("lambda = ln2/T_half", "source")
     assert audit_text(r"E = |E\subn;\subs1; - E\subn;\subs2;|", "eam")
     assert audit_text(r"n\lambda; = dsin(\alpha;\subn;)", "eam")
+    assert audit_text(r"u = u\submax;sin(\omega;t)", "eam")
     assert audit_text(r"\lambda;\submi; = \frac{hc}{eU}", "eam")
 
     # Generated sections should be clean.
@@ -29,7 +30,7 @@ def main() -> None:
         assert_no_issues(name, section["content"], "eam")
 
     # Source text should also be free of the known legacy patterns.
-    for name in ("MEKANIK", "VAGOR", "ELMAGN", "TERMO", "MODERN", "KONST"):
+    for name in ("MEKANIK", "VAGOR", "ELMAGN", "TERMO", "MODERN", "KONST", "KEMI"):
         text = (ROOT / f"{name}.txt").read_text(encoding="utf-8")
         assert_no_issues(f"{name}.txt", text, "source")
 
@@ -39,25 +40,40 @@ def main() -> None:
     assert r"E = |E(n\subs1;) \minus; E(n\subs2;)|" in modern
     assert r"\lambda;\submin; = \frac{hc}{eU}" in modern
     assert r"r\subs; = \frac{2Gm}{c^{2}}" in modern
+    assert r"Q-v\auml;rde: Q = (m(f\ouml;re) \minus; m(efter))c^{2}" in modern
 
     vagor = SECTIONS["VAGOR"]["content"]
     assert r"d\times;sin(\alpha;\subn;)" in vagor
     assert r"n\submax; = \frac{d}{\lambda;}" in vagor
     assert r"sin(\alpha;\subk;)" in vagor
+    assert r"v\subo;,v\subk; positiva mot varandra" in vagor
+    assert r"\frac{1}{f} = \frac{1}{a} + \frac{1}{b}" in vagor
 
     mekanik = SECTIONS["MEKANIK"]["content"]
     assert r"F\subres; = ma" in mekanik
+    assert r"F\subpar; = mg\times;sin(\alpha;)" in mekanik
     assert r"\eta; = \frac{E\subn;}{E\subt;} = \frac{P\subn;}{P\subt;}" in mekanik
 
     elmagn = SECTIONS["ELMAGN"]["content"]
     assert r"\Sigma;I\subi; = \Sigma;I\subu;" in elmagn
-    assert r"u = u\submax;sin(\omega;t)" in elmagn
+    assert r"B = \frac{N\mu;I}{2r}" in elmagn
+    assert r"u = u\submax;\times;sin(\omega;t)" in elmagn
+    assert r"\tau; = RC" in elmagn
+    assert r"\phi; = BA\times;cos(\theta;)" in elmagn
+
+    kemi = SECTIONS["KEMI"]["content"]
+    assert r"pV = nRT" in kemi
+    assert r"K\subc; = \frac{[C]^c\times;[D]^d}{[A]^a\times;[B]^b}" in kemi
+    assert r"K\subp; = K\subc;\times;(RT)^{\Delta;n}" in kemi
+    assert r"Buffert: pH = pKa + lg\frac{[bas]}{[syra]}" in kemi
+    assert r"Nernst: E = E\subs0; \minus; \frac{RT}{nF}lnQ" in kemi
 
     assert build_eam("TEST", "body", "g1e").startswith("g1e\x1e")
     # g1e path must not leave raw Eact subscript tokens (device shows them verbatim).
     g1e_body = build_eam("T", r"v\subs0; = \Sigma;I\subi;", "g1e").split("\x1e", 3)[3]
     assert "\\sub" not in g1e_body and "\\subs" not in g1e_body
     assert "₀" in g1e_body and "_i" in g1e_body
+    assert "_A" in build_eam("T", r"N\subA;", "g1e")
     assert "\\sub" not in normalize_calculator_export(r"\epsilon;\subs0;\epsilon;\subr;A")
     assert "₀" in normalize_calculator_export(r"\epsilon;\subs0;\epsilon;\subr;A")
     assert "_r" in normalize_calculator_export(r"\epsilon;\subs0;\epsilon;\subr;A")
@@ -79,6 +95,15 @@ def main() -> None:
     # Multi-char subscript
     assert "_res" in normalize_calculator_export(r"F\subres; = ma")
     assert "_max" in normalize_calculator_export(r"n\submax; = x")
+    assert "_hal" in normalize_calculator_export(r"T\subhal; = x")
+    assert "_tot" in normalize_calculator_export(r"V\subtot; = x")
+
+    # Full generated g1e bodies should be free from raw Eact subscripts and
+    # merged calculator tokens such as u_maxsin(...).
+    for name, section in SECTIONS.items():
+        rendered = build_eam(section["title"], section["content"], "g1e").split("\x1e", 3)[3]
+        assert_no_issues(f"{name}.g1e", rendered, "eam")
+        assert "\\sub" not in rendered and "\\subs" not in rendered
 
 
 if __name__ == "__main__":

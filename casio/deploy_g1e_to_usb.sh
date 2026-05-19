@@ -18,16 +18,25 @@ if [[ ${#g1e[@]} -eq 0 ]]; then
 fi
 
 MP=""
-if command -v findmnt >/dev/null 2>&1; then
-  MP="$(findmnt -rn -o TARGET -L CASIO 2>/dev/null | head -1 || true)"
+# vfat on Casio calculators often exposes LABEL_FATBOOT=CASIO (not LABEL=).
+DEV="$(blkid -l -o device -t LABEL_FATBOOT=CASIO 2>/dev/null | head -1 || true)"
+if [[ -z "$DEV" ]]; then
+  DEV="$(blkid -l -o device -t LABEL=CASIO 2>/dev/null | head -1 || true)"
+fi
+if [[ -n "$DEV" ]] && command -v findmnt >/dev/null 2>&1; then
+  MP="$(findmnt -n -o TARGET "$DEV" 2>/dev/null || true)"
 fi
 if [[ -z "$MP" ]]; then
   for cand in /media/*/*/ /run/media/*/*/; do
     if [[ -d "$cand" ]] && findmnt "$cand" >/dev/null 2>&1; then
       srcdev="$(findmnt -rn -o SOURCE -T "$cand" 2>/dev/null || true)"
-      if [[ -n "$srcdev" ]] && lsblk -o LABEL -nr "$srcdev" 2>/dev/null | grep -qx CASIO; then
-        MP="$cand"
-        break
+      if [[ -n "$srcdev" ]]; then
+        fat="$(blkid -o value -s LABEL_FATBOOT "$srcdev" 2>/dev/null | tr -d '\n')"
+        lab="$(blkid -o value -s LABEL "$srcdev" 2>/dev/null | tr -d '\n')"
+        if [[ "$fat" == "CASIO" || "$lab" == "CASIO" ]]; then
+          MP="$cand"
+          break
+        fi
       fi
     fi
   done
@@ -48,6 +57,14 @@ for f in "${SRC}"/*.g1e; do
   echo "--- $b"
   sha256sum "$f" "$MP/$b"
 done
+
+# Legacy obsolete physics bundle; replaced by MEKANIK/VAGOR/… + KEMI.
+for legacy in FYS.g2e FYS.g1e; do
+  if [[ -f "$MP/$legacy" ]]; then
+    rm -v "$MP/$legacy"
+  fi
+done
+sync
 
 if [[ "$(id -u)" -eq 0 ]]; then
   umount "$MP" && echo "Unmounted $MP"
