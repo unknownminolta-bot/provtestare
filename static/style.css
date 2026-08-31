@@ -738,6 +738,218 @@ h2 {
   .topic-table th, .topic-table td { padding: 0.4rem 0.5rem; }
 }
 
+/* Rendered solution pages */
+.solutions-page {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.solutions-wrap {
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: max(1rem, env(safe-area-inset-top)) 1rem 3rem;
+}
+
+.solutions-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: 0 -0.25rem 0.75rem;
+  padding: 0.35rem 0.25rem;
+  color: var(--accent);
+  font-size: 0.95rem;
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(108, 140, 255, 0.25);
+}
+
+.solutions-back:hover {
+  text-decoration: underline;
+}
+
+.solutions-hero {
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at top right, rgba(108, 140, 255, 0.18), transparent 36%),
+    var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.solutions-hero .eyebrow {
+  margin-bottom: 0.25rem;
+  color: var(--accent);
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.solutions-hero h1 {
+  margin-bottom: 0.45rem;
+  font-size: clamp(1.35rem, 6vw, 2rem);
+}
+
+.solutions-hero p:not(.eyebrow) {
+  max-width: 56rem;
+  color: var(--text-dim);
+  font-size: clamp(0.92rem, 3.2vw, 1rem);
+  line-height: 1.65;
+}
+
+.solution-card {
+  margin-top: 1rem;
+  padding: 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.solution-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.8rem;
+}
+
+.solution-heading h2 {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  line-height: 1.3;
+}
+
+.problem-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.1rem;
+  height: 2.1rem;
+  background: var(--accent-dim);
+  border: 1px solid rgba(108, 140, 255, 0.65);
+  border-radius: 999px;
+  color: #fff;
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.solution-card .method,
+.solution-card .note {
+  margin: 0.5rem 0 0.8rem;
+  color: var(--text-dim);
+  font-size: clamp(0.9rem, 3vw, 0.98rem);
+  line-height: 1.65;
+}
+
+.solution-card .note {
+  padding-left: 0.85rem;
+  border-left: 3px solid var(--accent-dim);
+}
+
+.math-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0.75rem 0;
+  padding: 0.15rem 0.05rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.answer-box {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  background: rgba(61, 214, 140, 0.08);
+  border: 1px solid rgba(61, 214, 140, 0.45);
+  border-radius: 10px;
+  color: var(--text);
+}
+
+.answer-box p {
+  margin: 0.25rem 0;
+}
+
+.answer-box .answer-line {
+  color: var(--green);
+  font-size: clamp(1rem, 3.8vw, 1.12rem);
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.answer-box .answer-line .katex {
+  color: var(--green);
+}
+
+.answer-box > span {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.solutions-page .katex {
+  font-size: 1.03em;
+}
+
+.solutions-page .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.15rem 0 0.35rem;
+  margin: 0.65rem 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 720px) {
+  .solutions-wrap {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .solutions-hero,
+  .solution-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .solutions-wrap {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .solutions-hero,
+  .solution-card {
+    border-radius: 12px;
+    padding: 1rem 0.85rem;
+  }
+
+  .solution-heading {
+    align-items: flex-start;
+  }
+
+  .problem-number {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 0.85rem;
+  }
+
+  .answer-box {
+    padding: 0.8rem 0.75rem;
+  }
+
+  .solutions-page .katex-display {
+    font-size: 0.95em;
+  }
+}
+
 /* HP module */
 .hp-container {
   max-width: 1100px;

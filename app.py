@@ -61,6 +61,12 @@ def em_wires_canvas_demo():
     return render_template("em_wires_canvas.html")
 
 
+@app.route("/fyxf03-solutions")
+def fyxf03_solutions():
+    """Renderade KaTeX-lösningar för FYXF03-bilderna från chatten."""
+    return render_template("fyxf03_solutions.html")
+
+
 @app.route("/api/status")
 def api_status():
     return jsonify({

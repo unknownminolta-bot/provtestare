@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1117">
+  <meta name="color-scheme" content="dark">
+  <title>FYXF03 — Lösningar sida 2–3</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body class="solutions-page">
+  <main class="solutions-wrap">
+    <a class="solutions-back" href="/">← Tillbaka till Provtestare</a>
+
+    <header class="solutions-hero">
+      <p class="eyebrow">FYXF03 · sida 2–3</p>
+      <h1>Lösningar med värdesiffror</h1>
+      <p>
+        Korta lösningsgångar på svenska. Mellanresultat visas med extra siffror,
+        men slutsvaret avrundas först i sista steget.
+      </p>
+    </header>
+
+    <section class="solution-card" id="uppgift-1">
+      <div class="solution-heading">
+        <span class="problem-number">1</span>
+        <h2>Kula som stöts från en utgångshöjd</h2>
+      </div>
+      <p class="method"><strong>Metod:</strong> Lös flygtiden ur vertikalrörelsen och använd sedan horisontell rörelse.</p>
+      <div class="math-scroll">
+        \[
+        0=h+v_0\sin(\theta)t-\frac{gt^2}{2}
+        \]
+        \[
+        t=\frac{v_0\sin(\theta)+\sqrt{\left(v_0\sin(\theta)\right)^2+2gh}}{g}
+        \]
+        \[
+        x=v_0\cos(\theta)t
+        \approx 16{,}36\,\mathrm{m}
+        \]
+      </div>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(x=16\,\mathrm{m}\)</p>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-2">
+      <div class="solution-heading">
+        <span class="problem-number">2</span>
+        <h2>Svängningstid för kula i fjäder</h2>
+      </div>
+      <p class="method"><strong>Metod:</strong> Använd jämviktsförlängningen för att slippa bestämma \(k\) separat.</p>
+      <div class="math-scroll">
+        \[
+        \Delta l=16{,}2\,\mathrm{cm}-10{,}0\,\mathrm{cm}=0{,}062\,\mathrm{m}
+        \]
+        \[
+        mg=k\Delta l
+        \quad\Rightarrow\quad
+        T=2\pi\sqrt{\frac{m}{k}}
+        =2\pi\sqrt{\frac{\Delta l}{g}}
+        \]
+        \[
+        T=2\pi\sqrt{\frac{0{,}062}{9{,}82}}
+        \approx 0{,}499\,\mathrm{s}
+        \]
+      </div>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(T=0{,}50\,\mathrm{s}\)</p>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-3">
+      <div class="solution-heading">
+        <span class="problem-number">3</span>
+        <h2>Gungbräda i jämvikt</h2>
+      </div>
+      <p class="method"><strong>Metod:</strong> Stödet ska placeras vid systemets gemensamma tyngdpunkt.</p>
+      <div class="math-scroll">
+        \[
+        x_{\mathrm{tp}}=
+        \frac{80\cdot 0+20\cdot 1{,}7+25\cdot 3{,}4}
+        {80+20+25}
+        \approx 0{,}952\,\mathrm{m}
+        \]
+      </div>
+      <p class="note">
+        Koordinaten är räknad från personen med massan \(80\,\mathrm{kg}\),
+        med plankan och den andra personen åt samma håll.
+      </p>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(x=0{,}95\,\mathrm{m}\)</p>
+        <span>från personen med massan \(80\,\mathrm{kg}\).</span>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-4">
+      <div class="solution-heading">
+        <span class="problem-number">4</span>
+        <h2>Inducerad spänning i spole</h2>
+      </div>
+      <p class="method">
+        <strong>Metod:</strong> Använd Faradays induktionslag. Jag tolkar flödet som
+        \(\Phi(t)=6{,}0\cdot 10^{-3}\cos(32t)\,\mathrm{Wb}\) per lindningsvarv.
+      </p>
+      <div class="math-scroll">
+        \[
+        U=N\left|\frac{d\Phi}{dt}\right|
+        \]
+        \[
+        \frac{d\Phi}{dt}
+        =-6{,}0\cdot 10^{-3}\cdot 32\sin(32t)
+        \]
+        \[
+        U=1200\cdot 6{,}0\cdot 10^{-3}\cdot 32
+        \cdot \left|\sin(32\cdot 0{,}020)\right|
+        \approx 138\,\mathrm{V}
+        \]
+      </div>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(U=1{,}4\cdot 10^2\,\mathrm{V}\)</p>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-5">
+      <div class="solution-heading">
+        <span class="problem-number">5</span>
+        <h2>Transformator</h2>
+      </div>
+      <p class="method"><strong>Metod:</strong> Spänningsförhållandet är lika med lindningsförhållandet.</p>
+      <div class="math-scroll">
+        \[
+        \frac{U_s}{U_p}=\frac{N_s}{N_p}
+        \quad\Rightarrow\quad
+        N_s=N_p\frac{U_s}{U_p}
+        \]
+        \[
+        N_s=520\cdot\frac{12}{230}
+        \approx 27{,}13
+        \]
+      </div>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(N_s=27\,\mathrm{varv}\)</p>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-6">
+      <div class="solution-heading">
+        <span class="problem-number">6</span>
+        <h2>Kraft mellan parallella ledare</h2>
+      </div>
+      <p class="method"><strong>Metod:</strong> Lös ut avståndet ur kraften mellan två långa parallella ledare.</p>
+      <div class="math-scroll">
+        \[
+        F=\frac{\mu_0 I_A I_B L}{2\pi d}
+        \quad\Rightarrow\quad
+        d=\frac{\mu_0 I_A I_B L}{2\pi F}
+        \]
+        \[
+        d=
+        \frac{4\pi\cdot 10^{-7}\cdot 100\cdot 200\cdot 1{,}0}
+        {2\pi\cdot 0{,}075}
+        \approx 0{,}0533\,\mathrm{m}
+        \]
+      </div>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(d=0{,}053\,\mathrm{m}=5{,}3\,\mathrm{cm}\)</p>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-7">
+      <div class="solution-heading">
+        <span class="problem-number">7</span>
+        <h2>Kraft från snöret i nedersta punkten</h2>
+      </div>
+      <p class="method"><strong>Metod:</strong> I nedersta punkten måste snöret ge både tyngdkraftens motkraft och centripetalkraften.</p>
+      <div class="math-scroll">
+        \[
+        F_s-mg=\frac{mv^2}{r}
+        \]
+        \[
+        F_s=m\left(g+\frac{v^2}{r}\right)
+        =1{,}0\left(9{,}82+\frac{4{,}2^2}{2{,}4}\right)
+        \approx 17{,}17\,\mathrm{N}
+        \]
+      </div>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(F_s=17\,\mathrm{N}\)</p>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-8">
+      <div class="solution-heading">
+        <span class="problem-number">8</span>
+        <h2>Inducerad ström när arean minskar</h2>
+      </div>
+      <p class="method"><strong>Metod:</strong> Använd flödesändringen \(\Delta\Phi=B\Delta A\), Faradays lag och Ohms lag.</p>
+      <div class="math-scroll">
+        \[
+        \Delta A=20\,\mathrm{cm^2}-10\,\mathrm{cm^2}
+        =10\,\mathrm{cm^2}
+        =1{,}0\cdot 10^{-3}\,\mathrm{m^2}
+        \]
+        \[
+        U=\frac{B\Delta A}{\Delta t}
+        \quad,\quad
+        I=\frac{U}{R}
+        \]
+        \[
+        I=
+        \frac{0{,}040\cdot 1{,}0\cdot 10^{-3}}
+        {0{,}024\cdot 0{,}060}
+        \approx 0{,}0278\,\mathrm{A}
+        \]
+      </div>
+      <p class="note">
+        Riktningen bestäms med Lenz lag: strömmen motverkar minskningen av magnetiskt flöde.
+        Med figurens fältriktning blir strömmen medurs, alltså i pilens riktning.
+      </p>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(I=0{,}028\,\mathrm{A}\)</p>
+        <span>Riktning: medurs, i pilens riktning.</span>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-9">
+      <div class="solution-heading">
+        <span class="problem-number">9</span>
+        <h2>Grundton i stränginstrument</h2>
+      </div>
+      <p class="method"><strong>Metod:</strong> För samma sträng och samma våghastighet gäller \(f\propto 1/L\).</p>
+      <div class="math-scroll">
+        \[
+        L_2=\frac{8}{7}L_1
+        \quad\Rightarrow\quad
+        f_2=f_1\frac{L_1}{L_2}
+        =f_1\frac{7}{8}
+        \]
+        \[
+        f_2=360\cdot\frac{7}{8}=315\,\mathrm{Hz}
+        \]
+      </div>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(f_2=3{,}2\cdot 10^2\,\mathrm{Hz}\)</p>
+        <span>Beräknat värde: \(315\,\mathrm{Hz}\).</span>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-10">
+      <div class="solution-heading">
+        <span class="problem-number">10</span>
+        <h2>Dopplereffekt vid karusell</h2>
+      </div>
+      <p class="method"><strong>Metod:</strong> Bestäm högtalarens fart och använd Dopplerfaktorn för rörlig källa.</p>
+      <div class="math-scroll">
+        \[
+        r=\frac{14}{2}=7{,}0\,\mathrm{m}
+        \]
+        \[
+        v_s=\frac{2\cdot 2\pi r}{27{,}6}
+        =\frac{2\cdot 2\pi\cdot 7{,}0}{27{,}6}
+        \approx 3{,}19\,\mathrm{m/s}
+        \]
+        \[
+        \left(\frac{\Delta f}{f}\right)_{\mathrm{mot}}
+        \approx \frac{v_s}{v_{\mathrm{ljud}}-v_s}
+        =
+        \frac{3{,}19}{340-3{,}19}
+        \approx 0{,}00946=0{,}946\%
+        \]
+        \[
+        \left(\frac{\Delta f}{f}\right)_{\mathrm{fran}}
+        \approx \frac{v_s}{v_{\mathrm{ljud}}+v_s}
+        =
+        \frac{3{,}19}{340+3{,}19}
+        \approx 0{,}00929=0{,}929\%
+        \]
+      </div>
+      <div class="answer-box">
+        <p><strong>a)</strong></p>
+        <p class="answer-line">\( +0{,}95\% \) och \( -0{,}93\% \)</p>
+        <p><strong>b)</strong> Mittemot på karusellen är avståndet till högtalaren konstant.</p>
+        <p class="answer-line">\(0\%\)</p>
+      </div>
+    </section>
+
+    <section class="solution-card" id="uppgift-11">
+      <div class="solution-heading">
+        <span class="problem-number">11</span>
+        <h2>Kanonkula och fallande låda</h2>
+      </div>
+      <p class="method">
+        <strong>Metod:</strong> Detta är “apan och jägaren”-principen.
+        Lådan och kulan har samma fallacceleration, så man siktar direkt mot lådans ursprungliga position.
+      </p>
+      <div class="math-scroll">
+        \[
+        \tan(\theta)=\frac{100}{25}=4
+        \quad\Rightarrow\quad
+        \theta=\arctan(4)\approx 75{,}96^\circ
+        \]
+        \[
+        v_x=v_0\cos(\theta)
+        \quad,\quad
+        t=\frac{25}{25\cos(\theta)}
+        \approx 4{,}12\,\mathrm{s}
+        \]
+        \[
+        h=100-\frac{gt^2}{2}
+        =100-\frac{9{,}82\cdot (4{,}12)^2}{2}
+        \approx 16{,}5\,\mathrm{m}
+        \]
+      </div>
+      <div class="answer-box">
+        <p class="answer-line"><strong>Svar:</strong> \(\theta=76^\circ\)</p>
+        <p class="answer-line">\(h=17\,\mathrm{m}\)</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof renderMathInElement !== "undefined") {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true }
+          ],
+          throwOnError: false,
+          strict: "ignore"
+        });
+      }
+    });
+  </script>
+</body>
+</html>
